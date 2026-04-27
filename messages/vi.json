@@ -1,0 +1,46 @@
+{
+  "nav": {
+    "home": "Trang Chủ",
+    "bridalBouquet": "Hoa Cưới Cầm Tay",
+    "preWedding": "Pre-wedding",
+    "weddingLighting": "Đèn Hoa Cưới",
+    "silkFlowers": "Hoa Lụa",
+    "otherProducts": "Sản Phẩm Khác",
+    "contact": "Liên Hệ"
+  },
+  "home": {
+    "heroTitle": "Hoa Cưới Hoa Nêu",
+    "heroSubtitle": "Nâng tầm ngày trọng đại của bạn",
+    "bestSellerWeek": "Best Seller Tuần Này",
+    "bestSellerMonth": "Top 5 Best Seller Tháng Này",
+    "categories": "Danh Mục Sản Phẩm",
+    "contactCta": "Liên Hệ Tư Vấn"
+  },
+  "catalog": {
+    "filterTitle": "Bộ Lọc",
+    "priceRange": "Mức Giá",
+    "colorTone": "Tone Màu",
+    "flowerType": "Loại Hoa Chính",
+    "clearFilters": "Xóa Bộ Lọc",
+    "showingResults": "Hiển thị {count} sản phẩm",
+    "noResults": "Không tìm thấy sản phẩm phù hợp"
+  },
+  "product": {
+    "contactVia": "Liên Hệ Qua",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "relatedProducts": "Sản Phẩm Liên Quan",
+    "priceFrom": "Giá từ"
+  },
+  "contact": {
+    "title": "Liên Hệ",
+    "subtitle": "Liên hệ với chúng tôi để được tư vấn",
+    "followUs": "Theo Dõi Chúng Tôi",
+    "messageUs": "Nhắn Tin Cho Chúng Tôi"
+  },
+  "common": {
+    "viewAll": "Xem Tất Cả",
+    "learnMore": "Tìm Hiểu Thêm",
+    "currency": "₫"
+  }
+}
