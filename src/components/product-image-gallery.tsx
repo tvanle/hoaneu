@@ -25,7 +25,7 @@ export function ProductImageGallery({
 
   const activeImage = allImages[activeIndex];
   const activeUrl = activeImage?.asset
-    ? urlForImage(activeImage).width(800).height(800).url()
+    ? urlForImage(activeImage)?.width(800).height(800).url()
     : null;
 
   return (
@@ -51,7 +51,7 @@ export function ProductImageGallery({
         <div className="grid grid-cols-4 gap-2">
           {allImages.map((img, idx) => {
             const thumbUrl = img?.asset
-              ? urlForImage(img).width(200).height(200).url()
+              ? urlForImage(img)?.width(200).height(200).url()
               : null;
             return (
               <button

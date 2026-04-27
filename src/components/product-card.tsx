@@ -24,7 +24,7 @@ export function ProductCard({
   mainImage,
 }: ProductCardProps) {
   const imageUrl = mainImage?.asset
-    ? urlForImage(mainImage).width(600).height(600).url()
+    ? urlForImage(mainImage)?.width(600).height(600).url()
     : null;
 
   return (

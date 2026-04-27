@@ -1,5 +1,5 @@
 import { PortableText } from "@portabletext/react";
-import { sanityClient, safeFetch } from "@sanity/lib/client";
+import { safeFetch } from "@sanity/lib/client";
 import {
   PRODUCT_BY_SLUG_QUERY,
   RELATED_PRODUCTS_QUERY,

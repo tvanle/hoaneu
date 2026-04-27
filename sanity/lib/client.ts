@@ -1,21 +1,18 @@
-import { createClient } from "next-sanity";
+import { createClient, type SanityClient } from "next-sanity";
 import { projectId, dataset, apiVersion } from "../env";
 
-export const sanityClient = createClient({
-  projectId,
-  dataset,
-  apiVersion,
-  useCdn: true,
-});
+const isConfigured = projectId !== "placeholder";
+
+export const sanityClient: SanityClient | null = isConfigured
+  ? createClient({ projectId, dataset, apiVersion, useCdn: true })
+  : null;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function safeFetch<T = any>(
   query: string,
   params?: Record<string, string | number | boolean>,
 ): Promise<T | null> {
-  if (projectId === "placeholder") {
-    return null;
-  }
+  if (!sanityClient) return null;
   try {
     return await sanityClient.fetch<T>(query, params ?? {});
   } catch (error) {

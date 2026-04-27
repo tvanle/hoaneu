@@ -12,7 +12,7 @@ interface HeroSectionProps {
 
 export function HeroSection({ title, subtitle, image }: HeroSectionProps) {
   const imageUrl = image?.asset
-    ? urlForImage(image).width(1920).height(1080).url()
+    ? urlForImage(image)?.width(1920).height(1080).url()
     : null;
 
   return (

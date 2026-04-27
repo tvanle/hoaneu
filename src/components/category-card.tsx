@@ -13,7 +13,7 @@ interface CategoryCardProps {
 
 export function CategoryCard({ title, slug, image }: CategoryCardProps) {
   const imageUrl = image?.asset
-    ? urlForImage(image).width(800).height(500).url()
+    ? urlForImage(image)?.width(800).height(500).url()
     : null;
 
   return (
