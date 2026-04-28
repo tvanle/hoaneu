@@ -59,7 +59,7 @@ export default async function ContactPage({
           </h3>
           <div className="flex flex-col gap-4">
             <a
-              href={settings?.instagramUrl || "https://instagram.com/hoaneu"}
+              href={settings?.instagramUrl || "https://www.instagram.com/hoaneu_/"}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-4 p-4 border border-gray-200 hover:border-hoa-black transition-colors"
@@ -76,12 +76,12 @@ export default async function ContactPage({
               </div>
               <div>
                 <p className="font-medium">Instagram</p>
-                <p className="text-sm text-hoa-gray">@hoaneu</p>
+                <p className="text-sm text-hoa-gray">@hoaneu_</p>
               </div>
             </a>
 
             <a
-              href={settings?.facebookUrl || "https://facebook.com/hoaneu"}
+              href={settings?.facebookUrl || "https://www.facebook.com/hoaneuhn"}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-4 p-4 border border-gray-200 hover:border-hoa-black transition-colors"

@@ -59,7 +59,7 @@ export function Footer() {
             </h4>
             <div className="flex gap-4">
               <a
-                href="https://instagram.com/hoaneu"
+                href="https://www.instagram.com/hoaneu_/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white transition-colors"
@@ -75,7 +75,7 @@ export function Footer() {
                 </svg>
               </a>
               <a
-                href="https://facebook.com/hoaneu"
+                href="https://www.facebook.com/hoaneuhn"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white transition-colors"

@@ -20,7 +20,7 @@ export function ContactCta({ productName, productUrl }: ContactCtaProps) {
         {t("contactVia")}
       </p>
       <a
-        href="https://instagram.com/hoaneu"
+        href="https://www.instagram.com/hoaneu_/"
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center justify-center gap-2 w-full bg-hoa-red text-white py-3 text-sm uppercase tracking-wider hover:bg-hoa-red-dark transition-colors"
@@ -31,7 +31,7 @@ export function ContactCta({ productName, productUrl }: ContactCtaProps) {
         {t("instagram")}
       </a>
       <a
-        href={`https://m.me/hoaneu?text=${messengerText}`}
+        href={`https://www.facebook.com/messages/t/294995027038748`}
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center justify-center gap-2 w-full border border-hoa-black text-hoa-black py-3 text-sm uppercase tracking-wider hover:bg-hoa-black hover:text-white transition-colors"
