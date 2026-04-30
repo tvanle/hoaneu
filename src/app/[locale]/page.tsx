@@ -5,7 +5,7 @@ import {
   ALL_CATEGORIES_QUERY,
   SITE_SETTINGS_QUERY,
 } from "@lib/queries/products";
-import { ProductCard } from "@/components/product-card";
+import { ProductCarousel } from "@/components/product-carousel";
 import { CategoryCard } from "@/components/category-card";
 import { SectionHeader } from "@/components/section-header";
 import { HeroSection } from "@/components/hero-section";
@@ -35,31 +35,9 @@ export default async function HomePage({
       />
 
       {bestSellers && bestSellers.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-24">
+        <section className="max-w-7xl mx-auto px-4 md:px-12 py-16 md:py-24">
           <SectionHeader title={t("bestSellerWeek")} />
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
-            {bestSellers.map(
-              (product: {
-                _id: string;
-                title: string;
-                slug: { current: string };
-                price: number;
-                priceNote?: string;
-                mainImage?: { asset?: { url?: string }; alt?: string };
-                category?: { title?: string };
-              }) => (
-                <ProductCard
-                  key={product._id}
-                  title={product.title}
-                  slug={product.slug.current}
-                  price={product.price}
-                  priceNote={product.priceNote}
-                  mainImage={product.mainImage}
-                  category={product.category}
-                />
-              ),
-            )}
-          </div>
+          <ProductCarousel products={bestSellers} />
         </section>
       )}
 

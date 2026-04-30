@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { LanguageSwitcher } from "./language-switcher";
@@ -38,8 +39,15 @@ export function Header() {
       >
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
-            <Link href="/" className="font-serif text-2xl md:text-3xl italic">
-              Hoa Nêu
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/logo.png"
+                alt="Hoa Nêu"
+                width={48}
+                height={48}
+                className="h-10 w-10 md:h-12 md:w-12 object-contain"
+                priority
+              />
             </Link>
 
             <nav className="hidden lg:flex items-center gap-6">
