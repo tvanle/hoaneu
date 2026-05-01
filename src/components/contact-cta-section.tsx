@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import { SOCIAL_LINKS } from "@lib/constants";
 
 export function ContactCtaSection() {
   const t = useTranslations("home");
@@ -11,18 +12,18 @@ export function ContactCtaSection() {
         </h2>
         <div className="flex items-center justify-center gap-4">
           <a
-            href="https://www.instagram.com/hoaneu_/"
+            href={SOCIAL_LINKS.instagram}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-hoa-red text-white px-8 py-3 text-sm uppercase tracking-wider hover:bg-hoa-red-dark transition-colors"
+            className="inline-flex items-center gap-2 bg-hoa-red text-white px-8 py-3 text-sm uppercase tracking-wider hover:bg-hoa-red-dark"
           >
             Instagram
           </a>
           <a
-            href="https://www.facebook.com/messages/t/294995027038748"
+            href={SOCIAL_LINKS.messenger}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 border border-hoa-black text-hoa-black px-8 py-3 text-sm uppercase tracking-wider hover:bg-hoa-black hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 border border-hoa-black text-hoa-black px-8 py-3 text-sm uppercase tracking-wider hover:bg-hoa-black hover:text-white"
           >
             Facebook
           </a>

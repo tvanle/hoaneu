@@ -10,6 +10,7 @@ import { CategoryCard } from "@/components/category-card";
 import { SectionHeader } from "@/components/section-header";
 import { HeroSection } from "@/components/hero-section";
 import { ContactCtaSection } from "@/components/contact-cta-section";
+import { ScrollReveal } from "@/components/scroll-reveal";
 
 export default async function HomePage({
   params,
@@ -35,40 +36,47 @@ export default async function HomePage({
       />
 
       {bestSellers && bestSellers.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 md:px-12 py-16 md:py-24">
-          <SectionHeader title={t("bestSellerWeek")} />
-          <ProductCarousel products={bestSellers} />
-        </section>
+        <ScrollReveal>
+          <section className="max-w-7xl mx-auto px-4 md:px-12 py-16 md:py-24">
+            <SectionHeader title={t("bestSellerWeek")} />
+            <ProductCarousel products={bestSellers} />
+          </section>
+        </ScrollReveal>
       )}
 
       {categories && categories.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-24">
-          <SectionHeader
-            title={t("categories")}
-            viewAllHref="/san-pham-khac"
-            viewAllLabel={tCommon("viewAll")}
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {categories.map(
-              (category: {
-                _id: string;
-                title: string;
-                slug: { current: string };
-                image?: { asset?: { url?: string }; alt?: string };
-              }) => (
-                <CategoryCard
-                  key={category._id}
-                  title={category.title}
-                  slug={category.slug.current}
-                  image={category.image}
-                />
-              ),
-            )}
-          </div>
-        </section>
+        <ScrollReveal>
+          <section className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-24">
+            <SectionHeader
+              title={t("categories")}
+              viewAllHref="/san-pham-khac"
+              viewAllLabel={tCommon("viewAll")}
+            />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              {categories.map(
+                (category: {
+                  _id: string;
+                  title: string;
+                  slug: { current: string };
+                  image?: { asset?: { url?: string }; alt?: string };
+                }, i: number) => (
+                  <ScrollReveal key={category._id} delay={i * 100}>
+                    <CategoryCard
+                      title={category.title}
+                      slug={category.slug.current}
+                      image={category.image}
+                    />
+                  </ScrollReveal>
+                ),
+              )}
+            </div>
+          </section>
+        </ScrollReveal>
       )}
 
-      <ContactCtaSection />
+      <ScrollReveal>
+        <ContactCtaSection />
+      </ScrollReveal>
     </>
   );
 }

@@ -13,6 +13,10 @@
   --font-sans: var(--font-inter);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--color-background);
   color: var(--color-foreground);
@@ -21,4 +25,16 @@ body {
 
 h1, h2, h3, h4 {
   font-family: var(--font-serif), Georgia, serif;
+}
+
+/* Smooth link/button interactions */
+a, button {
+  transition-property: color, background-color, border-color, opacity, transform;
+  transition-duration: 200ms;
+  transition-timing-function: ease-out;
+}
+
+/* Image hover lift */
+img {
+  transition: transform 0.4s ease-out;
 }
