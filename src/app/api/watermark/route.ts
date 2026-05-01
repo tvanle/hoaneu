@@ -63,7 +63,7 @@ export async function GET(request: NextRequest) {
     const result = await pipeline
       .composite([{
         input: watermark,
-        gravity: "center",
+        gravity: "southeast",
       }])
       .webp({ quality: 85 })
       .toBuffer();
