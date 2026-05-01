@@ -29,15 +29,18 @@ export function ProductCard({
   const imageUrl = cdnUrl ? watermarkedUrl(cdnUrl, 600, 600) : null;
 
   return (
-    <Link href={`/san-pham/${slug}`} className="group block">
-      <div className="aspect-square overflow-hidden bg-hoa-muted mb-4">
+    <Link
+      href={`/san-pham/${slug}`}
+      className="group block -translate-y-0 hover:-translate-y-1 transition-[transform,box-shadow] duration-300 ease-out"
+    >
+      <div className="aspect-square overflow-hidden bg-hoa-muted mb-4 rounded-sm shadow-sm group-hover:shadow-[0_8px_25px_-5px_rgba(220,20,60,0.15)] transition-shadow duration-300">
         {imageUrl ? (
           <Image
             src={imageUrl}
             alt={mainImage?.alt || title}
             width={600}
             height={600}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-cover"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-hoa-gray">
@@ -56,7 +59,9 @@ export function ProductCard({
           </div>
         )}
       </div>
-      <h3 className="text-sm uppercase tracking-wider mb-1">{title}</h3>
+      <h3 className="text-sm uppercase tracking-wider mb-1 group-hover:text-hoa-red transition-colors duration-300">
+        {title}
+      </h3>
       <p className="text-hoa-gray text-sm">
         {priceNote && `${priceNote} `}
         {price.toLocaleString("vi-VN")}₫

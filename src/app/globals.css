@@ -34,7 +34,3 @@ a, button {
   transition-timing-function: ease-out;
 }
 
-/* Image hover lift */
-img {
-  transition: transform 0.4s ease-out;
-}

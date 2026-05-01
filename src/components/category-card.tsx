@@ -18,7 +18,7 @@ export function CategoryCard({ title, slug, image }: CategoryCardProps) {
   const imageUrl = cdnUrl ? watermarkedUrl(cdnUrl, 800, 500) : null;
 
   return (
-    <Link href={`/${slug}`} className="group relative block overflow-hidden">
+    <Link href={`/${slug}`} className="group relative block overflow-hidden rounded-sm">
       <div className="aspect-[4/3] bg-hoa-muted">
         {imageUrl ? (
           <Image
@@ -26,7 +26,7 @@ export function CategoryCard({ title, slug, image }: CategoryCardProps) {
             alt={image?.alt || title}
             width={800}
             height={500}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-cover"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-hoa-light">
@@ -34,8 +34,8 @@ export function CategoryCard({ title, slug, image }: CategoryCardProps) {
           </div>
         )}
       </div>
-      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors flex items-end p-6">
-        <h3 className="text-white text-lg uppercase tracking-wider font-medium">
+      <div className="absolute inset-0 bg-black/25 group-hover:bg-black/10 transition-[background-color] duration-500 ease-out flex items-end p-6">
+        <h3 className="text-white text-lg uppercase tracking-wider font-medium translate-y-0 group-hover:-translate-y-1 transition-transform duration-300 ease-out">
           {title}
         </h3>
       </div>
