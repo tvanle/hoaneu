@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { SOCIAL_LINKS } from "@lib/constants";
 
 interface ContactCtaProps {
   productName: string;
@@ -14,13 +15,15 @@ export function ContactCta({ productName, productUrl }: ContactCtaProps) {
     `Chào Hoa Nêu, em muốn tư vấn về ${productName} (${productUrl})`,
   );
 
+  const messengerUrl = `${SOCIAL_LINKS.messenger}?text=${messengerText}`;
+
   return (
     <div className="space-y-3">
       <p className="text-sm uppercase tracking-wider font-medium">
         {t("contactVia")}
       </p>
       <a
-        href="https://www.instagram.com/hoaneu_/"
+        href={SOCIAL_LINKS.instagram}
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center justify-center gap-2 w-full bg-hoa-red text-white py-3 text-sm uppercase tracking-wider hover:bg-hoa-red-dark transition-colors"
@@ -31,7 +34,7 @@ export function ContactCta({ productName, productUrl }: ContactCtaProps) {
         {t("instagram")}
       </a>
       <a
-        href={`https://www.facebook.com/messages/t/294995027038748`}
+        href={messengerUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center justify-center gap-2 w-full border border-hoa-black text-hoa-black py-3 text-sm uppercase tracking-wider hover:bg-hoa-black hover:text-white transition-colors"

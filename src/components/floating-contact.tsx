@@ -1,10 +1,12 @@
 "use client";
 
+import { SOCIAL_LINKS } from "@lib/constants";
+
 export function FloatingContact() {
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
       <a
-        href="https://www.instagram.com/hoaneu_/"
+        href={SOCIAL_LINKS.instagram}
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 text-white shadow-lg hover:scale-110 transition-transform"
@@ -15,7 +17,7 @@ export function FloatingContact() {
         </svg>
       </a>
       <a
-        href="https://www.facebook.com/messages/t/294995027038748"
+        href={SOCIAL_LINKS.messenger}
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-600 text-white shadow-lg hover:scale-110 transition-transform"

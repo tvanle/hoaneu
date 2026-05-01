@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";
-import { readFileSync } from "fs";
+import { readFileSync, existsSync } from "fs";
 import { join } from "path";
 
-const watermarkBuffer = readFileSync(
-  join(process.cwd(), "public", "watermark.png"),
-);
+const watermarkPath = join(process.cwd(), "public", "watermark.png");
+const watermarkBuffer = existsSync(watermarkPath)
+  ? readFileSync(watermarkPath)
+  : null;
 
 export async function GET(request: NextRequest) {
   const url = request.nextUrl.searchParams.get("url");
@@ -19,6 +20,10 @@ export async function GET(request: NextRequest) {
 
   if (url && !url.startsWith("https://cdn.sanity.io/")) {
     return NextResponse.json({ error: "Invalid URL" }, { status: 400 });
+  }
+
+  if (!watermarkBuffer) {
+    return NextResponse.json({ error: "Watermark file not found" }, { status: 500 });
   }
 
   try {

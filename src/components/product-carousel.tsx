@@ -103,7 +103,7 @@ export function ProductCarousel({ products }: ProductCarouselProps) {
         <button
           onClick={prev}
           aria-label="Previous"
-          className="absolute left-0 top-1/3 -translate-y-1/2 -translate-x-2 md:-translate-x-5 w-10 h-10 flex items-center justify-center text-hoa-dark/60 hover:text-hoa-dark transition-colors"
+          className="absolute left-0 top-1/3 -translate-y-1/2 -translate-x-2 md:-translate-x-5 w-10 h-10 flex items-center justify-center text-hoa-black/60 hover:text-hoa-black transition-colors"
         >
           <svg
             width="24"
@@ -121,7 +121,7 @@ export function ProductCarousel({ products }: ProductCarouselProps) {
         <button
           onClick={next}
           aria-label="Next"
-          className="absolute right-0 top-1/3 -translate-y-1/2 translate-x-2 md:translate-x-5 w-10 h-10 flex items-center justify-center text-hoa-dark/60 hover:text-hoa-dark transition-colors"
+          className="absolute right-0 top-1/3 -translate-y-1/2 translate-x-2 md:translate-x-5 w-10 h-10 flex items-center justify-center text-hoa-black/60 hover:text-hoa-black transition-colors"
         >
           <svg
             width="24"
@@ -146,8 +146,8 @@ export function ProductCarousel({ products }: ProductCarouselProps) {
               aria-label={`Go to slide ${i + 1}`}
               className={`w-2.5 h-2.5 rounded-full transition-colors ${
                 i === currentIndex
-                  ? "bg-hoa-dark"
-                  : "bg-hoa-dark/20 hover:bg-hoa-dark/40"
+                  ? "bg-hoa-black"
+                  : "bg-hoa-black/20 hover:bg-hoa-black/40"
               }`}
             />
           ))}

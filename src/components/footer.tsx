@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { SOCIAL_LINKS } from "@lib/constants";
 
 export function Footer() {
   const t = useTranslations("nav");
@@ -75,7 +76,7 @@ export function Footer() {
               </a>
               <div className="flex gap-4 pt-2">
                 <a
-                  href="https://www.instagram.com/hoaneu_/"
+                  href={SOCIAL_LINKS.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-400 hover:text-white transition-colors"
@@ -91,7 +92,7 @@ export function Footer() {
                   </svg>
                 </a>
                 <a
-                  href="https://www.facebook.com/hoaneuhn"
+                  href={SOCIAL_LINKS.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-400 hover:text-white transition-colors"

@@ -11,6 +11,7 @@ import { ProductCard } from "@/components/product-card";
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
+import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
   const slugs = await safeFetch<string[]>(ALL_PRODUCT_SLUGS_QUERY);
@@ -54,11 +55,7 @@ export default async function ProductDetailPage({
   });
 
   if (!product) {
-    return (
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-16 text-center">
-        <p className="text-hoa-gray">Product not found</p>
-      </div>
-    );
+    notFound();
   }
 
   const relatedProducts = product.category?._id
@@ -69,10 +66,7 @@ export default async function ProductDetailPage({
       })
     : [];
 
-  const productUrl =
-    typeof window !== "undefined"
-      ? window.location.href
-      : `https://hoaneu.com/san-pham/${slug}`;
+  const productUrl = `https://hoaneu.com/san-pham/${slug}`;
 
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-12">
@@ -115,7 +109,7 @@ export default async function ProductDetailPage({
                 {product.priceNote}
               </span>
             )}
-            {product.price.toLocaleString("vi-VN")}₫
+            {product.price?.toLocaleString("vi-VN")}₫
           </p>
 
           {product.description && (
