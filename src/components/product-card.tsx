@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { urlForImage } from "@sanity/lib/image";
+import { urlForImage, watermarkedUrl } from "@sanity/lib/image";
 
 interface ProductCardProps {
   title: string;
@@ -23,9 +23,10 @@ export function ProductCard({
   priceNote,
   mainImage,
 }: ProductCardProps) {
-  const imageUrl = mainImage?.asset
+  const cdnUrl = mainImage?.asset
     ? urlForImage(mainImage)?.width(600).height(600).url()
     : null;
+  const imageUrl = cdnUrl ? watermarkedUrl(cdnUrl, 600, 600) : null;
 
   return (
     <Link href={`/san-pham/${slug}`} className="group block">

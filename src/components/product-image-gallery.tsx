@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { urlForImage } from "@sanity/lib/image";
+import { urlForImage, watermarkedUrl } from "@sanity/lib/image";
 
 interface GalleryImage {
   asset?: { url?: string };
@@ -24,9 +24,10 @@ export function ProductImageGallery({
   const [activeIndex, setActiveIndex] = useState(0);
 
   const activeImage = allImages[activeIndex];
-  const activeUrl = activeImage?.asset
+  const activeCdnUrl = activeImage?.asset
     ? urlForImage(activeImage)?.width(800).height(800).url()
     : null;
+  const activeUrl = activeCdnUrl ? watermarkedUrl(activeCdnUrl, 800, 800) : null;
 
   return (
     <div>
@@ -50,9 +51,10 @@ export function ProductImageGallery({
       {allImages.length > 1 && (
         <div className="grid grid-cols-4 gap-2">
           {allImages.map((img, idx) => {
-            const thumbUrl = img?.asset
+            const thumbCdnUrl = img?.asset
               ? urlForImage(img)?.width(200).height(200).url()
               : null;
+            const thumbUrl = thumbCdnUrl ? watermarkedUrl(thumbCdnUrl, 200, 200) : null;
             return (
               <button
                 key={idx}

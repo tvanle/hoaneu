@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { urlForImage } from "@sanity/lib/image";
+import { urlForImage, watermarkedUrl } from "@sanity/lib/image";
 
 interface CategoryCardProps {
   title: string;
@@ -12,9 +12,10 @@ interface CategoryCardProps {
 }
 
 export function CategoryCard({ title, slug, image }: CategoryCardProps) {
-  const imageUrl = image?.asset
+  const cdnUrl = image?.asset
     ? urlForImage(image)?.width(800).height(500).url()
     : null;
+  const imageUrl = cdnUrl ? watermarkedUrl(cdnUrl, 800, 500) : null;
 
   return (
     <Link href={`/${slug}`} className="group relative block overflow-hidden">
