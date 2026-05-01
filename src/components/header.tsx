@@ -39,8 +39,8 @@ export function Header() {
           isScrolled ? "shadow-sm" : ""
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          {isHomePage ? (
+        {isHomePage ? (
+          <div className="max-w-7xl mx-auto px-4 md:px-8">
             <div className="flex items-center justify-between h-16 md:h-20">
               <Link href="/" className="flex items-center">
                 <Image
@@ -87,7 +87,9 @@ export function Header() {
                 </button>
               </div>
             </div>
-          ) : (
+          </div>
+        ) : (
+          <div className="px-4 md:px-6">
             <div className="flex items-center justify-between h-16 md:h-20">
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
@@ -124,8 +126,8 @@ export function Header() {
 
               <LanguageSwitcher />
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </header>
 
       <MobileMenu
