@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { LanguageSwitcher } from "./language-switcher";
 import { MobileMenu } from "./mobile-menu";
+import { BrandLogo } from "./brand-logo";
 
 const NAV_LINKS = [
   { href: "/", labelKey: "home" },
@@ -29,8 +30,8 @@ export function Header() {
         {isHomePage ? (
           <div className="px-4 md:px-6">
             <div className="grid h-14 grid-cols-[auto_1fr_auto] items-center gap-4">
-              <Link href="/" className="font-serif text-lg italic">
-                Hoa Nêu
+              <Link href="/" aria-label="Hoa Nêu">
+                <BrandLogo className="h-10 w-10" priority />
               </Link>
 
               <nav className="hidden items-center justify-center gap-8 lg:flex">
@@ -84,9 +85,10 @@ export function Header() {
 
               <Link
                 href="/"
-                className="justify-self-center font-serif text-2xl italic md:text-3xl"
+                className="justify-self-center"
+                aria-label="Hoa Nêu"
               >
-                Hoa Nêu
+                <BrandLogo className="h-12 w-12 md:h-14 md:w-14" priority />
               </Link>
 
               <div className="flex items-center gap-4 justify-self-end text-black">

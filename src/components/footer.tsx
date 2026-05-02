@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { Link, usePathname } from "@/i18n/navigation";
 import { SOCIAL_LINKS } from "@lib/constants";
+import { BrandLogo } from "./brand-logo";
 
 export function Footer() {
   const pathname = usePathname();
@@ -13,7 +13,7 @@ export function Footer() {
       <footer className="border-t border-black/10 bg-white text-black">
         <div className="mx-auto grid max-w-[1500px] grid-cols-1 gap-12 px-8 py-20 md:grid-cols-4">
           <div>
-            <p className="font-serif text-2xl italic">Hoa Nêu</p>
+            <BrandLogo className="h-14 w-14" />
             <p className="mt-7 text-[13px] font-medium uppercase leading-6 tracking-[0.16em] text-black/50">
               Floral Design Studio
               <br />
@@ -79,7 +79,7 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-14 md:px-8 md:py-20">
         <div className="grid grid-cols-1 gap-10 border-b border-white/10 pb-16 md:grid-cols-[1.2fr_0.8fr_0.8fr] md:gap-16">
           <div>
-            <p className="font-serif text-3xl italic">Hoa Nêu</p>
+            <BrandLogo className="h-16 w-16" inverted />
             <p className="mt-6 max-w-sm text-sm leading-7 text-white/55">
               Floral design studio for bridal bouquets, event flowers and
               editorial arrangements.
@@ -134,16 +134,10 @@ export function Footer() {
         </div>
 
         <div className="relative py-16 text-center md:py-20">
-          <Image
-            src="/logo.png"
-            alt="Hoa Nêu"
-            width={80}
-            height={80}
-            className="mx-auto hidden h-16 w-16 object-contain invert opacity-10"
+          <BrandLogo
+            className="mx-auto h-40 w-40 opacity-[0.06] md:h-56 md:w-56"
+            inverted
           />
-          <p className="font-serif text-[18vw] font-bold leading-none text-white/5 md:text-[12rem]">
-            Hoa Nêu
-          </p>
           <p className="mt-8 text-left text-[10px] uppercase tracking-[0.24em] text-white/35 md:absolute md:bottom-8 md:left-0 md:mt-0">
             &copy; {new Date().getFullYear()} Hoa Nêu. All rights reserved.
           </p>

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { urlForImage } from "@sanity/lib/image";
+import { BrandLogo } from "./brand-logo";
 
 interface HeroSectionProps {
   title: string;
@@ -38,9 +39,11 @@ export function HeroSection({ title, subtitle, image, navLabels }: HeroSectionPr
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,#ffe4dd_0,#e9a899_18%,#35584f_38%,#1f3431_68%)]" />
         )}
         <div className="absolute inset-0 bg-black/18" />
-        <p className="absolute left-8 top-8 font-serif text-sm italic text-white/55">
-          Hoa Nêu
-        </p>
+        <BrandLogo
+          className="absolute left-8 top-8 h-10 w-10 opacity-60"
+          inverted
+          priority
+        />
         <div className="absolute left-8 right-8 top-[17%] md:left-10 md:right-10">
           <p className="font-serif text-[clamp(3.5rem,8vw,7.8rem)] leading-[0.78] text-black/80 mix-blend-multiply">
             Editorial
@@ -58,9 +61,11 @@ export function HeroSection({ title, subtitle, image, navLabels }: HeroSectionPr
           N
         </p>
         <div className="relative text-center">
-          <h1 className="font-serif text-5xl leading-tight text-black md:text-7xl">
-            {title}
-          </h1>
+          <h1 className="sr-only">{title}</h1>
+          <BrandLogo
+            className="mx-auto h-28 w-28 md:h-40 md:w-40"
+            priority
+          />
           <nav className="mt-8 flex flex-col items-center gap-3 font-serif text-sm italic text-black/60">
             <Link href="/san-pham-khac" className="hover:text-hoa-red">
               {navLabels.products}

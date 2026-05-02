@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { BrandLogo } from "./brand-logo";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -53,7 +54,7 @@ export function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
         }`}
       >
         <div className="flex items-center justify-between p-4 border-b">
-          <span className="font-serif text-xl italic">Hoa Nêu</span>
+          <BrandLogo className="h-11 w-11" />
           <button onClick={onClose} className="p-2" aria-label="Close menu">
             <svg
               width="24"
