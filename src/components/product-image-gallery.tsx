@@ -31,18 +31,18 @@ export function ProductImageGallery({
 
   return (
     <div>
-      <div className="aspect-square bg-hoa-muted overflow-hidden mb-4">
+      <div className="mb-4 aspect-square overflow-hidden bg-hoa-muted">
         {activeUrl ? (
           <Image
             src={activeUrl}
             alt={activeImage?.alt || title}
             width={800}
             height={800}
-            className="w-full h-full object-cover"
+            className="h-full w-full object-cover"
             priority
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-hoa-gray">
+          <div className="flex h-full w-full items-center justify-center font-serif text-xl italic text-hoa-gray">
             No image
           </div>
         )}
@@ -54,15 +54,17 @@ export function ProductImageGallery({
             const thumbCdnUrl = img?.asset
               ? urlForImage(img)?.width(200).height(200).url()
               : null;
-            const thumbUrl = thumbCdnUrl ? watermarkedUrl(thumbCdnUrl, 200, 200) : null;
+            const thumbUrl = thumbCdnUrl
+              ? watermarkedUrl(thumbCdnUrl, 200, 200)
+              : null;
             return (
               <button
                 key={idx}
                 onClick={() => setActiveIndex(idx)}
-                className={`aspect-square overflow-hidden border-2 transition-colors ${
+                className={`aspect-square overflow-hidden border transition-colors ${
                   idx === activeIndex
                     ? "border-hoa-black"
-                    : "border-transparent hover:border-gray-300"
+                    : "border-transparent hover:border-black/25"
                 }`}
               >
                 {thumbUrl && (
@@ -71,7 +73,7 @@ export function ProductImageGallery({
                     alt={img?.alt || `${title} ${idx + 1}`}
                     width={200}
                     height={200}
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-cover"
                   />
                 )}
               </button>

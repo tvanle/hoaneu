@@ -79,17 +79,11 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-14 md:px-8 md:py-20">
         <div className="grid grid-cols-1 gap-10 border-b border-white/10 pb-16 md:grid-cols-[1.2fr_0.8fr_0.8fr] md:gap-16">
           <div>
-            <h3 className="mb-6 text-base font-semibold">Newsletter</h3>
-            <form className="flex max-w-sm">
-              <input
-                type="email"
-                placeholder="Địa chỉ email của bạn"
-                className="min-w-0 flex-1 bg-white/10 px-4 py-3 text-sm text-white outline-none placeholder:text-white/35"
-              />
-              <button className="bg-white px-6 py-3 text-[10px] font-bold uppercase tracking-[0.18em] text-black hover:bg-hoa-red hover:text-white">
-                Gửi
-              </button>
-            </form>
+            <p className="font-serif text-3xl italic">Hoa Nêu</p>
+            <p className="mt-6 max-w-sm text-sm leading-7 text-white/55">
+              Floral design studio for bridal bouquets, event flowers and
+              editorial arrangements.
+            </p>
           </div>
 
           <div>

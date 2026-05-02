@@ -121,9 +121,9 @@ export function FilterableProductList({
     (priceRange ? 1 : 0) + colorTones.length + flowerTypes.length;
 
   return (
-    <div className="flex flex-col lg:flex-row gap-8">
-      <div className="hidden lg:block w-64 shrink-0">
-        <div className="sticky top-24">
+    <div className="grid grid-cols-1 gap-10 lg:grid-cols-[240px_1fr] lg:gap-14">
+      <div className="hidden lg:block">
+        <div className="sticky top-28 border-t border-black/10 pt-6">
           <ProductFilter
             priceRange={priceRange}
             colorTones={colorTones}
@@ -139,17 +139,17 @@ export function FilterableProductList({
       <div className="lg:hidden">
         <button
           onClick={() => setIsFilterOpen(!isFilterOpen)}
-          className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-sm"
+          className="inline-flex items-center gap-3 rounded-full border border-black/20 px-5 py-3 text-[11px] font-bold uppercase tracking-[0.18em]"
         >
           {t("filterTitle")}
           {activeFilterCount > 0 && (
-            <span className="bg-hoa-red text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-hoa-red text-xs text-white">
               {activeFilterCount}
             </span>
           )}
         </button>
         {isFilterOpen && (
-          <div className="mt-4 p-4 border border-gray-200">
+          <div className="mt-5 border border-black/10 p-5">
             <ProductFilter
               priceRange={priceRange}
               colorTones={colorTones}
@@ -164,12 +164,12 @@ export function FilterableProductList({
       </div>
 
       <div className="flex-1">
-        <p className="text-sm text-hoa-gray mb-6">
+        <p className="mb-8 text-[11px] font-semibold uppercase tracking-[0.2em] text-black/40">
           {t("showingResults", { count: filtered.length })}
         </p>
 
         {filtered.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 xl:grid-cols-3">
             {filtered.map((product) => (
               <ProductCard
                 key={product._id}
@@ -182,8 +182,10 @@ export function FilterableProductList({
             ))}
           </div>
         ) : (
-          <div className="text-center py-16">
-            <p className="text-hoa-gray">{t("noResults")}</p>
+          <div className="border border-black/10 py-20 text-center">
+            <p className="font-serif text-2xl italic text-black/60">
+              {t("noResults")}
+            </p>
           </div>
         )}
       </div>

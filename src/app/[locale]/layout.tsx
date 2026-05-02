@@ -5,7 +5,6 @@ import { Playfair_Display, Inter } from "next/font/google";
 import { routing } from "@/i18n/routing";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { FloatingContact } from "@/components/floating-contact";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -65,7 +64,6 @@ export default async function LocaleLayout({
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
-          <FloatingContact />
         </NextIntlClientProvider>
       </body>
     </html>

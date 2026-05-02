@@ -69,9 +69,9 @@ export default async function ProductDetailPage({
   const productUrl = `https://hoaneu.com/san-pham/${slug}`;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-12">
-      <nav className="flex items-center gap-2 text-sm text-hoa-gray mb-8">
-        <Link href="/" className="hover:text-hoa-black transition-colors">
+    <div className="mx-auto max-w-[1500px] px-6 py-12 md:px-8 md:py-20">
+      <nav className="mb-10 flex flex-wrap items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-black/35">
+        <Link href="/" className="transition-colors hover:text-hoa-black">
           {tNav("home")}
         </Link>
         <span>/</span>
@@ -79,33 +79,35 @@ export default async function ProductDetailPage({
           <>
             <Link
               href={`/${product.category.slug?.current}`}
-              className="hover:text-hoa-black transition-colors"
+              className="transition-colors hover:text-hoa-black"
             >
               {product.category.title}
             </Link>
             <span>/</span>
           </>
         )}
-        <span className="text-hoa-black">{product.title}</span>
+        <span className="text-black/65">{product.title}</span>
       </nav>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+      <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
         <ProductImageGallery
           mainImage={product.mainImage}
           images={product.images}
           title={product.title}
         />
 
-        <div className="space-y-6">
+        <div className="lg:pt-10">
           {product.category && (
-            <p className="text-xs uppercase tracking-wider text-hoa-gray">
+            <p className="mb-5 text-[11px] font-bold uppercase tracking-[0.22em] text-black/35">
               {product.category.title}
             </p>
           )}
-          <h1 className="text-3xl md:text-4xl font-serif">{product.title}</h1>
-          <p className="text-2xl">
+          <h1 className="font-serif text-5xl italic leading-tight text-black md:text-7xl">
+            {product.title}
+          </h1>
+          <p className="mt-7 text-2xl text-black">
             {product.priceNote && (
-              <span className="text-sm text-hoa-gray mr-1">
+              <span className="mr-2 text-sm text-black/45">
                 {product.priceNote}
               </span>
             )}
@@ -113,21 +115,21 @@ export default async function ProductDetailPage({
           </p>
 
           {product.description && (
-            <div className="prose prose-sm max-w-none text-hoa-gray">
+            <div className="mt-8 max-w-xl text-base leading-8 text-black/60">
               <PortableText value={product.description} />
             </div>
           )}
 
           {product.colorTones && product.colorTones.length > 0 && (
-            <div>
-              <p className="text-xs uppercase tracking-wider text-hoa-gray mb-2">
+            <div className="mt-8">
+              <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-black/35">
                 Tone màu
               </p>
               <div className="flex flex-wrap gap-2">
                 {product.colorTones.map((tone: string) => (
                   <span
                     key={tone}
-                    className="px-3 py-1 text-xs border border-gray-200 capitalize"
+                    className="rounded-full border border-black/15 px-3 py-1.5 text-xs capitalize text-black/65"
                   >
                     {tone}
                   </span>
@@ -137,15 +139,15 @@ export default async function ProductDetailPage({
           )}
 
           {product.flowerTypes && product.flowerTypes.length > 0 && (
-            <div>
-              <p className="text-xs uppercase tracking-wider text-hoa-gray mb-2">
+            <div className="mt-6">
+              <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-black/35">
                 Loại hoa
               </p>
               <div className="flex flex-wrap gap-2">
                 {product.flowerTypes.map((type: string) => (
                   <span
                     key={type}
-                    className="px-3 py-1 text-xs border border-gray-200 capitalize"
+                    className="rounded-full border border-black/15 px-3 py-1.5 text-xs capitalize text-black/65"
                   >
                     {type}
                   </span>
@@ -154,7 +156,7 @@ export default async function ProductDetailPage({
             </div>
           )}
 
-          <div className="pt-4 border-t">
+          <div className="mt-10 border-t border-black/10 pt-8">
             <ContactCta
               productName={product.title}
               productUrl={productUrl}
@@ -164,11 +166,11 @@ export default async function ProductDetailPage({
       </div>
 
       {relatedProducts && relatedProducts.length > 0 && (
-        <section className="mt-16 md:mt-24">
-          <h2 className="text-2xl md:text-3xl font-serif mb-8">
+        <section className="mt-20 border-t border-black/10 pt-16 md:mt-28 md:pt-20">
+          <h2 className="mb-10 text-center font-serif text-3xl italic md:text-4xl">
             {t("relatedProducts")}
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
             {relatedProducts.map(
               (related: {
                 _id: string;

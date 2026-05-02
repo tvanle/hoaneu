@@ -90,22 +90,13 @@ export function Header() {
               </Link>
 
               <div className="flex items-center gap-4 justify-self-end text-black">
-                <button aria-label="Search" className="hidden p-2 sm:block">
-                  <SearchIcon />
-                </button>
-                <button aria-label="Account" className="hidden p-2 sm:block">
-                  <UserIcon />
-                </button>
-                <button
-                  aria-label="Cart"
-                  className="hidden items-center gap-1 p-2 text-sm sm:inline-flex"
+                <Link
+                  href="/dat-hoa"
+                  className="hidden text-[10px] font-bold uppercase tracking-[0.18em] text-black/65 hover:text-hoa-red md:inline-flex"
                 >
-                  <BagIcon />
-                  <span>(0)</span>
-                </button>
-                <div className="hidden md:block">
-                  <LanguageSwitcher />
-                </div>
+                  {t("orderFlowers")}
+                </Link>
+                <LanguageSwitcher />
               </div>
             </div>
           </div>
@@ -134,54 +125,6 @@ function MenuIcon() {
       strokeWidth="1.8"
     >
       <path d="M4 7h16M4 12h16M4 17h16" />
-    </svg>
-  );
-}
-
-function SearchIcon() {
-  return (
-    <svg
-      width="21"
-      height="21"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-    >
-      <circle cx="11" cy="11" r="7" />
-      <path d="m16 16 4 4" />
-    </svg>
-  );
-}
-
-function UserIcon() {
-  return (
-    <svg
-      width="21"
-      height="21"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-    >
-      <path d="M20 21a8 8 0 0 0-16 0" />
-      <circle cx="12" cy="8" r="4" />
-    </svg>
-  );
-}
-
-function BagIcon() {
-  return (
-    <svg
-      width="21"
-      height="21"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-    >
-      <path d="M6 8h12l-1 13H7L6 8Z" />
-      <path d="M9 8a3 3 0 0 1 6 0" />
     </svg>
   );
 }
