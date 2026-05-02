@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { LanguageSwitcher } from "./language-switcher";
@@ -14,6 +13,7 @@ const NAV_LINKS = [
   { href: "/den-hoa-cuoi", labelKey: "weddingLighting" },
   { href: "/hoa-lua", labelKey: "silkFlowers" },
   { href: "/san-pham-khac", labelKey: "otherProducts" },
+  { href: "/dat-hoa", labelKey: "orderFlowers" },
   { href: "/lien-he", labelKey: "contact" },
 ] as const;
 
@@ -21,110 +21,92 @@ export function Header() {
   const t = useTranslations("nav");
   const pathname = usePathname();
   const isHomePage = pathname === "/";
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    function handleScroll() {
-      setIsScrolled(window.scrollY > 10);
-    }
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-shadow duration-200 bg-white ${
-          isScrolled ? "shadow-sm" : ""
-        }`}
-      >
+      <header className="fixed top-0 left-0 right-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-sm">
         {isHomePage ? (
-          <div className="max-w-7xl mx-auto px-4 md:px-8">
-            <div className="flex items-center justify-between h-16 md:h-20">
-              <Link href="/" className="flex items-center">
-                <Image
-                  src="/logo.png"
-                  alt="Hoa Nêu"
-                  width={48}
-                  height={48}
-                  className="h-10 w-10 md:h-12 md:w-12 object-contain"
-                  priority
-                />
+          <div className="px-4 md:px-6">
+            <div className="grid h-14 grid-cols-[auto_1fr_auto] items-center gap-4">
+              <Link href="/" className="font-serif text-lg italic">
+                Hoa Nêu
               </Link>
 
-              <nav className="hidden lg:flex items-center gap-6">
-                {NAV_LINKS.map((link) => (
+              <nav className="hidden items-center justify-center gap-8 lg:flex">
+                {NAV_LINKS.slice(0, 6).map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="text-sm uppercase tracking-wider text-hoa-gray hover:text-hoa-black transition-colors"
+                    className="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/70 hover:text-hoa-red"
                   >
                     {t(link.labelKey)}
                   </Link>
                 ))}
+                <Link
+                  href="/dat-hoa"
+                  className="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/70 hover:text-hoa-red"
+                >
+                  {t("orderFlowers")}
+                </Link>
               </nav>
 
-              <div className="flex items-center gap-4">
-                <LanguageSwitcher />
+              <div className="flex items-center gap-3">
+                <Link
+                  href="/lien-he"
+                  className="hidden rounded-full bg-hoa-red px-5 py-2 text-[10px] font-bold uppercase tracking-[0.18em] text-white hover:bg-hoa-red-dark md:inline-flex"
+                >
+                  {t("contact")}
+                </Link>
+                <div className="hidden md:block">
+                  <LanguageSwitcher />
+                </div>
                 <button
                   onClick={() => setIsMobileMenuOpen(true)}
-                  className="lg:hidden p-2"
+                  className="p-2 lg:hidden"
                   aria-label="Menu"
                 >
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <line x1="3" y1="6" x2="21" y2="6" />
-                    <line x1="3" y1="12" x2="21" y2="12" />
-                    <line x1="3" y1="18" x2="21" y2="18" />
-                  </svg>
+                  <MenuIcon />
                 </button>
               </div>
             </div>
           </div>
         ) : (
           <div className="px-4 md:px-6">
-            <div className="flex items-center justify-between h-16 md:h-20">
+            <div className="grid h-16 grid-cols-[auto_1fr_auto] items-center gap-4 md:h-20">
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
                 className="p-2"
                 aria-label="Menu"
               >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <line x1="3" y1="6" x2="21" y2="6" />
-                  <line x1="3" y1="12" x2="21" y2="12" />
-                  <line x1="3" y1="18" x2="21" y2="18" />
-                </svg>
+                <MenuIcon />
               </button>
 
               <Link
                 href="/"
-                className="absolute left-1/2 -translate-x-1/2 flex items-center"
+                className="justify-self-center font-serif text-2xl italic md:text-3xl"
               >
-                <Image
-                  src="/logo.png"
-                  alt="Hoa Nêu"
-                  width={48}
-                  height={48}
-                  className="h-10 w-10 md:h-12 md:w-12 object-contain"
-                  priority
-                />
+                Hoa Nêu
               </Link>
 
-              <LanguageSwitcher />
+              <div className="flex items-center gap-4 justify-self-end text-black">
+                <button aria-label="Search" className="hidden p-2 sm:block">
+                  <SearchIcon />
+                </button>
+                <button aria-label="Account" className="hidden p-2 sm:block">
+                  <UserIcon />
+                </button>
+                <button
+                  aria-label="Cart"
+                  className="hidden items-center gap-1 p-2 text-sm sm:inline-flex"
+                >
+                  <BagIcon />
+                  <span>(0)</span>
+                </button>
+                <div className="hidden md:block">
+                  <LanguageSwitcher />
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -136,7 +118,70 @@ export function Header() {
         links={NAV_LINKS}
       />
 
-      <div className="h-16 md:h-20" />
+      {!isHomePage && <div className="h-16 md:h-20" />}
     </>
+  );
+}
+
+function MenuIcon() {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+    >
+      <path d="M4 7h16M4 12h16M4 17h16" />
+    </svg>
+  );
+}
+
+function SearchIcon() {
+  return (
+    <svg
+      width="21"
+      height="21"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    >
+      <circle cx="11" cy="11" r="7" />
+      <path d="m16 16 4 4" />
+    </svg>
+  );
+}
+
+function UserIcon() {
+  return (
+    <svg
+      width="21"
+      height="21"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    >
+      <path d="M20 21a8 8 0 0 0-16 0" />
+      <circle cx="12" cy="8" r="4" />
+    </svg>
+  );
+}
+
+function BagIcon() {
+  return (
+    <svg
+      width="21"
+      height="21"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    >
+      <path d="M6 8h12l-1 13H7L6 8Z" />
+      <path d="M9 8a3 3 0 0 1 6 0" />
+    </svg>
   );
 }

@@ -31,19 +31,19 @@ export function ProductCard({
   return (
     <Link
       href={`/san-pham/${slug}`}
-      className="group block -translate-y-0 hover:-translate-y-1 transition-[transform,box-shadow] duration-300 ease-out"
+      className="group block text-center transition-opacity duration-300 hover:opacity-80"
     >
-      <div className="aspect-square overflow-hidden bg-hoa-muted mb-4 rounded-sm shadow-sm group-hover:shadow-[0_8px_25px_-5px_rgba(220,20,60,0.15)] transition-shadow duration-300">
+      <div className="mb-6 aspect-square overflow-hidden bg-hoa-muted">
         {imageUrl ? (
           <Image
             src={imageUrl}
             alt={mainImage?.alt || title}
             width={600}
             height={600}
-            className="w-full h-full object-cover"
+            className="h-full w-full object-cover"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-hoa-gray">
+          <div className="flex h-full w-full items-center justify-center text-hoa-gray">
             <svg
               width="48"
               height="48"
@@ -59,10 +59,10 @@ export function ProductCard({
           </div>
         )}
       </div>
-      <h3 className="text-sm uppercase tracking-wider mb-1 group-hover:text-hoa-red transition-colors duration-300">
+      <h3 className="mb-2 font-serif text-xl italic text-black transition-colors duration-300 group-hover:text-hoa-red">
         {title}
       </h3>
-      <p className="text-hoa-gray text-sm">
+      <p className="text-sm text-black/55">
         {priceNote && `${priceNote} `}
         {price.toLocaleString("vi-VN")}₫
       </p>

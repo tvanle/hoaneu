@@ -17,18 +17,23 @@ export function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
 
   useEffect(() => {
     if (isOpen) {
-      setVisible(true);
-      requestAnimationFrame(() => setAnimating(true));
+      const timer = setTimeout(() => setVisible(true), 0);
+      const frame = requestAnimationFrame(() => setAnimating(true));
       document.body.style.overflow = "hidden";
+      return () => {
+        clearTimeout(timer);
+        cancelAnimationFrame(frame);
+        document.body.style.overflow = "";
+      };
     } else {
-      setAnimating(false);
+      const frame = requestAnimationFrame(() => setAnimating(false));
       const timer = setTimeout(() => setVisible(false), 300);
       document.body.style.overflow = "";
-      return () => clearTimeout(timer);
+      return () => {
+        cancelAnimationFrame(frame);
+        clearTimeout(timer);
+      };
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
   }, [isOpen]);
 
   if (!visible) return null;

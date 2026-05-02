@@ -12,12 +12,15 @@ export function SectionHeader({
   viewAllLabel,
 }: SectionHeaderProps) {
   return (
-    <div className="flex items-end justify-between mb-8 md:mb-12">
-      <h2 className="text-3xl md:text-4xl font-serif">{title}</h2>
+    <div className="mb-10 text-center md:mb-14">
+      <h2 className="font-serif text-3xl text-black md:text-4xl">{title}</h2>
+      <p className="mt-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-black/35">
+        Curated floral work
+      </p>
       {viewAllHref && (
         <Link
           href={viewAllHref}
-          className="text-sm uppercase tracking-wider text-hoa-gray hover:text-hoa-black transition-colors"
+          className="mt-5 inline-flex text-[10px] font-bold uppercase tracking-[0.2em] text-hoa-gray transition-colors hover:text-hoa-black"
         >
           {viewAllLabel}
         </Link>
