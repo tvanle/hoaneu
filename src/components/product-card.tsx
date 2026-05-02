@@ -33,7 +33,7 @@ export function ProductCard({
       href={`/san-pham/${slug}`}
       className="group block text-center transition-opacity duration-300 hover:opacity-80"
     >
-      <div className="mb-6 aspect-square overflow-hidden bg-hoa-muted">
+      <div className="mb-7 aspect-[4/5] overflow-hidden bg-hoa-muted">
         {imageUrl ? (
           <Image
             src={imageUrl}
@@ -59,12 +59,14 @@ export function ProductCard({
           </div>
         )}
       </div>
-      <h3 className="mb-2 font-serif text-xl italic text-black transition-colors duration-300 group-hover:text-hoa-red">
+      <h3 className="mx-auto mb-3 max-w-[14rem] font-serif text-3xl leading-[1.05] text-black transition-colors duration-300 group-hover:text-hoa-red">
         {title}
       </h3>
-      <p className="text-sm text-black/55">
-        {priceNote && `${priceNote} `}
-        {price.toLocaleString("vi-VN")}₫
+      {priceNote && (
+        <p className="mb-3 text-sm leading-6 text-black/55">{priceNote}</p>
+      )}
+      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-hoa-red">
+        {price.toLocaleString("vi-VN")} VND
       </p>
     </Link>
   );

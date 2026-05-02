@@ -120,26 +120,27 @@ export function FilterableProductList({
   const activeFilterCount =
     (priceRange ? 1 : 0) + colorTones.length + flowerTypes.length;
 
-  return (
-    <div className="grid grid-cols-1 gap-10 lg:grid-cols-[240px_1fr] lg:gap-14">
-      <div className="hidden lg:block">
-        <div className="sticky top-28 border-t border-black/10 pt-6">
-          <ProductFilter
-            priceRange={priceRange}
-            colorTones={colorTones}
-            flowerTypes={flowerTypes}
-            onPriceChange={handlePriceChange}
-            onColorToggle={handleColorToggle}
-            onFlowerToggle={handleFlowerToggle}
-            onClearAll={handleClearAll}
-          />
-        </div>
-      </div>
+  const filterContent = (
+    <ProductFilter
+      priceRange={priceRange}
+      colorTones={colorTones}
+      flowerTypes={flowerTypes}
+      onPriceChange={handlePriceChange}
+      onColorToggle={handleColorToggle}
+      onFlowerToggle={handleFlowerToggle}
+      onClearAll={handleClearAll}
+    />
+  );
 
-      <div className="lg:hidden">
+  return (
+    <>
+      <div className="mb-14 flex items-center justify-between border-y border-black/10 py-5">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-black/40">
+          {t("showingResults", { count: filtered.length })}
+        </p>
         <button
-          onClick={() => setIsFilterOpen(!isFilterOpen)}
-          className="inline-flex items-center gap-3 rounded-full border border-black/20 px-5 py-3 text-[11px] font-bold uppercase tracking-[0.18em]"
+          onClick={() => setIsFilterOpen(true)}
+          className="inline-flex items-center gap-3 border border-black/20 px-5 py-3 text-[11px] font-bold uppercase tracking-[0.18em] transition-colors hover:border-hoa-red hover:text-hoa-red"
         >
           {t("filterTitle")}
           {activeFilterCount > 0 && (
@@ -148,28 +149,34 @@ export function FilterableProductList({
             </span>
           )}
         </button>
-        {isFilterOpen && (
-          <div className="mt-5 border border-black/10 p-5">
-            <ProductFilter
-              priceRange={priceRange}
-              colorTones={colorTones}
-              flowerTypes={flowerTypes}
-              onPriceChange={handlePriceChange}
-              onColorToggle={handleColorToggle}
-              onFlowerToggle={handleFlowerToggle}
-              onClearAll={handleClearAll}
-            />
-          </div>
-        )}
       </div>
 
-      <div className="flex-1">
-        <p className="mb-8 text-[11px] font-semibold uppercase tracking-[0.2em] text-black/40">
-          {t("showingResults", { count: filtered.length })}
-        </p>
+      {isFilterOpen && (
+        <div className="fixed inset-0 z-50">
+          <button
+            aria-label="Close filters"
+            className="absolute inset-0 bg-black/35"
+            onClick={() => setIsFilterOpen(false)}
+          />
+          <aside className="absolute inset-y-0 left-0 w-full max-w-sm overflow-y-auto bg-white p-8 shadow-2xl">
+            <div className="mb-10 flex items-center justify-between">
+              <h2 className="font-serif text-3xl">{t("filterTitle")}</h2>
+              <button
+                onClick={() => setIsFilterOpen(false)}
+                className="flex h-9 w-9 items-center justify-center border border-black/15 text-xl leading-none transition-colors hover:border-hoa-red hover:text-hoa-red"
+                aria-label="Close filters"
+              >
+                ×
+              </button>
+            </div>
+            {filterContent}
+          </aside>
+        </div>
+      )}
 
+      <div>
         {filtered.length > 0 ? (
-          <div className="grid grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-x-8 gap-y-24 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((product) => (
               <ProductCard
                 key={product._id}
@@ -189,6 +196,6 @@ export function FilterableProductList({
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 }

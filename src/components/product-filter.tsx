@@ -73,19 +73,26 @@ export function ProductFilter({
 
       <div>
         <h4 className="mb-3 font-serif text-lg italic">{t("priceRange")}</h4>
-        <div className="flex flex-wrap gap-2">
+        <div className="space-y-3">
           {PRICE_RANGES.map((range) => (
             <button
               key={range.value}
               onClick={() =>
                 onPriceChange(priceRange === range.value ? null : range.value)
               }
-              className={`rounded-full border px-3 py-1.5 text-xs transition-colors ${
-                priceRange === range.value
-                  ? "border-hoa-black bg-hoa-black text-white"
-                  : "border-black/15 hover:border-hoa-black"
-              }`}
+              className="flex items-center gap-3 text-left text-sm text-black/70 transition-colors hover:text-hoa-red"
             >
+              <span
+                className={`flex h-4 w-4 items-center justify-center rounded-full border ${
+                  priceRange === range.value
+                    ? "border-hoa-red"
+                    : "border-black/35"
+                }`}
+              >
+                {priceRange === range.value && (
+                  <span className="h-2 w-2 rounded-full bg-hoa-red" />
+                )}
+              </span>
               {range.label}
             </button>
           ))}
@@ -99,17 +106,17 @@ export function ProductFilter({
             <button
               key={tone.value}
               onClick={() => onColorToggle(tone.value)}
-              className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs transition-colors ${
+              className={`h-8 w-8 rounded-full border transition-colors ${
                 colorTones.includes(tone.value)
-                  ? "border-hoa-black bg-hoa-black text-white"
+                  ? "border-hoa-red ring-2 ring-hoa-red/20"
                   : "border-black/15 hover:border-hoa-black"
               }`}
+              aria-label={tone.label}
             >
               <span
-                className="h-3 w-3 rounded-full border border-black/20"
+                className="block h-full w-full rounded-full border border-white"
                 style={{ backgroundColor: tone.color }}
               />
-              {tone.label}
             </button>
           ))}
         </div>
@@ -122,9 +129,9 @@ export function ProductFilter({
             <button
               key={flower.value}
               onClick={() => onFlowerToggle(flower.value)}
-              className={`rounded-full border px-3 py-1.5 text-xs transition-colors ${
+              className={`border px-3 py-2 text-sm transition-colors ${
                 flowerTypes.includes(flower.value)
-                  ? "border-hoa-black bg-hoa-black text-white"
+                  ? "border-hoa-red bg-hoa-red/5 text-hoa-red"
                   : "border-black/15 hover:border-hoa-black"
               }`}
             >

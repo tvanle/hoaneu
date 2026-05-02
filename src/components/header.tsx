@@ -23,6 +23,11 @@ export function Header() {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const leftLinks = NAV_LINKS.slice(0, 3);
+  const rightLinks = [
+    { href: "/lien-he", labelKey: "contact" },
+    { href: "/dat-hoa", labelKey: "orderFlowers" },
+  ] as const;
 
   return (
     <>
@@ -73,31 +78,59 @@ export function Header() {
             </div>
           </div>
         ) : (
-          <div className="px-4 md:px-6">
-            <div className="grid h-16 grid-cols-[auto_1fr_auto] items-center gap-4 md:h-20">
+          <div className="px-6 md:px-10">
+            <div className="grid h-20 grid-cols-[1fr_auto_1fr] items-center gap-6 md:h-24">
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="p-2"
+                className="p-2 lg:hidden"
                 aria-label="Menu"
               >
                 <MenuIcon />
               </button>
+              <nav className="hidden items-center gap-9 justify-self-start lg:flex">
+                {leftLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`text-[11px] font-medium uppercase tracking-[0.24em] transition-colors ${
+                      pathname === link.href
+                        ? "border-b border-hoa-red pb-2 text-hoa-red"
+                        : "text-black/65 hover:text-hoa-red"
+                    }`}
+                  >
+                    {t(link.labelKey)}
+                  </Link>
+                ))}
+              </nav>
 
               <Link
                 href="/"
                 className="justify-self-center"
                 aria-label="Hoa Nêu"
               >
-                <BrandLogo className="h-12 w-12 md:h-14 md:w-14" priority />
+                <BrandLogo
+                  className="h-20 w-20 md:h-24 md:w-24"
+                  priority
+                  tone="red"
+                />
               </Link>
 
-              <div className="flex items-center gap-4 justify-self-end text-black">
-                <Link
-                  href="/dat-hoa"
-                  className="hidden text-[10px] font-bold uppercase tracking-[0.18em] text-black/65 hover:text-hoa-red md:inline-flex"
-                >
-                  {t("orderFlowers")}
-                </Link>
+              <div className="flex items-center gap-7 justify-self-end text-black">
+                <nav className="hidden items-center gap-9 lg:flex">
+                  {rightLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={`text-[11px] font-medium uppercase tracking-[0.24em] transition-colors ${
+                        pathname === link.href
+                          ? "border-b border-hoa-red pb-2 text-hoa-red"
+                          : "text-black/65 hover:text-hoa-red"
+                      }`}
+                    >
+                      {t(link.labelKey)}
+                    </Link>
+                  ))}
+                </nav>
                 <LanguageSwitcher />
               </div>
             </div>
@@ -111,7 +144,7 @@ export function Header() {
         links={NAV_LINKS}
       />
 
-      {!isHomePage && <div className="h-16 md:h-20" />}
+      {!isHomePage && <div className="h-20 md:h-24" />}
     </>
   );
 }

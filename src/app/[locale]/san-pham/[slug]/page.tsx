@@ -46,7 +46,6 @@ export default async function ProductDetailPage({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
-  const t = await getTranslations({ locale, namespace: "product" });
   const tNav = await getTranslations({ locale, namespace: "nav" });
 
   const product = await safeFetch(PRODUCT_BY_SLUG_QUERY, {
@@ -67,10 +66,18 @@ export default async function ProductDetailPage({
     : [];
 
   const productUrl = `https://hoaneu.com/san-pham/${slug}`;
+  const flowerTypes = product.flowerTypes?.join(", ") || "Theo mùa";
+  const colorTones = product.colorTones?.join(", ") || "Tùy chỉnh";
+  const collection = product.category?.title || "Hoa Nêu";
+  const detailRows = [
+    { label: "Hoa chính", value: flowerTypes },
+    { label: "Tone màu", value: colorTones },
+    { label: "Bộ sưu tập", value: collection },
+  ];
 
   return (
     <div className="mx-auto max-w-[1500px] px-6 py-12 md:px-8 md:py-20">
-      <nav className="mb-10 flex flex-wrap items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-black/35">
+      <nav className="mb-8 flex flex-wrap items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-black/35">
         <Link href="/" className="transition-colors hover:text-hoa-black">
           {tNav("home")}
         </Link>
@@ -89,7 +96,7 @@ export default async function ProductDetailPage({
         <span className="text-black/65">{product.title}</span>
       </nav>
 
-      <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.18fr_0.82fr] lg:gap-8">
         <ProductImageGallery
           mainImage={product.mainImage}
           images={product.images}
@@ -98,65 +105,54 @@ export default async function ProductDetailPage({
 
         <div className="lg:pt-10">
           {product.category && (
-            <p className="mb-5 text-[11px] font-bold uppercase tracking-[0.22em] text-black/35">
+            <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.22em] text-black/35">
               {product.category.title}
             </p>
           )}
-          <h1 className="font-serif text-5xl italic leading-tight text-black md:text-7xl">
+          <h1 className="font-serif text-4xl leading-[0.96] text-black md:text-6xl">
             {product.title}
           </h1>
-          <p className="mt-7 text-2xl text-black">
+          <p className="mt-6 font-serif text-3xl text-hoa-red">
             {product.priceNote && (
-              <span className="mr-2 text-sm text-black/45">
+              <span className="mr-2 font-sans text-sm text-black/45">
                 {product.priceNote}
               </span>
             )}
-            {product.price?.toLocaleString("vi-VN")}₫
+            {product.price?.toLocaleString("vi-VN")} VND
           </p>
 
           {product.description && (
-            <div className="mt-8 max-w-xl text-base leading-8 text-black/60">
+            <div className="mt-5 max-w-xl text-sm leading-7 text-black/60">
               <PortableText value={product.description} />
             </div>
           )}
 
-          {product.colorTones && product.colorTones.length > 0 && (
-            <div className="mt-8">
-              <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-black/35">
-                Tone màu
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {product.colorTones.map((tone: string) => (
-                  <span
-                    key={tone}
-                    className="rounded-full border border-black/15 px-3 py-1.5 text-xs capitalize text-black/65"
-                  >
-                    {tone}
-                  </span>
-                ))}
-              </div>
+          <div className="mt-14 border-y border-black/10 py-6">
+            <div className="space-y-7">
+              {detailRows.map((row) => (
+                <div
+                  key={row.label}
+                  className="grid grid-cols-[120px_1fr] gap-6 text-sm"
+                >
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-black/35">
+                    {row.label}
+                  </p>
+                  <p className="capitalize leading-6 text-black/70">
+                    {row.value}
+                  </p>
+                </div>
+              ))}
             </div>
-          )}
+          </div>
 
-          {product.flowerTypes && product.flowerTypes.length > 0 && (
-            <div className="mt-6">
-              <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-black/35">
-                Loại hoa
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {product.flowerTypes.map((type: string) => (
-                  <span
-                    key={type}
-                    className="rounded-full border border-black/15 px-3 py-1.5 text-xs capitalize text-black/65"
-                  >
-                    {type}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
+          <div className="mt-10 border border-black/10 bg-black/[0.025] p-6">
+            <p className="font-serif text-base italic leading-7 text-black/60">
+              “Mỗi thiết kế {product.title} được tuyển chọn theo mùa hoa, xử lý
+              thủ công và hoàn thiện theo tinh thần tối giản của Hoa Nêu.”
+            </p>
+          </div>
 
-          <div className="mt-10 border-t border-black/10 pt-8">
+          <div className="mt-6">
             <ContactCta
               productName={product.title}
               productUrl={productUrl}
@@ -165,12 +161,51 @@ export default async function ProductDetailPage({
         </div>
       </div>
 
+      <section className="mt-24 grid grid-cols-1 gap-12 border-t border-black/10 pt-16 md:grid-cols-[1fr_0.8fr] md:gap-24">
+        <div>
+          <h2 className="mb-8 font-serif text-xl">Artistry & Selection</h2>
+          <p className="max-w-xl text-sm leading-7 text-black/60">
+            Hoa Nêu lựa chọn hoa theo mùa, kiểm tra độ nở và phối màu thủ công
+            để mỗi thiết kế giữ được sự cân bằng giữa form dáng, chất liệu và
+            cảm xúc của dịp sử dụng.
+          </p>
+        </div>
+        <div className="bg-black/[0.04] p-8">
+          <h3 className="mb-6 text-[11px] font-semibold uppercase tracking-[0.24em] text-black/45">
+            Lưu ý & bảo quản
+          </h3>
+          <ul className="space-y-4 text-sm leading-7 text-black/60">
+            <li>Hoa tươi là sản phẩm tự nhiên, độ nở có thể thay đổi nhẹ.</li>
+            <li>Tránh nắng trực tiếp hoặc nhiệt độ quá cao.</li>
+            <li>Giữ cuống hoa ẩm và đặt ở nơi thoáng mát.</li>
+            <li>Chúng tôi có thể điều chỉnh tone màu theo mùa hoa.</li>
+          </ul>
+        </div>
+      </section>
+
       {relatedProducts && relatedProducts.length > 0 && (
-        <section className="mt-20 border-t border-black/10 pt-16 md:mt-28 md:pt-20">
-          <h2 className="mb-10 text-center font-serif text-3xl italic md:text-4xl">
-            {t("relatedProducts")}
-          </h2>
-          <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+        <section className="mt-24 border-t border-black/10 pt-16 md:mt-28 md:pt-20">
+          <div className="mb-10 flex items-end justify-between gap-6">
+            <div>
+              <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.24em] text-hoa-red">
+                Curation
+              </p>
+              <h2 className="font-serif text-4xl md:text-5xl">
+                Explore More
+              </h2>
+            </div>
+            <Link
+              href={
+                product.category?.slug?.current
+                  ? `/${product.category.slug.current}`
+                  : "/san-pham-khac"
+              }
+              className="hidden text-[10px] font-semibold uppercase tracking-[0.22em] text-hoa-red hover:text-hoa-red-dark md:inline-flex"
+            >
+              View Collection
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {relatedProducts.map(
               (related: {
                 _id: string;

@@ -55,16 +55,16 @@ export default async function CategoryPage({
   ]);
 
   return (
-    <div className="mx-auto max-w-[1500px] px-6 py-16 md:px-8 md:py-24">
-      <div className="mx-auto mb-14 max-w-3xl text-center md:mb-20">
+    <div className="mx-auto max-w-[1500px] px-6 py-20 md:px-12 md:py-28">
+      <div className="mx-auto mb-20 max-w-4xl text-center md:mb-28">
         <p className="mb-5 text-[11px] font-bold uppercase tracking-[0.24em] text-black/35">
           Hoa Nêu Collection
         </p>
-        <h1 className="font-serif text-5xl italic leading-tight text-black md:text-7xl">
+        <h1 className="font-serif text-5xl leading-tight text-black md:text-7xl">
           {category?.title || categorySlug}
         </h1>
         {category?.description && (
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-black/55">
+          <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-black/65">
             {category.description}
           </p>
         )}
