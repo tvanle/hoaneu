@@ -20,18 +20,18 @@ export async function POST(req: Request) {
     const body = await req.json();
 
     if (body._type === "product") {
-      revalidatePath("/[locale]", "layout");
+      revalidatePath("/", "layout");
       if (body.slug?.current) {
-        revalidatePath(`/[locale]/san-pham/${body.slug.current}`);
+        revalidatePath(`/san-pham/${body.slug.current}`);
       }
     }
 
     if (body._type === "category") {
-      revalidatePath("/[locale]", "layout");
+      revalidatePath("/", "layout");
     }
 
     if (body._type === "siteSettings") {
-      revalidatePath("/[locale]", "layout");
+      revalidatePath("/", "layout");
     }
 
     return NextResponse.json({ revalidated: true });
