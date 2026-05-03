@@ -2,7 +2,6 @@
 
 import { useState, useMemo, useCallback } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useTranslations } from "next-intl";
 import { ProductCard } from "./product-card";
 import { ProductFilter } from "./product-filter";
 
@@ -25,7 +24,6 @@ interface FilterableProductListProps {
 export function FilterableProductList({
   products,
 }: FilterableProductListProps) {
-  const t = useTranslations("catalog");
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -136,13 +134,13 @@ export function FilterableProductList({
     <>
       <div className="mb-12 flex items-center justify-between border-y border-black/10 py-5">
         <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-black/40">
-          {t("showingResults", { count: filtered.length })}
+          Hiển thị {filtered.length} sản phẩm
         </p>
         <button
           onClick={() => setIsFilterOpen(true)}
           className="inline-flex items-center gap-3 border border-black/20 px-5 py-3 text-[11px] font-bold uppercase tracking-[0.18em] transition-colors hover:border-hoa-red hover:text-hoa-red"
         >
-          {t("filterTitle")}
+          Bộ Lọc
           {activeFilterCount > 0 && (
             <span className="flex h-5 w-5 items-center justify-center rounded-full bg-hoa-red text-xs text-white">
               {activeFilterCount}
@@ -154,17 +152,17 @@ export function FilterableProductList({
       {isFilterOpen && (
         <div className="fixed inset-0 z-50">
           <button
-            aria-label="Close filters"
+            aria-label="Đóng bộ lọc"
             className="absolute inset-0 bg-black/35"
             onClick={() => setIsFilterOpen(false)}
           />
           <aside className="absolute inset-y-0 left-0 w-full max-w-sm overflow-y-auto bg-white p-8 shadow-2xl">
             <div className="mb-10 flex items-center justify-between">
-              <h2 className="font-serif text-3xl">{t("filterTitle")}</h2>
+              <h2 className="font-serif text-3xl">Bộ Lọc</h2>
               <button
                 onClick={() => setIsFilterOpen(false)}
                 className="flex h-9 w-9 items-center justify-center border border-black/15 text-xl leading-none transition-colors hover:border-hoa-red hover:text-hoa-red"
-                aria-label="Close filters"
+                aria-label="Đóng bộ lọc"
               >
                 ×
               </button>
@@ -191,7 +189,7 @@ export function FilterableProductList({
         ) : (
           <div className="border border-black/10 py-20 text-center">
             <p className="font-serif text-2xl italic text-black/60">
-              {t("noResults")}
+              Không tìm thấy sản phẩm phù hợp
             </p>
           </div>
         )}

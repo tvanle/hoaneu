@@ -1,6 +1,5 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { SOCIAL_LINKS } from "@lib/constants";
 
 interface ContactCtaProps {
@@ -9,8 +8,6 @@ interface ContactCtaProps {
 }
 
 export function ContactCta({ productName, productUrl }: ContactCtaProps) {
-  const t = useTranslations("product");
-
   const messengerText = encodeURIComponent(
     `Chào Hoa Nêu, em muốn tư vấn về ${productName} (${productUrl})`,
   );
@@ -19,7 +16,6 @@ export function ContactCta({ productName, productUrl }: ContactCtaProps) {
 
   return (
     <div className="space-y-3">
-      <p className="sr-only">{t("contactVia")}</p>
       <a
         href={SOCIAL_LINKS.instagram}
         target="_blank"

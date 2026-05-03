@@ -1,4 +1,4 @@
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 
 interface SectionHeaderProps {
   title: string;
@@ -15,7 +15,7 @@ export function SectionHeader({
     <div className="mb-10 text-center md:mb-14">
       <h2 className="font-serif text-3xl text-black md:text-4xl">{title}</h2>
       <p className="mt-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-black/35">
-        Curated floral work
+        Tác phẩm hoa tuyển chọn
       </p>
       {viewAllHref && (
         <Link

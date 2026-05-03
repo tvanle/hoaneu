@@ -8,28 +8,24 @@ import {
 import { ProductImageGallery } from "@/components/product-image-gallery";
 import { ContactCta } from "@/components/contact-cta";
 import { ProductCard } from "@/components/product-card";
-import { Link } from "@/i18n/navigation";
-import { getTranslations } from "next-intl/server";
-import { routing } from "@/i18n/routing";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
   const slugs = await safeFetch<string[]>(ALL_PRODUCT_SLUGS_QUERY);
   if (!slugs) return [];
-  return routing.locales.flatMap((locale) =>
-    slugs.map((slug: string) => ({ locale, slug })),
-  );
+  return slugs.map((slug: string) => ({ slug }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string; slug: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { locale, slug } = await params;
+  const { slug } = await params;
   const product = await safeFetch(PRODUCT_BY_SLUG_QUERY, {
     slug,
-    locale,
+    locale: "vi",
   });
 
   return {
@@ -43,14 +39,13 @@ export async function generateMetadata({
 export default async function ProductDetailPage({
   params,
 }: {
-  params: Promise<{ locale: string; slug: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { locale, slug } = await params;
-  const tNav = await getTranslations({ locale, namespace: "nav" });
+  const { slug } = await params;
 
   const product = await safeFetch(PRODUCT_BY_SLUG_QUERY, {
     slug,
-    locale,
+    locale: "vi",
   });
 
   if (!product) {
@@ -61,7 +56,7 @@ export default async function ProductDetailPage({
     ? await safeFetch(RELATED_PRODUCTS_QUERY, {
         categoryId: product.category._id,
         currentId: product._id,
-        locale,
+        locale: "vi",
       })
     : [];
 
@@ -79,7 +74,7 @@ export default async function ProductDetailPage({
     <div className="mx-auto max-w-[1500px] px-6 py-12 md:px-8 md:py-20">
       <nav className="mb-8 flex flex-wrap items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-black/35">
         <Link href="/" className="transition-colors hover:text-hoa-black">
-          {tNav("home")}
+          Trang Chủ
         </Link>
         <span>/</span>
         {product.category && (
@@ -147,8 +142,9 @@ export default async function ProductDetailPage({
 
           <div className="mt-10 border border-black/10 bg-black/[0.025] p-6">
             <p className="font-serif text-base italic leading-7 text-black/60">
-              “Mỗi thiết kế {product.title} được tuyển chọn theo mùa hoa, xử lý
-              thủ công và hoàn thiện theo tinh thần tối giản của Hoa Nêu.”
+              &quot;Mỗi thiết kế {product.title} được tuyển chọn theo mùa hoa,
+              xử lý thủ công và hoàn thiện theo tinh thần tối giản của Hoa
+              Nêu.&quot;
             </p>
           </div>
 
@@ -163,7 +159,7 @@ export default async function ProductDetailPage({
 
       <section className="mt-24 grid grid-cols-1 gap-12 border-t border-black/10 pt-16 md:grid-cols-[1fr_0.8fr] md:gap-24">
         <div>
-          <h2 className="mb-8 font-serif text-xl">Artistry & Selection</h2>
+          <h2 className="mb-8 font-serif text-xl">Nghệ Thuật & Tuyển Chọn</h2>
           <p className="max-w-xl text-sm leading-7 text-black/60">
             Hoa Nêu lựa chọn hoa theo mùa, kiểm tra độ nở và phối màu thủ công
             để mỗi thiết kế giữ được sự cân bằng giữa form dáng, chất liệu và
@@ -188,10 +184,10 @@ export default async function ProductDetailPage({
           <div className="mb-10 flex items-end justify-between gap-6">
             <div>
               <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.24em] text-hoa-red">
-                Curation
+                Bộ Sưu Tập
               </p>
               <h2 className="font-serif text-4xl md:text-5xl">
-                Explore More
+                Khám Phá Thêm
               </h2>
             </div>
             <Link
@@ -202,7 +198,7 @@ export default async function ProductDetailPage({
               }
               className="hidden text-[10px] font-semibold uppercase tracking-[0.22em] text-hoa-red hover:text-hoa-red-dark md:inline-flex"
             >
-              View Collection
+              Xem Bộ Sưu Tập
             </Link>
           </div>
           <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 import { urlForImage } from "@sanity/lib/image";
 import { BrandLogo } from "./brand-logo";
 
@@ -10,15 +10,9 @@ interface HeroSectionProps {
     asset?: { url?: string };
     alt?: string;
   };
-  navLabels: {
-    products: string;
-    orderFlowers: string;
-    about: string;
-    contact: string;
-  };
 }
 
-export function HeroSection({ title, subtitle, image, navLabels }: HeroSectionProps) {
+export function HeroSection({ title, subtitle, image }: HeroSectionProps) {
   const imageUrl = image?.asset
     ? urlForImage(image)?.width(1200).height(1400).url()
     : null;
@@ -52,7 +46,7 @@ export function HeroSection({ title, subtitle, image, navLabels }: HeroSectionPr
           </p>
         </div>
         <div className="absolute bottom-5 left-5 rounded-full border border-white/40 bg-white/10 px-5 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/80 backdrop-blur">
-          Saigon / Worldwide
+          Sài Gòn / Toàn Quốc
         </div>
       </div>
 
@@ -68,13 +62,13 @@ export function HeroSection({ title, subtitle, image, navLabels }: HeroSectionPr
           />
           <nav className="mt-8 flex flex-col items-center gap-3 font-serif text-sm italic text-black/60">
             <Link href="/san-pham-khac" className="hover:text-hoa-red">
-              {navLabels.products}
+              Sản Phẩm
             </Link>
             <Link href="/dat-hoa" className="hover:text-hoa-red">
-              {navLabels.orderFlowers}
+              Đặt Hoa
             </Link>
             <Link href="/lien-he" className="hover:text-hoa-red">
-              {navLabels.contact}
+              Liên Hệ
             </Link>
           </nav>
           <p className="mx-auto mt-8 max-w-sm text-sm leading-6 text-black/55">
@@ -84,7 +78,7 @@ export function HeroSection({ title, subtitle, image, navLabels }: HeroSectionPr
             href="/san-pham-khac"
             className="mt-8 inline-flex rounded-full border border-black/25 px-8 py-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:border-black hover:bg-black hover:text-white"
           >
-            Explore the collection
+            Khám phá bộ sưu tập
           </Link>
         </div>
       </div>

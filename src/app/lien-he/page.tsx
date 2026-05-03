@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { getTranslations } from "next-intl/server";
 import { safeFetch } from "@sanity/lib/client";
 import { SITE_SETTINGS_QUERY } from "@lib/queries/products";
 import { SOCIAL_LINKS } from "@lib/constants";
@@ -7,24 +6,13 @@ import { urlForImage } from "@sanity/lib/image";
 import type { SiteSettings } from "@lib/types";
 import { BrandLogo } from "@/components/brand-logo";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "contact" });
-  return { title: t("title") };
-}
+export const metadata = {
+  title: "Liên Hệ",
+};
 
-export default async function ContactPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
+export default async function ContactPage() {
   const settings = await safeFetch<SiteSettings>(SITE_SETTINGS_QUERY, {
-    locale,
+    locale: "vi",
   });
 
   const address = settings?.address || "160-162 Yên Lãng, Đống Đa, Hà Nội";
@@ -40,7 +28,7 @@ export default async function ContactPage({
       <section className="mx-auto max-w-[1280px] px-8 py-20 sm:px-12 md:px-20 md:py-28 lg:px-24">
         <div className="mx-auto mb-20 max-w-4xl text-center">
           <h1 className="font-serif text-6xl leading-tight text-black md:text-8xl">
-            Consultation
+            Tư Vấn
           </h1>
           <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-black/70 md:text-lg">
             Trao đổi cùng Hoa Nêu về hoa cưới, set chụp, sự kiện hoặc những bó
@@ -56,35 +44,35 @@ export default async function ContactPage({
             className="bg-white px-8 py-10 md:px-16 md:py-16"
           >
             <h2 className="mb-10 font-serif text-4xl text-black">
-              Send an Inquiry
+              Gửi Yêu Cầu Tư Vấn
             </h2>
 
             <div className="space-y-9">
               <label className="block">
                 <span className="mb-3 block text-[10px] font-semibold uppercase tracking-[0.24em] text-black">
-                  Full name
+                  Họ và tên
                 </span>
                 <input
                   name="name"
-                  placeholder="Your Name"
+                  placeholder="Tên của bạn"
                   className="w-full border-b border-black/35 bg-transparent py-3 text-sm text-black outline-none transition-colors placeholder:text-black/45 focus:border-hoa-red"
                 />
               </label>
 
               <label className="block">
                 <span className="mb-3 block text-[10px] font-semibold uppercase tracking-[0.24em] text-black">
-                  Phone number
+                  Số điện thoại
                 </span>
                 <input
                   name="phone"
-                  placeholder="Your Phone Number"
+                  placeholder="Số điện thoại của bạn"
                   className="w-full border-b border-black/35 bg-transparent py-3 text-sm text-black outline-none transition-colors placeholder:text-black/45 focus:border-hoa-red"
                 />
               </label>
 
               <label className="block">
                 <span className="mb-3 block text-[10px] font-semibold uppercase tracking-[0.24em] text-black">
-                  Event date optional
+                  Ngày sự kiện (không bắt buộc)
                 </span>
                 <input
                   name="date"
@@ -95,12 +83,12 @@ export default async function ContactPage({
 
               <label className="block">
                 <span className="mb-3 block text-[10px] font-semibold uppercase tracking-[0.24em] text-black">
-                  Message
+                  Lời nhắn
                 </span>
                 <textarea
                   name="message"
                   rows={5}
-                  placeholder="Tell us about your vision..."
+                  placeholder="Chia sẻ ý tưởng của bạn..."
                   className="w-full resize-none border-b border-black/15 bg-transparent py-3 text-sm text-black outline-none transition-colors placeholder:text-black/45 focus:border-hoa-red"
                 />
               </label>
@@ -110,7 +98,7 @@ export default async function ContactPage({
               type="submit"
               className="mt-10 bg-hoa-red px-10 py-4 text-[11px] font-bold uppercase tracking-[0.18em] text-white transition-colors hover:bg-hoa-red-dark"
             >
-              Submit inquiry
+              Gửi yêu cầu
             </button>
           </form>
 
@@ -119,7 +107,7 @@ export default async function ContactPage({
               {sideImage ? (
                 <Image
                   src={sideImage}
-                  alt="Hoa Nêu floral consultation"
+                  alt="Tư vấn hoa Hoa Nêu"
                   fill
                   sizes="(max-width: 1024px) 100vw, 420px"
                   className="object-cover"
@@ -133,30 +121,30 @@ export default async function ContactPage({
 
             <div className="bg-[#eeeeed] p-9 md:p-10">
               <h2 className="mb-5 border-b border-black/10 pb-5 font-serif text-4xl">
-                Atelier
+                Xưởng Hoa
               </h2>
 
               <div className="space-y-7 text-sm leading-6 text-black/75">
                 <div>
                   <h3 className="mb-3 text-[10px] font-semibold uppercase tracking-[0.24em] text-black">
-                    Address
+                    Địa chỉ
                   </h3>
                   <p>{address}</p>
                 </div>
 
                 <div>
                   <h3 className="mb-3 text-[10px] font-semibold uppercase tracking-[0.24em] text-black">
-                    Hours
+                    Giờ làm việc
                   </h3>
-                  <p>Open daily: 8:30-18:30</p>
+                  <p>Mở cửa hàng ngày: 8:30-18:30</p>
                   <p className="font-serif italic text-black/50">
-                    By Appointment Only
+                    Chỉ nhận theo lịch hẹn
                   </p>
                 </div>
 
                 <div>
                   <h3 className="mb-3 text-[10px] font-semibold uppercase tracking-[0.24em] text-black">
-                    Contact
+                    Liên hệ
                   </h3>
                   <a href={`tel:${phone}`} className="block hover:text-hoa-red">
                     {phone}
@@ -181,11 +169,11 @@ export default async function ContactPage({
               Hoa Nêu
             </p>
             <p className="font-serif text-3xl leading-tight text-black">
-              Bridal Bouquets | Shoot Set-ups | Events | Daily Blooms
+              Hoa Cưới | Set Chụp | Sự Kiện | Hoa Hằng Ngày
             </p>
             <div className="mt-8 space-y-3 text-base leading-7 text-black/70">
               <p>{address}</p>
-              <p>Open daily: 8:30-18:30</p>
+              <p>Mở cửa hàng ngày: 8:30-18:30</p>
               <p>{phone}</p>
             </div>
           </div>
@@ -205,7 +193,11 @@ export default async function ContactPage({
           <a href={facebook} target="_blank" rel="noopener noreferrer">
             Facebook
           </a>
-          <a href={SOCIAL_LINKS.messenger} target="_blank" rel="noopener noreferrer">
+          <a
+            href={SOCIAL_LINKS.messenger}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Messenger
           </a>
         </div>

@@ -1,7 +1,5 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-
 const PRICE_RANGES = [
   { label: "Dưới 500K", value: "0-500000" },
   { label: "500K - 1tr", value: "500000-1000000" },
@@ -51,7 +49,6 @@ export function ProductFilter({
   onFlowerToggle,
   onClearAll,
 }: ProductFilterProps) {
-  const t = useTranslations("catalog");
   const hasActiveFilters =
     priceRange !== null || colorTones.length > 0 || flowerTypes.length > 0;
 
@@ -59,20 +56,20 @@ export function ProductFilter({
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-black">
-          {t("filterTitle")}
+          Bộ Lọc
         </h3>
         {hasActiveFilters && (
           <button
             onClick={onClearAll}
             className="text-[11px] font-semibold uppercase tracking-[0.14em] text-hoa-red hover:text-hoa-red-dark"
           >
-            {t("clearFilters")}
+            Xóa Bộ Lọc
           </button>
         )}
       </div>
 
       <div>
-        <h4 className="mb-3 font-serif text-lg italic">{t("priceRange")}</h4>
+        <h4 className="mb-3 font-serif text-lg italic">Mức Giá</h4>
         <div className="space-y-3">
           {PRICE_RANGES.map((range) => (
             <button
@@ -100,7 +97,7 @@ export function ProductFilter({
       </div>
 
       <div>
-        <h4 className="mb-3 font-serif text-lg italic">{t("colorTone")}</h4>
+        <h4 className="mb-3 font-serif text-lg italic">Tone Màu</h4>
         <div className="flex flex-wrap gap-2">
           {COLOR_TONES.map((tone) => (
             <button
@@ -123,7 +120,7 @@ export function ProductFilter({
       </div>
 
       <div>
-        <h4 className="mb-3 font-serif text-lg italic">{t("flowerType")}</h4>
+        <h4 className="mb-3 font-serif text-lg italic">Loại Hoa Chính</h4>
         <div className="flex flex-wrap gap-2">
           {FLOWER_TYPES.map((flower) => (
             <button

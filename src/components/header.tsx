@@ -1,19 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { Link, usePathname } from "@/i18n/navigation";
-import { LanguageSwitcher } from "./language-switcher";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { MobileMenu } from "./mobile-menu";
 
 const NAV_LINKS = [
-  { href: "/", labelKey: "home" },
-  { href: "/hoa-cuoi-cam-tay", labelKey: "bridalBouquet" },
-  { href: "/pre-wedding", labelKey: "preWedding" },
-  { href: "/den-hoa-cuoi", labelKey: "weddingLighting" },
-  { href: "/hoa-lua", labelKey: "silkFlowers" },
-  { href: "/san-pham-khac", labelKey: "otherProducts" },
-  { href: "/dat-hoa", labelKey: "orderFlowers" },
-  { href: "/lien-he", labelKey: "contact" },
+  { href: "/", label: "Trang Chủ" },
+  { href: "/hoa-cuoi-cam-tay", label: "Hoa Cưới Cầm Tay" },
+  { href: "/pre-wedding", label: "Pre-wedding" },
+  { href: "/den-hoa-cuoi", label: "Đèn Hoa Cưới" },
+  { href: "/hoa-lua", label: "Hoa Lụa" },
+  { href: "/san-pham-khac", label: "Sản Phẩm Khác" },
+  { href: "/dat-hoa", label: "Đặt Hoa" },
+  { href: "/lien-he", label: "Liên Hệ" },
 ] as const;
 
 export function Header() {
@@ -35,9 +35,7 @@ export function Header() {
                 </span>
               </Link>
 
-              <div className="justify-self-end">
-                <LanguageSwitcher />
-              </div>
+              <div className="justify-self-end" />
             </div>
           </div>
         ) : (
@@ -63,9 +61,7 @@ export function Header() {
                 </span>
               </Link>
 
-              <div className="justify-self-end text-black">
-                <LanguageSwitcher />
-              </div>
+              <div className="justify-self-end" />
             </div>
           </div>
         )}

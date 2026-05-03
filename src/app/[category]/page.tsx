@@ -1,5 +1,4 @@
 import { Suspense } from "react";
-import { getTranslations } from "next-intl/server";
 import { safeFetch } from "@sanity/lib/client";
 import {
   PRODUCTS_BY_CATEGORY_QUERY,
@@ -8,25 +7,22 @@ import {
 } from "@lib/queries/products";
 import type { Category, Product } from "@lib/types";
 import { FilterableProductList } from "@/components/filterable-product-list";
-import { routing } from "@/i18n/routing";
 
 export async function generateStaticParams() {
   const slugs = await safeFetch<string[]>(ALL_CATEGORY_SLUGS_QUERY);
   if (!slugs) return [];
-  return routing.locales.flatMap((locale) =>
-    slugs.map((slug: string) => ({ locale, category: slug })),
-  );
+  return slugs.map((slug: string) => ({ category: slug }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string; category: string }>;
+  params: Promise<{ category: string }>;
 }) {
-  const { locale, category: categorySlug } = await params;
+  const { category: categorySlug } = await params;
   const category = await safeFetch<Category>(CATEGORY_BY_SLUG_QUERY, {
     slug: categorySlug,
-    locale,
+    locale: "vi",
   });
 
   return {
@@ -38,19 +34,18 @@ export async function generateMetadata({
 export default async function CategoryPage({
   params,
 }: {
-  params: Promise<{ locale: string; category: string }>;
+  params: Promise<{ category: string }>;
 }) {
-  const { locale, category: categorySlug } = await params;
-  const t = await getTranslations({ locale, namespace: "catalog" });
+  const { category: categorySlug } = await params;
 
   const [category, products] = await Promise.all([
     safeFetch<Category>(CATEGORY_BY_SLUG_QUERY, {
       slug: categorySlug,
-      locale,
+      locale: "vi",
     }),
     safeFetch<Product[]>(PRODUCTS_BY_CATEGORY_QUERY, {
       categorySlug,
-      locale,
+      locale: "vi",
     }),
   ]);
 
@@ -58,7 +53,7 @@ export default async function CategoryPage({
     <div className="mx-auto max-w-[1320px] px-8 py-20 sm:px-12 md:px-20 md:py-28 lg:px-28">
       <div className="mx-auto mb-16 max-w-3xl text-center md:mb-24">
         <p className="mb-5 text-[11px] font-bold uppercase tracking-[0.24em] text-black/35">
-          Hoa Nêu Collection
+          Bộ Sưu Tập Hoa Nêu
         </p>
         <h1 className="font-serif text-4xl leading-tight text-black md:text-6xl">
           {category?.title || categorySlug}
@@ -73,7 +68,7 @@ export default async function CategoryPage({
       <Suspense
         fallback={
           <p className="text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-black/40">
-            {t("showingResults", { count: 0 })}
+            Hiển thị 0 sản phẩm
           </p>
         }
       >

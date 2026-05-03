@@ -1,54 +1,77 @@
 "use client";
 
-import { Link, usePathname } from "@/i18n/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { SOCIAL_LINKS } from "@lib/constants";
-import { BrandLogo } from "./brand-logo";
 
-export function Footer() {
+interface FooterProps {
+  settings?: {
+    shopName?: string;
+    instagramUrl?: string;
+    facebookUrl?: string;
+    phone?: string;
+    address?: string;
+  } | null;
+}
+
+export function Footer({ settings }: FooterProps) {
   const pathname = usePathname();
   const isOrderPage = pathname === "/dat-hoa";
+  const shopName = settings?.shopName || "Hoa Nêu";
+  const instagramUrl = settings?.instagramUrl || SOCIAL_LINKS.instagram;
+  const facebookUrl = settings?.facebookUrl || SOCIAL_LINKS.facebook;
+  const phone = settings?.phone;
+  const address = settings?.address;
 
   if (isOrderPage) {
     return (
       <footer className="border-t border-black/10 bg-white text-black">
-        <div className="mx-auto grid max-w-[1500px] grid-cols-1 gap-12 px-8 py-20 md:grid-cols-4">
+        <div className="mx-auto grid max-w-[1500px] grid-cols-1 gap-10 px-8 py-12 md:grid-cols-4">
           <div>
-            <BrandLogo className="h-14 w-14" />
-            <p className="mt-7 text-[13px] font-medium uppercase leading-6 tracking-[0.16em] text-black/50">
-              Floral Design Studio
+            <p className="font-serif text-[1.7rem] italic leading-none text-black">
+              {shopName}
+            </p>
+            <p className="mt-5 text-[13px] font-medium uppercase leading-6 tracking-[0.16em] text-black/50">
+              Studio Thiết Kế Hoa
               <br />
-              Saigon, Vietnam
+              Sài Gòn, Việt Nam
             </p>
           </div>
           <nav className="flex flex-col gap-4 text-base text-black/75">
             <Link href="/dat-hoa" className="hover:text-hoa-red">
-              Shop Flowers
+              Đặt Hoa
             </Link>
             <Link href="/hoa-cuoi-cam-tay" className="hover:text-hoa-red">
-              Events
+              Sự Kiện
             </Link>
             <Link href="/lien-he" className="hover:text-hoa-red">
-              Inquiry
+              Tư Vấn
             </Link>
           </nav>
           <nav className="flex flex-col gap-4 text-base text-black/75">
             <Link href="/lien-he" className="hover:text-hoa-red">
-              Delivery Policy
+              Chính Sách Giao Hàng
             </Link>
             <Link href="/lien-he" className="hover:text-hoa-red">
-              FAQ
+              Câu Hỏi Thường Gặp
             </Link>
             <Link href="/lien-he" className="hover:text-hoa-red">
-              Contact
+              Liên Hệ
             </Link>
           </nav>
           <div>
-            <h4 className="mb-6 text-sm font-extrabold uppercase tracking-[0.18em]">
-              Connect
+            <h4 className="mb-5 text-sm font-extrabold uppercase tracking-[0.18em]">
+              Liên Hệ
             </h4>
-            <div className="flex gap-6 text-base">
+            <div className="flex flex-col gap-3 text-base text-black/75">
+              {phone && (
+                <a href={`tel:${phone.replace(/\s+/g, "")}`} className="hover:text-black">
+                  {phone}
+                </a>
+              )}
+              {address && <p>{address}</p>}
               <a
-                href={SOCIAL_LINKS.instagram}
+                href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-hoa-red"
@@ -56,19 +79,19 @@ export function Footer() {
                 Instagram
               </a>
               <a
-                href={SOCIAL_LINKS.facebook}
+                href={facebookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-hoa-red"
               >
-                Pinterest
+                Facebook
               </a>
             </div>
           </div>
         </div>
-        <div className="mx-auto flex max-w-[1500px] flex-col gap-4 border-t border-black/5 px-8 py-10 text-[11px] uppercase tracking-[0.24em] text-black/35 md:flex-row md:justify-between">
-          <p>© 2024 Hoa Nêu Editorial. All rights reserved.</p>
-          <p>Designed for the floral visionary.</p>
+        <div className="mx-auto flex max-w-[1500px] flex-col gap-3 border-t border-black/5 px-8 py-7 text-[11px] uppercase tracking-[0.24em] text-black/35 md:flex-row md:justify-between">
+          <p>© {new Date().getFullYear()} {shopName}. Bảo lưu mọi quyền.</p>
+          <p>Thiết kế dành cho người yêu hoa.</p>
         </div>
       </footer>
     );
@@ -76,70 +99,75 @@ export function Footer() {
 
   return (
     <footer className="bg-[#181818] text-white">
-      <div className="mx-auto max-w-7xl px-6 py-14 md:px-8 md:py-20">
-        <div className="grid grid-cols-1 gap-10 border-b border-white/10 pb-16 md:grid-cols-[1.2fr_0.8fr_0.8fr] md:gap-16">
+      <div className="mx-auto max-w-7xl px-6 py-10 md:px-8 md:py-12">
+        <div className="grid grid-cols-1 gap-8 border-b border-white/10 pb-10 md:grid-cols-[1.1fr_0.8fr_0.9fr] md:gap-12">
           <div>
-            <BrandLogo className="h-16 w-16" inverted />
-            <p className="mt-6 max-w-sm text-sm leading-7 text-white/55">
-              Floral design studio for bridal bouquets, event flowers and
-              editorial arrangements.
+            <p className="font-serif text-[1.9rem] italic leading-none text-white">
+              {shopName}
+            </p>
+            <p className="mt-4 max-w-sm text-sm leading-7 text-white/55">
+              Studio thiết kế hoa cưới cầm tay, hoa sự kiện và hoa nghệ thuật
+              editorial.
             </p>
           </div>
 
           <div>
             <h4 className="mb-4 text-[10px] font-bold uppercase tracking-[0.2em]">
-              Order Flowers
+              Đặt Hoa
             </h4>
             <nav className="flex flex-col gap-2">
               <Link
                 href="/dat-hoa"
                 className="text-sm uppercase tracking-[0.12em] text-white/65 transition-colors hover:text-white"
               >
-                Gifts & Objects
+                Quà Tặng & Sản Phẩm
               </Link>
               <Link
                 href="/lien-he"
                 className="text-sm uppercase tracking-[0.12em] text-white/65 transition-colors hover:text-white"
               >
-                FAQ & Policies
+                Câu Hỏi & Chính Sách
               </Link>
             </nav>
           </div>
 
           <div>
             <h4 className="mb-4 text-[10px] font-bold uppercase tracking-[0.2em]">
-              About Us
+              Liên Hệ
             </h4>
-            <nav className="flex flex-col gap-2">
-              <Link
-                href="/lien-he"
-                className="text-sm uppercase tracking-[0.12em] text-white/65 transition-colors hover:text-white"
+            <div className="flex flex-col gap-2 text-sm tracking-[0.04em] text-white/65">
+              {phone && (
+                <a href={`tel:${phone.replace(/\s+/g, "")}`} className="transition-colors hover:text-white">
+                  {phone}
+                </a>
+              )}
+              {address && <p>{address}</p>}
+              <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-white"
               >
-                Our Work
-              </Link>
-              <Link
-                href="/lien-he"
-                className="text-sm uppercase tracking-[0.12em] text-white/65 transition-colors hover:text-white"
+                Instagram
+              </a>
+              <a
+                href={facebookUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-white"
               >
-                Press
-              </Link>
-              <Link
-                href="/lien-he"
-                className="text-sm uppercase tracking-[0.12em] text-white/65 transition-colors hover:text-white"
-              >
-                Contact Us
-              </Link>
-            </nav>
+                Facebook
+              </a>
+            </div>
           </div>
         </div>
 
-        <div className="relative py-16 text-center md:py-20">
-          <BrandLogo
-            className="mx-auto h-40 w-40 opacity-[0.06] md:h-56 md:w-56"
-            inverted
-          />
-          <p className="mt-8 text-left text-[10px] uppercase tracking-[0.24em] text-white/35 md:absolute md:bottom-8 md:left-0 md:mt-0">
-            &copy; {new Date().getFullYear()} Hoa Nêu. All rights reserved.
+        <div className="flex flex-col gap-3 py-6 text-center md:flex-row md:items-center md:justify-between">
+          <p className="font-serif text-[1.5rem] italic leading-none text-white/14">
+            {shopName}
+          </p>
+          <p className="text-[10px] uppercase tracking-[0.24em] text-white/35">
+            &copy; {new Date().getFullYear()} {shopName}. Bảo lưu mọi quyền.
           </p>
         </div>
       </div>

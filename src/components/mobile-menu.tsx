@@ -1,18 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
-import { Link, usePathname } from "@/i18n/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { SOCIAL_LINKS } from "@lib/constants";
 
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
-  links: readonly { href: string; labelKey: string }[];
+  links: readonly { href: string; label: string }[];
 }
 
 export function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
-  const t = useTranslations("nav");
   const pathname = usePathname();
   const [visible, setVisible] = useState(false);
   const [animating, setAnimating] = useState(false);
@@ -66,7 +65,7 @@ export function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
           <button
             onClick={onClose}
             className="flex h-10 w-10 items-center justify-center border border-black/15 text-black transition-colors hover:bg-black hover:text-white"
-            aria-label="Close menu"
+            aria-label="Đóng menu"
           >
             <svg
               width="18"
@@ -112,7 +111,7 @@ export function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
                     : "text-black/78 group-hover:text-black"
                 }`}
               >
-                {t(link.labelKey)}
+                {link.label}
               </span>
             </Link>
           ))}
@@ -120,7 +119,7 @@ export function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
 
         <div className="border-t border-black/10 pt-7">
           <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.24em] text-black/35">
-            Connect
+            Kết Nối
           </p>
           <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-black/55">
             <a
