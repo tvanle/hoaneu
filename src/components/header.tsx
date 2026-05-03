@@ -28,15 +28,7 @@ export function Header() {
         {isHomePage ? (
           <div className="px-6 md:px-10">
             <div className="grid h-16 grid-cols-[1fr_auto_1fr] items-center gap-4">
-              <div className="justify-self-start">
-                <button
-                  onClick={() => setIsMobileMenuOpen(true)}
-                  className="p-2"
-                  aria-label="Menu"
-                >
-                  <MenuIcon />
-                </button>
-              </div>
+              <div className="justify-self-start" />
 
               <Link href="/" className="justify-self-center" aria-label="Hoa Nêu">
                 <BrandLogo className="h-12 w-12" priority tone="red" />
