@@ -6,7 +6,6 @@ import { SectionHeader } from "@/components/section-header";
 import { HeroSection } from "@/components/hero-section";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { ProductCard } from "@/components/product-card";
-import { urlForImage } from "@sanity/lib/image";
 
 interface ProductSummary {
   _id: string;
@@ -28,11 +27,7 @@ export default async function HomePage() {
   ]);
 
   const products = (bestSellers || []) as ProductSummary[];
-  const featureProduct = products[0];
   const bestSellerProducts = products.slice(1, 6);
-  const featureImageUrl = featureProduct?.mainImage?.asset
-    ? urlForImage(featureProduct.mainImage)?.width(720).height(720).url()
-    : null;
 
   return (
     <>
@@ -59,22 +54,17 @@ export default async function HomePage() {
 
       <ScrollReveal>
         <section className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-[0.9fr_1.1fr] md:py-28">
-          <div className="relative mx-auto aspect-square w-full max-w-md overflow-hidden rounded-full bg-[#111418]">
-            {featureImageUrl ? (
+          <div className="relative mx-auto w-full max-w-[28rem]">
+            <div className="relative aspect-[0.75] overflow-hidden rounded-[1.75rem] bg-[#f1f1eb]">
               <Image
-                src={featureImageUrl}
-                alt={
-                  featureProduct?.mainImage?.alt ||
-                  featureProduct?.title ||
-                  "Hoa Nêu"
-                }
+                src="/homepage-subcap.jpg"
+                alt="Bó hoa cưới trắng Hoa Nêu"
                 fill
-                sizes="(max-width: 768px) 80vw, 420px"
+                sizes="(max-width: 768px) 86vw, 420px"
                 className="object-cover"
+                priority
               />
-            ) : (
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_45%_45%,#ffd7cf_0,#d74c62_20%,#18322e_45%,#111418_70%)]" />
-            )}
+            </div>
           </div>
           <div>
             <div className="mb-8 flex justify-end">

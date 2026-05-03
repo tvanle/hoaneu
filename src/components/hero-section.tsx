@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { urlForImage } from "@sanity/lib/image";
 import { BrandLogo } from "./brand-logo";
 
 interface HeroSectionProps {
@@ -13,38 +12,23 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({ title, subtitle, image }: HeroSectionProps) {
-  const imageUrl = image?.asset
-    ? urlForImage(image)?.width(1200).height(1400).url()
-    : null;
-
   return (
     <section className="grid min-h-[calc(100vh-56px)] grid-cols-1 pt-14 md:grid-cols-2">
       <div className="relative min-h-[58vh] overflow-hidden bg-[#1f3431] md:min-h-[calc(100vh-56px)]">
-        {imageUrl ? (
-          <Image
-            src={imageUrl}
-            alt={image?.alt || title}
-            fill
-            priority
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover opacity-90"
-          />
-        ) : (
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,#ffe4dd_0,#e9a899_18%,#35584f_38%,#1f3431_68%)]" />
-        )}
+        <Image
+          src="/homepage-cap.jpg"
+          alt={image?.alt || title}
+          fill
+          priority
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover opacity-90"
+        />
         <div className="absolute inset-0 bg-black/18" />
         <BrandLogo
           className="absolute left-8 top-8 h-10 w-10 opacity-60"
           inverted
           priority
         />
-        <div className="absolute left-8 right-8 top-[17%] md:left-10 md:right-10">
-          <p className="font-serif text-[clamp(3.5rem,8vw,7.8rem)] leading-[0.78] text-black/80 mix-blend-multiply">
-            Editorial
-            <br />
-            Floral Art.
-          </p>
-        </div>
         <div className="absolute bottom-5 left-5 rounded-full border border-white/40 bg-white/10 px-5 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/80 backdrop-blur">
           Sài Gòn / Toàn Quốc
         </div>
