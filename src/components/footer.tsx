@@ -32,9 +32,9 @@ export function Footer({ settings }: FooterProps) {
               {shopName}
             </p>
             <p className="mt-5 text-[13px] font-medium uppercase leading-6 tracking-[0.16em] text-black/50">
-              Studio Thiết Kế Hoa
+              Floral Design Studio
               <br />
-              Sài Gòn, Việt Nam
+              Saigon, Vietnam
             </p>
           </div>
           <nav className="flex flex-col gap-4 text-base text-black/75">
@@ -90,8 +90,8 @@ export function Footer({ settings }: FooterProps) {
           </div>
         </div>
         <div className="mx-auto flex max-w-[1500px] flex-col gap-3 border-t border-black/5 px-8 py-7 text-[11px] uppercase tracking-[0.24em] text-black/35 md:flex-row md:justify-between">
-          <p>© {new Date().getFullYear()} {shopName}. Bảo lưu mọi quyền.</p>
-          <p>Thiết kế dành cho người yêu hoa.</p>
+          <p>© {new Date().getFullYear()} {shopName}. All rights reserved.</p>
+          <p>Designed for flower lovers.</p>
         </div>
       </footer>
     );
@@ -106,8 +106,7 @@ export function Footer({ settings }: FooterProps) {
               {shopName}
             </p>
             <p className="mt-4 max-w-sm text-sm leading-7 text-white/55">
-              Studio thiết kế hoa cưới cầm tay, hoa sự kiện và hoa nghệ thuật
-              editorial.
+              Floral Design Studio
             </p>
           </div>
 
@@ -167,7 +166,7 @@ export function Footer({ settings }: FooterProps) {
             {shopName}
           </p>
           <p className="text-[10px] uppercase tracking-[0.24em] text-white/35">
-            &copy; {new Date().getFullYear()} {shopName}. Bảo lưu mọi quyền.
+            &copy; {new Date().getFullYear()} {shopName}. All rights reserved.
           </p>
         </div>
       </div>

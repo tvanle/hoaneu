@@ -59,13 +59,15 @@ export function ProductCard({
           </div>
         )}
       </div>
-      <h3 className="mx-auto mb-2 max-w-[11rem] font-serif text-[1.35rem] leading-[1.08] text-black transition-colors duration-300 group-hover:text-hoa-red md:text-[1.45rem]">
+      <h3 className="mx-auto mb-2 max-w-[11.5rem] font-serif text-[1.35rem] leading-[1.08] text-black transition-colors duration-300 group-hover:text-hoa-red md:text-[1.5rem]">
         {title}
       </h3>
       {priceNote && (
-        <p className="mb-1.5 text-[11px] leading-5 text-black/55">{priceNote}</p>
+        <p className="mb-1.5 text-[11px] leading-5 text-black/55 md:text-[12px]">
+          {priceNote}
+        </p>
       )}
-      <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-hoa-red">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-hoa-red md:text-[12px]">
         {price.toLocaleString("vi-VN")} VND
       </p>
     </Link>

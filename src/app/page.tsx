@@ -72,7 +72,7 @@ export default async function HomePage() {
                 href="/san-pham-khac"
                 className="rounded-full bg-black px-6 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white hover:bg-hoa-red"
               >
-                Xem các tác phẩm
+                View Our Work
               </Link>
             </div>
             <p className="max-w-xl font-serif text-2xl italic leading-snug text-black md:text-3xl">
@@ -97,7 +97,7 @@ export default async function HomePage() {
             href="/lien-he"
             className="mt-10 inline-flex rounded-full bg-white px-8 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-black shadow-sm hover:bg-black hover:text-white"
           >
-            Xem báo chí
+            Press
           </Link>
         </section>
       </ScrollReveal>
@@ -105,7 +105,7 @@ export default async function HomePage() {
       {bestSellerProducts.length > 0 && (
         <ScrollReveal>
           <section className="mx-auto max-w-6xl px-6 py-20 md:px-8 md:py-28 lg:px-10">
-            <SectionHeader title="Best Seller Tuần Này" />
+            <SectionHeader title="Best Sellers This Week" />
             <div className="grid grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-3">
               {bestSellerProducts.map((product, index) => (
                 <ScrollReveal key={product._id} delay={index * 100}>
@@ -125,7 +125,7 @@ export default async function HomePage() {
                 href="/san-pham-khac"
                 className="inline-flex rounded-full bg-hoa-red px-9 py-4 text-[10px] font-bold uppercase tracking-[0.18em] text-white hover:bg-hoa-red-dark"
               >
-                Xem Tất Cả sản phẩm
+                Shop All
               </Link>
             </div>
           </section>
