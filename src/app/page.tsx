@@ -43,7 +43,10 @@ export default async function HomePage() {
       />
 
       <ScrollReveal>
-        <section className="bg-[#eef3f7] px-6 py-20 text-center md:py-28">
+        <section
+          id="about-home"
+          className="bg-[#eef3f7] px-6 py-20 text-center md:py-28"
+        >
           <h2 className="mx-auto max-w-3xl font-serif text-4xl italic leading-[0.98] text-black md:text-6xl">
             Hoa Nêu là một studio thiết kế hoa cưới cao cấp, mang phong cách
             tối giản và hiện đại.

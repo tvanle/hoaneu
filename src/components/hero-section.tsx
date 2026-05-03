@@ -60,15 +60,30 @@ export function HeroSection({ title, subtitle, image }: HeroSectionProps) {
             className="mx-auto h-28 w-28 md:h-40 md:w-40"
             priority
           />
-          <nav className="mt-8 flex flex-col items-center gap-3 font-serif text-sm italic text-black/60">
-            <Link href="/san-pham-khac" className="hover:text-hoa-red">
-              Sản Phẩm
+          <nav className="mt-8 flex flex-col items-center gap-3 font-serif text-sm italic text-black/70">
+            <Link
+              href="/san-pham-khac"
+              className="hover:text-hoa-red"
+            >
+              Our Work
             </Link>
-            <Link href="/dat-hoa" className="hover:text-hoa-red">
-              Đặt Hoa
+            <Link
+              href="/dat-hoa"
+              className="hover:text-hoa-red"
+            >
+              Order Flowers
             </Link>
-            <Link href="/lien-he" className="hover:text-hoa-red">
-              Liên Hệ
+            <Link
+              href="/#about-home"
+              className="hover:text-hoa-red"
+            >
+              About Us
+            </Link>
+            <Link
+              href="/lien-he"
+              className="hover:text-hoa-red"
+            >
+              Contact
             </Link>
           </nav>
           <p className="mx-auto mt-8 max-w-sm text-sm leading-6 text-black/55">
