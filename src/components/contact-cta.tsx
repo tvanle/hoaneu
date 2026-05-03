@@ -20,7 +20,7 @@ export function ContactCta({ productName, productUrl }: ContactCtaProps) {
         href={SOCIAL_LINKS.instagram}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex w-full items-center justify-center gap-2 bg-hoa-red py-4 text-[11px] font-bold uppercase tracking-[0.2em] text-white transition-colors hover:bg-hoa-red-dark"
+        className="flex w-full items-center justify-center gap-2 bg-hoa-red px-5 py-3.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition-colors hover:bg-hoa-red-dark"
       >
         Liên hệ tư vấn ↗
       </a>
@@ -28,7 +28,7 @@ export function ContactCta({ productName, productUrl }: ContactCtaProps) {
         href={messengerUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="block text-center text-[10px] font-medium uppercase tracking-[0.22em] text-black/35 transition-colors hover:text-hoa-red"
+        className="block text-center text-[9px] font-medium uppercase tracking-[0.2em] text-black/35 transition-colors hover:text-hoa-red"
       >
         Vui lòng đặt trước ít nhất 7 ngày
       </a>

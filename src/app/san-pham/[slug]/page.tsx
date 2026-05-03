@@ -71,8 +71,8 @@ export default async function ProductDetailPage({
   ];
 
   return (
-    <div className="mx-auto max-w-[1500px] px-6 py-12 md:px-8 md:py-20">
-      <nav className="mb-8 flex flex-wrap items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-black/35">
+    <div className="mx-auto max-w-6xl px-6 py-10 md:px-8 md:py-16 lg:px-10">
+      <nav className="mb-7 flex flex-wrap items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-black/35">
         <Link href="/" className="transition-colors hover:text-hoa-black">
           Trang Chủ
         </Link>
@@ -91,25 +91,25 @@ export default async function ProductDetailPage({
         <span className="text-black/65">{product.title}</span>
       </nav>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.18fr_0.82fr] lg:gap-8">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.05fr_0.75fr] lg:gap-10 xl:gap-12">
         <ProductImageGallery
           mainImage={product.mainImage}
           images={product.images}
           title={product.title}
         />
 
-        <div className="lg:pt-10">
+        <div className="lg:pt-6">
           {product.category && (
             <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.22em] text-black/35">
               {product.category.title}
             </p>
           )}
-          <h1 className="font-serif text-4xl leading-[0.96] text-black md:text-6xl">
+          <h1 className="font-serif text-3xl leading-[0.98] text-black md:text-5xl">
             {product.title}
           </h1>
-          <p className="mt-6 font-serif text-3xl text-hoa-red">
+          <p className="mt-5 font-serif text-2xl text-hoa-red md:text-[2rem]">
             {product.priceNote && (
-              <span className="mr-2 font-sans text-sm text-black/45">
+              <span className="mr-2 font-sans text-xs text-black/45 md:text-sm">
                 {product.priceNote}
               </span>
             )}
@@ -117,22 +117,22 @@ export default async function ProductDetailPage({
           </p>
 
           {product.description && (
-            <div className="mt-5 max-w-xl text-sm leading-7 text-black/60">
+            <div className="mt-5 max-w-lg text-[13px] leading-7 text-black/60">
               <PortableText value={product.description} />
             </div>
           )}
 
-          <div className="mt-14 border-y border-black/10 py-6">
-            <div className="space-y-7">
+          <div className="mt-10 border-y border-black/10 py-5">
+            <div className="space-y-5">
               {detailRows.map((row) => (
                 <div
                   key={row.label}
-                  className="grid grid-cols-[120px_1fr] gap-6 text-sm"
+                  className="grid grid-cols-[104px_1fr] gap-5 text-sm"
                 >
                   <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-black/35">
                     {row.label}
                   </p>
-                  <p className="capitalize leading-6 text-black/70">
+                  <p className="capitalize text-[13px] leading-6 text-black/70">
                     {row.value}
                   </p>
                 </div>
@@ -140,8 +140,8 @@ export default async function ProductDetailPage({
             </div>
           </div>
 
-          <div className="mt-10 border border-black/10 bg-black/[0.025] p-6">
-            <p className="font-serif text-base italic leading-7 text-black/60">
+          <div className="mt-8 border border-black/10 bg-black/[0.025] p-5 md:p-6">
+            <p className="font-serif text-[15px] italic leading-7 text-black/60">
               &quot;Mỗi thiết kế {product.title} được tuyển chọn theo mùa hoa,
               xử lý thủ công và hoàn thiện theo tinh thần tối giản của Hoa
               Nêu.&quot;
@@ -157,20 +157,20 @@ export default async function ProductDetailPage({
         </div>
       </div>
 
-      <section className="mt-24 grid grid-cols-1 gap-12 border-t border-black/10 pt-16 md:grid-cols-[1fr_0.8fr] md:gap-24">
+      <section className="mt-20 grid grid-cols-1 gap-10 border-t border-black/10 pt-12 md:grid-cols-[1fr_0.8fr] md:gap-16 md:pt-14">
         <div>
-          <h2 className="mb-8 font-serif text-xl">Nghệ Thuật & Tuyển Chọn</h2>
-          <p className="max-w-xl text-sm leading-7 text-black/60">
+          <h2 className="mb-6 font-serif text-[1.15rem]">Nghệ Thuật & Tuyển Chọn</h2>
+          <p className="max-w-xl text-[13px] leading-7 text-black/60">
             Hoa Nêu lựa chọn hoa theo mùa, kiểm tra độ nở và phối màu thủ công
             để mỗi thiết kế giữ được sự cân bằng giữa form dáng, chất liệu và
             cảm xúc của dịp sử dụng.
           </p>
         </div>
-        <div className="bg-black/[0.04] p-8">
+        <div className="bg-black/[0.04] p-6 md:p-7">
           <h3 className="mb-6 text-[11px] font-semibold uppercase tracking-[0.24em] text-black/45">
             Lưu ý & bảo quản
           </h3>
-          <ul className="space-y-4 text-sm leading-7 text-black/60">
+          <ul className="space-y-3 text-[13px] leading-7 text-black/60">
             <li>Hoa tươi là sản phẩm tự nhiên, độ nở có thể thay đổi nhẹ.</li>
             <li>Tránh nắng trực tiếp hoặc nhiệt độ quá cao.</li>
             <li>Giữ cuống hoa ẩm và đặt ở nơi thoáng mát.</li>
@@ -180,13 +180,13 @@ export default async function ProductDetailPage({
       </section>
 
       {relatedProducts && relatedProducts.length > 0 && (
-        <section className="mt-24 border-t border-black/10 pt-16 md:mt-28 md:pt-20">
+        <section className="mt-20 border-t border-black/10 pt-12 md:mt-24 md:pt-16">
           <div className="mb-10 flex items-end justify-between gap-6">
             <div>
               <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.24em] text-hoa-red">
                 Bộ Sưu Tập
               </p>
-              <h2 className="font-serif text-4xl md:text-5xl">
+              <h2 className="font-serif text-3xl md:text-4xl">
                 Khám Phá Thêm
               </h2>
             </div>
@@ -201,7 +201,7 @@ export default async function ProductDetailPage({
               Xem Bộ Sưu Tập
             </Link>
           </div>
-          <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
             {relatedProducts.map(
               (related: {
                 _id: string;

@@ -31,7 +31,7 @@ export function ProductImageGallery({
 
   return (
     <div>
-      <div className="mb-4 aspect-square overflow-hidden bg-hoa-muted">
+      <div className="mb-3 aspect-square overflow-hidden bg-hoa-muted">
         {activeUrl ? (
           <Image
             src={activeUrl}
@@ -49,7 +49,7 @@ export function ProductImageGallery({
       </div>
 
       {allImages.length > 1 && (
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid grid-cols-4 gap-1.5 md:gap-2">
           {allImages.map((img, idx) => {
             const thumbCdnUrl = img?.asset
               ? urlForImage(img)?.width(200).height(200).url()

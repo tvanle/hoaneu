@@ -53,7 +53,7 @@ export default async function OrderFlowersPage() {
       </section>
 
       {products && products.length > 0 && (
-        <section className="mx-auto max-w-[1500px] px-6 pb-24 md:px-8 md:pb-32">
+        <section className="mx-auto max-w-6xl px-6 pb-24 md:px-8 md:pb-32 lg:px-10">
           <div className="grid grid-cols-1 gap-x-5 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
             {products.map(
               (

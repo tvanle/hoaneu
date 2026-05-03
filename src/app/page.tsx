@@ -111,7 +111,7 @@ export default async function HomePage() {
 
       {bestSellerProducts.length > 0 && (
         <ScrollReveal>
-          <section className="mx-auto max-w-7xl px-6 py-20 md:px-8 md:py-28">
+          <section className="mx-auto max-w-6xl px-6 py-20 md:px-8 md:py-28 lg:px-10">
             <SectionHeader title="Best Seller Tuần Này" />
             <div className="grid grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-3">
               {bestSellerProducts.map((product, index) => (

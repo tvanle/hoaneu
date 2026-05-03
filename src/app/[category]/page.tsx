@@ -50,7 +50,7 @@ export default async function CategoryPage({
   ]);
 
   return (
-    <div className="mx-auto max-w-[1320px] px-8 py-20 sm:px-12 md:px-20 md:py-28 lg:px-28">
+    <div className="mx-auto max-w-6xl px-6 py-20 sm:px-8 md:px-10 md:py-28 lg:px-12">
       <div className="mx-auto mb-16 max-w-3xl text-center md:mb-24">
         <p className="mb-5 text-[11px] font-bold uppercase tracking-[0.24em] text-black/35">
           Bộ Sưu Tập Hoa Nêu

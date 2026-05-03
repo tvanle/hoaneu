@@ -174,7 +174,7 @@ export function FilterableProductList({
 
       <div>
         {filtered.length > 0 ? (
-          <div className="grid grid-cols-2 gap-x-7 gap-y-16 md:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-14 md:grid-cols-3 xl:grid-cols-3 2xl:gap-x-8">
             {filtered.map((product) => (
               <ProductCard
                 key={product._id}
