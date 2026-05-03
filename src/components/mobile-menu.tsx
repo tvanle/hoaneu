@@ -59,7 +59,7 @@ export function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
             href="/"
             onClick={onClose}
             aria-label="Hoa Nêu"
-            className="font-serif text-[2.2rem] leading-none tracking-[-0.03em] text-black italic"
+            className="font-serif text-[1.8rem] leading-none tracking-[-0.03em] text-black italic"
           >
             HoaNêu
           </Link>
@@ -106,7 +106,7 @@ export function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
                 }`}
               />
               <span
-                className={`font-serif text-[2rem] leading-[1.15] transition-colors md:text-[2.15rem] ${
+                className={`font-serif text-[1.3rem] leading-[1.15] italic transition-colors md:text-[1.45rem] ${
                   pathname === link.href
                     ? "text-black"
                     : "text-black/78 group-hover:text-black"
