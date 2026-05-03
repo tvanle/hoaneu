@@ -81,7 +81,7 @@ export function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
           </button>
         </div>
 
-        <nav className="flex flex-1 flex-col justify-center gap-2 py-10">
+        <nav className="flex flex-1 flex-col justify-start gap-2 py-7">
           {links.map((link, i) => (
             <Link
               key={link.href}
