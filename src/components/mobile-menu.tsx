@@ -58,7 +58,7 @@ export function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
             href="/"
             onClick={onClose}
             aria-label="Hoa Nêu"
-            className="font-serif text-[1.95rem] leading-none tracking-[-0.03em] text-black italic"
+            className="font-serif text-[1.7rem] leading-none tracking-[-0.02em] text-black italic"
           >
             Hoa Nêu
           </Link>
@@ -81,13 +81,13 @@ export function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
           </button>
         </div>
 
-        <nav className="flex flex-1 flex-col justify-center gap-3 py-10">
+        <nav className="flex flex-1 flex-col justify-center gap-2 py-10">
           {links.map((link, i) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={onClose}
-              className={`group grid grid-cols-[1.25rem_1fr] items-center gap-4 py-1.5 transition-all ${
+              className={`group grid grid-cols-[0.9rem_1fr] items-center gap-3 py-1 transition-all ${
                 animating
                   ? "translate-x-0 opacity-100"
                   : "-translate-x-4 opacity-0"
@@ -98,14 +98,14 @@ export function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
               }}
             >
               <span
-                className={`h-px w-6 transition-colors ${
+                className={`h-px w-4 transition-colors ${
                   pathname === link.href
                     ? "bg-black"
-                    : "bg-transparent group-hover:bg-black/30"
+                    : "bg-transparent group-hover:bg-black/20"
                 }`}
               />
               <span
-                className={`font-serif text-[1.45rem] leading-[1.2] italic transition-colors md:text-[1.6rem] ${
+                className={`font-serif text-[1.18rem] leading-[1.18] italic tracking-[-0.01em] transition-colors md:text-[1.28rem] ${
                   pathname === link.href
                     ? "text-black"
                     : "text-black/78 group-hover:text-black"
