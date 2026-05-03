@@ -134,7 +134,7 @@ export function FilterableProductList({
 
   return (
     <>
-      <div className="mb-14 flex items-center justify-between border-y border-black/10 py-5">
+      <div className="mb-12 flex items-center justify-between border-y border-black/10 py-5">
         <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-black/40">
           {t("showingResults", { count: filtered.length })}
         </p>
@@ -176,7 +176,7 @@ export function FilterableProductList({
 
       <div>
         {filtered.length > 0 ? (
-          <div className="grid grid-cols-1 gap-x-8 gap-y-24 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-x-7 gap-y-16 md:grid-cols-3 xl:grid-cols-4">
             {filtered.map((product) => (
               <ProductCard
                 key={product._id}

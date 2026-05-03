@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
-import { BrandLogo } from "./brand-logo";
+import { Link, usePathname } from "@/i18n/navigation";
+import { SOCIAL_LINKS } from "@lib/constants";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -13,6 +13,7 @@ interface MobileMenuProps {
 
 export function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
   const t = useTranslations("nav");
+  const pathname = usePathname();
   const [visible, setVisible] = useState(false);
   const [animating, setAnimating] = useState(false);
 
@@ -42,54 +43,108 @@ export function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
   return (
     <div className="fixed inset-0 z-50">
       <div
-        className={`absolute inset-0 bg-black/30 transition-opacity duration-300 ${
+        className={`absolute inset-0 bg-black/25 transition-opacity duration-300 ${
           animating ? "opacity-100" : "opacity-0"
         }`}
         onClick={onClose}
         aria-hidden
       />
-      <div
-        className={`absolute inset-y-0 right-0 w-full max-w-sm bg-white shadow-xl transition-transform duration-300 ease-out ${
-          animating ? "translate-x-0" : "translate-x-full"
+      <aside
+        className={`absolute inset-y-0 left-0 flex w-full max-w-[380px] flex-col border-r border-black/10 bg-white px-8 py-8 shadow-xl transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] md:px-10 ${
+          animating ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between p-4 border-b">
-          <BrandLogo className="h-11 w-11" />
-          <button onClick={onClose} className="p-2" aria-label="Close menu">
+        <div className="flex items-start justify-between border-b border-black/10 pb-8">
+          <Link
+            href="/"
+            onClick={onClose}
+            aria-label="Hoa Nêu"
+            className="font-serif text-[2.2rem] leading-none tracking-[-0.03em] text-black italic"
+          >
+            HoaNêu
+          </Link>
+          <button
+            onClick={onClose}
+            className="flex h-10 w-10 items-center justify-center border border-black/15 text-black transition-colors hover:bg-black hover:text-white"
+            aria-label="Close menu"
+          >
             <svg
-              width="24"
-              height="24"
+              width="18"
+              height="18"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="1.5"
             >
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </button>
         </div>
-        <nav className="p-6 flex flex-col gap-1">
+
+        <nav className="flex flex-1 flex-col justify-center gap-2 py-10">
           {links.map((link, i) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={onClose}
-              className={`text-lg uppercase tracking-wider text-hoa-gray hover:text-hoa-black transition-all py-3 hover:pl-2 ${
+              className={`group grid grid-cols-[1.25rem_1fr] items-center gap-4 py-2 transition-all ${
                 animating
-                  ? "opacity-100 translate-x-0"
-                  : "opacity-0 translate-x-4"
+                  ? "translate-x-0 opacity-100"
+                  : "-translate-x-4 opacity-0"
               }`}
               style={{
-                transitionDelay: animating ? `${100 + i * 50}ms` : "0ms",
-                transitionDuration: "300ms",
+                transitionDelay: animating ? `${90 + i * 45}ms` : "0ms",
+                transitionDuration: "420ms",
               }}
             >
-              {t(link.labelKey)}
+              <span
+                className={`h-px w-6 transition-colors ${
+                  pathname === link.href
+                    ? "bg-black"
+                    : "bg-transparent group-hover:bg-black/30"
+                }`}
+              />
+              <span
+                className={`font-serif text-[2rem] leading-[1.15] transition-colors md:text-[2.15rem] ${
+                  pathname === link.href
+                    ? "text-black"
+                    : "text-black/78 group-hover:text-black"
+                }`}
+              >
+                {t(link.labelKey)}
+              </span>
             </Link>
           ))}
         </nav>
-      </div>
+
+        <div className="border-t border-black/10 pt-7">
+          <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.24em] text-black/35">
+            Connect
+          </p>
+          <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-black/55">
+            <a
+              href={SOCIAL_LINKS.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-black"
+            >
+              Instagram
+            </a>
+            <a
+              href={SOCIAL_LINKS.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-black"
+            >
+              Facebook
+            </a>
+            <a href="tel:0974594751" className="hover:text-black">
+              0974 594 751
+            </a>
+          </div>
+        </div>
+      </aside>
     </div>
   );
 }
