@@ -61,7 +61,7 @@ export function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
             aria-label="Hoa Nêu"
             className="font-serif text-[1.8rem] leading-none tracking-[-0.03em] text-black italic"
           >
-            HoaNêu
+            Hoa Nêu
           </Link>
           <button
             onClick={onClose}

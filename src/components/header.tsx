@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { LanguageSwitcher } from "./language-switcher";
 import { MobileMenu } from "./mobile-menu";
-import { BrandLogo } from "./brand-logo";
 
 const NAV_LINKS = [
   { href: "/", labelKey: "home" },
@@ -31,7 +30,9 @@ export function Header() {
               <div className="justify-self-start" />
 
               <Link href="/" className="justify-self-center" aria-label="Hoa Nêu">
-                <BrandLogo className="h-12 w-12" priority tone="red" />
+                <span className="font-serif text-[1.7rem] leading-none tracking-[-0.03em] text-black italic">
+                  Hoa Nêu
+                </span>
               </Link>
 
               <div className="justify-self-end">
@@ -57,11 +58,9 @@ export function Header() {
                 className="justify-self-center"
                 aria-label="Hoa Nêu"
               >
-                <BrandLogo
-                  className="h-20 w-20 md:h-24 md:w-24"
-                  priority
-                  tone="red"
-                />
+                <span className="font-serif text-[1.9rem] leading-none tracking-[-0.03em] text-black italic md:text-[2.2rem]">
+                  Hoa Nêu
+                </span>
               </Link>
 
               <div className="justify-self-end text-black">
