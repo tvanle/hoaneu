@@ -39,6 +39,7 @@ export default async function HomePage({
 
   const products = (bestSellers || []) as ProductSummary[];
   const featureProduct = products[0];
+  const bestSellerProducts = products.slice(1, 6);
   const featureImageUrl = featureProduct?.mainImage?.asset
     ? urlForImage(featureProduct.mainImage)?.width(720).height(720).url()
     : null;
@@ -124,12 +125,12 @@ export default async function HomePage({
         </section>
       </ScrollReveal>
 
-      {products.length > 0 && (
+      {bestSellerProducts.length > 0 && (
         <ScrollReveal>
           <section className="mx-auto max-w-7xl px-6 py-20 md:px-8 md:py-28">
             <SectionHeader title={t("bestSellerWeek")} />
-            <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-              {products.slice(0, 2).map((product, index) => (
+            <div className="grid grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-3">
+              {bestSellerProducts.map((product, index) => (
                 <ScrollReveal key={product._id} delay={index * 100}>
                   <ProductCard
                     title={product.title}
