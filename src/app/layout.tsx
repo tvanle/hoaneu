@@ -1,7 +1,6 @@
 import "./globals.css";
 import { Playfair_Display, Inter } from "next/font/google";
-import { safeFetch } from "@sanity/lib/client";
-import { SITE_SETTINGS_QUERY } from "@lib/queries/products";
+import { getSiteSettings } from "@db/queries/settings";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 
@@ -30,7 +29,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const settings = await safeFetch(SITE_SETTINGS_QUERY, { locale: "vi" });
+  const settings = await getSiteSettings();
 
   return (
     <html

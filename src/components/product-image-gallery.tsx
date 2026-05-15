@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { urlForImage, watermarkedUrl } from "@sanity/lib/image";
+import { watermarkedUrl } from "@lib/image";
 
 interface GalleryImage {
   asset?: { url?: string };
@@ -10,7 +10,7 @@ interface GalleryImage {
 }
 
 interface ProductImageGalleryProps {
-  mainImage: GalleryImage;
+  mainImage?: GalleryImage;
   images?: GalleryImage[];
   title: string;
 }
@@ -20,14 +20,15 @@ export function ProductImageGallery({
   images,
   title,
 }: ProductImageGalleryProps) {
-  const allImages = [mainImage, ...(images || [])].filter((img) => img?.asset);
+  const allImages = [mainImage, ...(images || [])].filter(
+    (img) => img?.asset?.url,
+  );
   const [activeIndex, setActiveIndex] = useState(0);
 
   const activeImage = allImages[activeIndex];
-  const activeCdnUrl = activeImage?.asset
-    ? urlForImage(activeImage)?.width(800).height(800).url()
+  const activeUrl = activeImage?.asset?.url
+    ? watermarkedUrl(activeImage.asset.url, 800, 800)
     : null;
-  const activeUrl = activeCdnUrl ? watermarkedUrl(activeCdnUrl, 800, 800) : null;
 
   return (
     <div>
@@ -51,11 +52,8 @@ export function ProductImageGallery({
       {allImages.length > 1 && (
         <div className="grid grid-cols-4 gap-1.5 md:gap-2">
           {allImages.map((img, idx) => {
-            const thumbCdnUrl = img?.asset
-              ? urlForImage(img)?.width(200).height(200).url()
-              : null;
-            const thumbUrl = thumbCdnUrl
-              ? watermarkedUrl(thumbCdnUrl, 200, 200)
+            const thumbUrl = img?.asset?.url
+              ? watermarkedUrl(img.asset.url, 200, 200)
               : null;
             return (
               <button

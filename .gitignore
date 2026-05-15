@@ -54,3 +54,14 @@ next-env.d.ts
 
 # os
 Thumbs.db
+
+# plans
+/plans/
+
+# sanity build output
+/sanity/dist/
+/sanity/hoaneu/
+
+# non-code files
+public/ktra.jpg
+public/tieuluan.v03_08.20_namdh.pdf

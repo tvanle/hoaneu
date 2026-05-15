@@ -1,9 +1,6 @@
 import Image from "next/image";
-import { safeFetch } from "@sanity/lib/client";
-import { SITE_SETTINGS_QUERY } from "@lib/queries/products";
+import { getSiteSettings } from "@db/queries/settings";
 import { SOCIAL_LINKS } from "@lib/constants";
-import { urlForImage } from "@sanity/lib/image";
-import type { SiteSettings } from "@lib/types";
 import { BrandLogo } from "@/components/brand-logo";
 
 export const metadata = {
@@ -11,17 +8,13 @@ export const metadata = {
 };
 
 export default async function ContactPage() {
-  const settings = await safeFetch<SiteSettings>(SITE_SETTINGS_QUERY, {
-    locale: "vi",
-  });
+  const settings = await getSiteSettings();
 
   const address = settings?.address || "160-162 Yên Lãng, Đống Đa, Hà Nội";
   const phone = settings?.phone || "0974 594 751";
   const instagram = settings?.instagramUrl || SOCIAL_LINKS.instagram;
   const facebook = settings?.facebookUrl || SOCIAL_LINKS.facebook;
-  const sideImage = settings?.heroImage?.asset
-    ? urlForImage(settings.heroImage)?.width(760).height(760).url()
-    : null;
+  const sideImage = settings?.heroImage?.asset?.url || null;
 
   return (
     <div className="bg-[#f7f7f6]">

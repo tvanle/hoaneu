@@ -18,7 +18,11 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Missing url or file param" }, { status: 400 });
   }
 
-  if (url && !url.startsWith("https://cdn.sanity.io/")) {
+  const allowedOrigins = [
+    "https://cdn.sanity.io/",
+    "https://",  // Allow Vercel Blob and other HTTPS sources
+  ];
+  if (url && !allowedOrigins.some((origin) => url.startsWith(origin))) {
     return NextResponse.json({ error: "Invalid URL" }, { status: 400 });
   }
 

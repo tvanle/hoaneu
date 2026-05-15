@@ -1,10 +1,4 @@
-import { PortableText } from "@portabletext/react";
-import { safeFetch } from "@sanity/lib/client";
-import {
-  PRODUCT_BY_SLUG_QUERY,
-  RELATED_PRODUCTS_QUERY,
-  ALL_PRODUCT_SLUGS_QUERY,
-} from "@lib/queries/products";
+import { getProductBySlug, getRelatedProducts, getAllProductSlugs } from "@db/queries/products";
 import { ProductImageGallery } from "@/components/product-image-gallery";
 import { ContactCta } from "@/components/contact-cta";
 import { ProductCard } from "@/components/product-card";
@@ -12,9 +6,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-  const slugs = await safeFetch<string[]>(ALL_PRODUCT_SLUGS_QUERY);
-  if (!slugs) return [];
-  return slugs.map((slug: string) => ({ slug }));
+  const slugs = await getAllProductSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -23,10 +16,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const product = await safeFetch(PRODUCT_BY_SLUG_QUERY, {
-    slug,
-    locale: "vi",
-  });
+  const product = await getProductBySlug(slug);
 
   return {
     title: product?.title,
@@ -42,22 +32,17 @@ export default async function ProductDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-
-  const product = await safeFetch(PRODUCT_BY_SLUG_QUERY, {
-    slug,
-    locale: "vi",
-  });
+  const product = await getProductBySlug(slug);
 
   if (!product) {
     notFound();
   }
 
   const relatedProducts = product.category?._id
-    ? await safeFetch(RELATED_PRODUCTS_QUERY, {
-        categoryId: product.category._id,
-        currentId: product._id,
-        locale: "vi",
-      })
+    ? await getRelatedProducts(
+        parseInt(product.category._id, 10),
+        parseInt(product._id, 10),
+      )
     : [];
 
   const productUrl = `https://hoaneu.com/san-pham/${slug}`;
@@ -118,7 +103,7 @@ export default async function ProductDetailPage({
 
           {product.description && (
             <div className="mt-5 max-w-lg text-[13px] leading-7 text-black/60">
-              <PortableText value={product.description} />
+              <p>{product.description}</p>
             </div>
           )}
 
@@ -202,23 +187,15 @@ export default async function ProductDetailPage({
             </Link>
           </div>
           <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-            {relatedProducts.map(
-              (related: {
-                _id: string;
-                title: string;
-                slug: { current: string };
-                price: number;
-                mainImage?: { asset?: { url?: string }; alt?: string };
-              }) => (
-                <ProductCard
-                  key={related._id}
-                  title={related.title}
-                  slug={related.slug.current}
-                  price={related.price}
-                  mainImage={related.mainImage}
-                />
-              ),
-            )}
+            {relatedProducts.map((related) => (
+              <ProductCard
+                key={related._id}
+                title={related.title}
+                slug={related.slug.current}
+                price={related.price}
+                mainImage={related.mainImage}
+              />
+            ))}
           </div>
         </section>
       )}

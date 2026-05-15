@@ -1,33 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
-import { safeFetch } from "@sanity/lib/client";
-import { BEST_SELLERS_QUERY, SITE_SETTINGS_QUERY } from "@lib/queries/products";
+import { getBestSellers } from "@db/queries/products";
+import { getSiteSettings } from "@db/queries/settings";
 import { SectionHeader } from "@/components/section-header";
 import { HeroSection } from "@/components/hero-section";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { ProductCard } from "@/components/product-card";
 
-interface ProductSummary {
-  _id: string;
-  title: string;
-  slug: { current: string };
-  price: number;
-  priceNote?: string;
-  mainImage?: {
-    asset?: { url?: string };
-    alt?: string;
-  };
-  category?: { title?: string };
-}
-
 export default async function HomePage() {
   const [settings, bestSellers] = await Promise.all([
-    safeFetch(SITE_SETTINGS_QUERY, { locale: "vi" }),
-    safeFetch(BEST_SELLERS_QUERY, { locale: "vi", limit: 6 }),
+    getSiteSettings(),
+    getBestSellers(6),
   ]);
 
-  const products = (bestSellers || []) as ProductSummary[];
-  const bestSellerProducts = products.slice(1, 6);
+  const bestSellerProducts = bestSellers.slice(0, 5);
 
   return (
     <>

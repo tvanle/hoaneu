@@ -1,17 +1,12 @@
 import { Suspense } from "react";
-import { safeFetch } from "@sanity/lib/client";
-import {
-  PRODUCTS_BY_CATEGORY_QUERY,
-  CATEGORY_BY_SLUG_QUERY,
-  ALL_CATEGORY_SLUGS_QUERY,
-} from "@lib/queries/products";
-import type { Category, Product } from "@lib/types";
+import { getProductsByCategory, getAllProductSlugs } from "@db/queries/products";
+import { getCategoryBySlug, getAllCategorySlugs } from "@db/queries/categories";
+import type { Product } from "@lib/types";
 import { FilterableProductList } from "@/components/filterable-product-list";
 
 export async function generateStaticParams() {
-  const slugs = await safeFetch<string[]>(ALL_CATEGORY_SLUGS_QUERY);
-  if (!slugs) return [];
-  return slugs.map((slug: string) => ({ category: slug }));
+  const slugs = await getAllCategorySlugs();
+  return slugs.map((slug) => ({ category: slug }));
 }
 
 export async function generateMetadata({
@@ -20,10 +15,7 @@ export async function generateMetadata({
   params: Promise<{ category: string }>;
 }) {
   const { category: categorySlug } = await params;
-  const category = await safeFetch<Category>(CATEGORY_BY_SLUG_QUERY, {
-    slug: categorySlug,
-    locale: "vi",
-  });
+  const category = await getCategoryBySlug(categorySlug);
 
   return {
     title: category?.title || categorySlug,
@@ -39,14 +31,8 @@ export default async function CategoryPage({
   const { category: categorySlug } = await params;
 
   const [category, products] = await Promise.all([
-    safeFetch<Category>(CATEGORY_BY_SLUG_QUERY, {
-      slug: categorySlug,
-      locale: "vi",
-    }),
-    safeFetch<Product[]>(PRODUCTS_BY_CATEGORY_QUERY, {
-      categorySlug,
-      locale: "vi",
-    }),
+    getCategoryBySlug(categorySlug),
+    getProductsByCategory(categorySlug),
   ]);
 
   return (
@@ -72,7 +58,7 @@ export default async function CategoryPage({
           </p>
         }
       >
-        <FilterableProductList products={products || []} />
+        <FilterableProductList products={products as unknown as Product[]} />
       </Suspense>
     </div>
   );

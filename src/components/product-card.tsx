@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { urlForImage, watermarkedUrl } from "@sanity/lib/image";
+import { watermarkedUrl } from "@lib/image";
 
 interface ProductCardProps {
   title: string;
@@ -23,10 +23,9 @@ export function ProductCard({
   priceNote,
   mainImage,
 }: ProductCardProps) {
-  const cdnUrl = mainImage?.asset
-    ? urlForImage(mainImage)?.width(600).height(600).url()
+  const imageUrl = mainImage?.asset?.url
+    ? watermarkedUrl(mainImage.asset.url, 600, 600)
     : null;
-  const imageUrl = cdnUrl ? watermarkedUrl(cdnUrl, 600, 600) : null;
 
   return (
     <Link
