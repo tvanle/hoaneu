@@ -58,6 +58,9 @@ Thumbs.db
 # plans
 /plans/
 
+# crawled data (re-fetchable from Google Sheets)
+/data/
+
 # sanity build output
 /sanity/dist/
 /sanity/hoaneu/
