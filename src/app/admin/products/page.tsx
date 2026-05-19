@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { db } from "@db";
-import { products, productImages, categories } from "@db/schema";
-import { eq, asc, desc } from "drizzle-orm";
-import { deleteProduct } from "./actions";
+import { products, productImages } from "@db/schema";
+import { asc, desc } from "drizzle-orm";
+import { DeleteProductButton } from "./delete-button";
 
 export const dynamic = "force-dynamic";
 
@@ -87,24 +87,7 @@ export default async function AdminProductsPage() {
                       >
                         Sửa
                       </Link>
-                      <form
-                        action={async () => {
-                          "use server";
-                          await deleteProduct(product.id);
-                        }}
-                      >
-                        <button
-                          type="submit"
-                          className="text-red-600 hover:underline"
-                          onClick={(e) => {
-                            if (!confirm("Xóa sản phẩm này?")) {
-                              e.preventDefault();
-                            }
-                          }}
-                        >
-                          Xóa
-                        </button>
-                      </form>
+                      <DeleteProductButton id={product.id} name={product.title} />
                     </div>
                   </td>
                 </tr>
