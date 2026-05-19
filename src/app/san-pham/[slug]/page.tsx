@@ -1,4 +1,5 @@
 import { getProductBySlug, getRelatedProducts, getAllProductSlugs } from "@db/queries/products";
+import { getSiteSettings } from "@db/queries/settings";
 import { ProductImageGallery } from "@/components/product-image-gallery";
 import { ContactCta } from "@/components/contact-cta";
 import { ProductCard } from "@/components/product-card";
@@ -32,7 +33,10 @@ export default async function ProductDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const product = await getProductBySlug(slug);
+  const [product, settings] = await Promise.all([
+    getProductBySlug(slug),
+    getSiteSettings(),
+  ]);
 
   if (!product) {
     notFound();
@@ -137,6 +141,9 @@ export default async function ProductDetailPage({
             <ContactCta
               productName={product.title}
               productUrl={productUrl}
+              phone={settings?.phone}
+              instagramUrl={settings?.instagramUrl}
+              facebookUrl={settings?.facebookUrl}
             />
           </div>
         </div>
