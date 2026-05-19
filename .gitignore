@@ -61,6 +61,12 @@ Thumbs.db
 # crawled data (re-fetchable from Google Sheets)
 /data/
 
+# claude-code internal state
+/.claude/
+
+# bash crash dumps (windows/msys)
+*.stackdump
+
 # sanity build output
 /sanity/dist/
 /sanity/hoaneu/
