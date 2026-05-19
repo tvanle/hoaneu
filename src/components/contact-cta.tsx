@@ -6,17 +6,13 @@ import { SOCIAL_LINKS } from "@lib/constants";
 interface ContactCtaProps {
   productName: string;
   productUrl: string;
-  phone?: string;
   instagramUrl?: string;
-  facebookUrl?: string;
 }
 
 export function ContactCta({
   productName,
   productUrl,
-  phone,
   instagramUrl,
-  facebookUrl,
 }: ContactCtaProps) {
   const [open, setOpen] = useState(false);
 
@@ -38,44 +34,19 @@ export function ContactCta({
   );
   const messengerUrl = `${SOCIAL_LINKS.messenger}?text=${messengerText}`;
   const igUrl = instagramUrl || SOCIAL_LINKS.instagram;
-  const fbUrl = facebookUrl || SOCIAL_LINKS.facebook;
-  const telUrl = phone ? `tel:${phone.replace(/\s+/g, "")}` : null;
 
-  const options: {
-    href: string;
-    label: string;
-    sub: string;
-    primary?: boolean;
-    external?: boolean;
-  }[] = [
+  const options = [
     {
       href: messengerUrl,
       label: "Nhắn qua Messenger",
       sub: "Đính kèm sẵn thông tin sản phẩm",
       primary: true,
-      external: true,
     },
     {
       href: igUrl,
       label: "Inbox Instagram",
       sub: "@hoaneu_",
-      external: true,
     },
-    {
-      href: fbUrl,
-      label: "Fanpage Facebook",
-      sub: "Hoa Nêu",
-      external: true,
-    },
-    ...(telUrl
-      ? [
-          {
-            href: telUrl,
-            label: "Gọi điện thoại",
-            sub: phone!,
-          },
-        ]
-      : []),
   ];
 
   return (
@@ -124,8 +95,8 @@ export function ContactCta({
                 <a
                   key={opt.label}
                   href={opt.href}
-                  target={opt.external ? "_blank" : undefined}
-                  rel={opt.external ? "noopener noreferrer" : undefined}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={
                     opt.primary
                       ? "flex items-center justify-between gap-3 bg-hoa-red px-5 py-3.5 text-white transition-colors hover:bg-hoa-red-dark"

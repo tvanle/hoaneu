@@ -141,9 +141,7 @@ export default async function ProductDetailPage({
             <ContactCta
               productName={product.title}
               productUrl={productUrl}
-              phone={settings?.phone}
               instagramUrl={settings?.instagramUrl}
-              facebookUrl={settings?.facebookUrl}
             />
           </div>
         </div>
