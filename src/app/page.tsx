@@ -55,7 +55,7 @@ export default async function HomePage() {
           <div>
             <div className="mb-8 flex justify-end">
               <Link
-                href="/san-pham-khac"
+                href="/hoa-cuoi-cam-tay"
                 className="rounded-full bg-black px-6 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white hover:bg-hoa-red"
               >
                 View Our Work
@@ -108,7 +108,7 @@ export default async function HomePage() {
             </div>
             <div className="mt-16 text-center">
               <Link
-                href="/san-pham-khac"
+                href="/hoa-cuoi-cam-tay"
                 className="inline-flex rounded-full bg-hoa-red px-9 py-4 text-[10px] font-bold uppercase tracking-[0.18em] text-white hover:bg-hoa-red-dark"
               >
                 Shop All

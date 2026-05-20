@@ -46,7 +46,7 @@ export function HeroSection({ title, subtitle, image }: HeroSectionProps) {
           />
           <nav className="mt-8 flex flex-col items-center gap-3 font-serif text-sm italic text-black/70">
             <Link
-              href="/san-pham-khac"
+              href="/hoa-cuoi-cam-tay"
               className="hover:text-hoa-red"
             >
               Our Work
@@ -74,7 +74,7 @@ export function HeroSection({ title, subtitle, image }: HeroSectionProps) {
             {subtitle}
           </p>
           <Link
-            href="/san-pham-khac"
+            href="/hoa-cuoi-cam-tay"
             className="mt-8 inline-flex rounded-full border border-black/25 px-8 py-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:border-black hover:bg-black hover:text-white"
           >
             Explore Collection
