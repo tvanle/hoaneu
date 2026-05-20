@@ -117,6 +117,7 @@ function formatProduct(row: {
   slug: string;
   price: number;
   priceNote: string | null;
+  description: string | null;
   colorTones: string[] | null;
   flowerTypes: string[] | null;
   isBestSeller: boolean;
@@ -129,6 +130,7 @@ function formatProduct(row: {
     slug: { current: row.slug },
     price: row.price,
     priceNote: row.priceNote || undefined,
+    description: row.description || undefined,
     mainImage: getMainImage(row.images),
     colorTones: row.colorTones || undefined,
     flowerTypes: row.flowerTypes || undefined,
