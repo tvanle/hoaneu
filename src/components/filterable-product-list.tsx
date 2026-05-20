@@ -11,6 +11,7 @@ interface Product {
   slug: { current: string };
   price: number;
   priceNote?: string;
+  description?: string;
   mainImage?: { asset?: { url?: string }; alt?: string };
   colorTones?: string[];
   flowerTypes?: string[];
@@ -37,14 +38,18 @@ export function FilterableProductList({
   const [flowerTypes, setFlowerTypes] = useState<string[]>(
     searchParams.get("flowers")?.split(",").filter(Boolean) || [],
   );
+  const [shapes, setShapes] = useState<string[]>(
+    searchParams.get("shapes")?.split(",").filter(Boolean) || [],
+  );
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const updateUrl = useCallback(
-    (price: string | null, colors: string[], flowers: string[]) => {
+    (price: string | null, colors: string[], flowers: string[], shp: string[]) => {
       const params = new URLSearchParams();
       if (price) params.set("price", price);
       if (colors.length > 0) params.set("colors", colors.join(","));
       if (flowers.length > 0) params.set("flowers", flowers.join(","));
+      if (shp.length > 0) params.set("shapes", shp.join(","));
       const query = params.toString();
       router.replace(`${pathname}${query ? `?${query}` : ""}`, {
         scroll: false,
@@ -56,9 +61,9 @@ export function FilterableProductList({
   const handlePriceChange = useCallback(
     (value: string | null) => {
       setPriceRange(value);
-      updateUrl(value, colorTones, flowerTypes);
+      updateUrl(value, colorTones, flowerTypes, shapes);
     },
-    [colorTones, flowerTypes, updateUrl],
+    [colorTones, flowerTypes, shapes, updateUrl],
   );
 
   const handleColorToggle = useCallback(
@@ -67,9 +72,9 @@ export function FilterableProductList({
         ? colorTones.filter((c) => c !== value)
         : [...colorTones, value];
       setColorTones(next);
-      updateUrl(priceRange, next, flowerTypes);
+      updateUrl(priceRange, next, flowerTypes, shapes);
     },
-    [colorTones, priceRange, flowerTypes, updateUrl],
+    [colorTones, priceRange, flowerTypes, shapes, updateUrl],
   );
 
   const handleFlowerToggle = useCallback(
@@ -78,15 +83,27 @@ export function FilterableProductList({
         ? flowerTypes.filter((f) => f !== value)
         : [...flowerTypes, value];
       setFlowerTypes(next);
-      updateUrl(priceRange, colorTones, next);
+      updateUrl(priceRange, colorTones, next, shapes);
     },
-    [flowerTypes, priceRange, colorTones, updateUrl],
+    [flowerTypes, priceRange, colorTones, shapes, updateUrl],
+  );
+
+  const handleShapeToggle = useCallback(
+    (value: string) => {
+      const next = shapes.includes(value)
+        ? shapes.filter((s) => s !== value)
+        : [...shapes, value];
+      setShapes(next);
+      updateUrl(priceRange, colorTones, flowerTypes, next);
+    },
+    [shapes, priceRange, colorTones, flowerTypes, updateUrl],
   );
 
   const handleClearAll = useCallback(() => {
     setPriceRange(null);
     setColorTones([]);
     setFlowerTypes([]);
+    setShapes([]);
     router.replace(pathname, { scroll: false });
   }, [router, pathname]);
 
@@ -98,34 +115,44 @@ export function FilterableProductList({
       }
 
       if (colorTones.length > 0) {
-        if (
-          !product.colorTones?.some((c: string) => colorTones.includes(c))
-        )
+        if (!product.colorTones?.some((c) => colorTones.includes(c)))
           return false;
       }
 
       if (flowerTypes.length > 0) {
-        if (
-          !product.flowerTypes?.some((f: string) => flowerTypes.includes(f))
-        )
+        if (!product.flowerTypes?.some((f) => flowerTypes.includes(f)))
           return false;
+      }
+
+      if (shapes.length > 0) {
+        // Kiểu dáng is currently stored in description; one product may carry
+        // multiple shapes separated by commas, e.g. "Bó dáng rủ, Bó dáng ngắn".
+        const productShapes = (product.description || "")
+          .split(",")
+          .map((s) => s.trim());
+        if (!productShapes.some((s) => shapes.includes(s))) return false;
       }
 
       return true;
     });
-  }, [products, priceRange, colorTones, flowerTypes]);
+  }, [products, priceRange, colorTones, flowerTypes, shapes]);
 
   const activeFilterCount =
-    (priceRange ? 1 : 0) + colorTones.length + flowerTypes.length;
+    (priceRange ? 1 : 0) +
+    colorTones.length +
+    flowerTypes.length +
+    shapes.length;
 
   const filterContent = (
     <ProductFilter
       priceRange={priceRange}
       colorTones={colorTones}
       flowerTypes={flowerTypes}
+      shapes={shapes}
       onPriceChange={handlePriceChange}
       onColorToggle={handleColorToggle}
       onFlowerToggle={handleFlowerToggle}
+      onShapeToggle={handleShapeToggle}
       onClearAll={handleClearAll}
     />
   );

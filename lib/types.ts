@@ -18,7 +18,7 @@ export interface Product {
   slug: { current: string };
   price: number;
   priceNote?: string;
-  description?: unknown[];
+  description?: string;
   mainImage?: SanityImage;
   images?: SanityImage[];
   colorTones?: string[];
