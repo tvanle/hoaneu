@@ -7,16 +7,15 @@ const PRICE_RANGES = [
   { label: "Trên 3 triệu", value: "3000000-999999999" },
 ];
 
-// Values are stored verbatim in DB (no slug translation).
 const COLOR_TONES = [
   { label: "Trắng", value: "Trắng", color: "#ffffff" },
   { label: "Đỏ", value: "Đỏ", color: "#c0392b" },
-  { label: "Hồng", value: "Hồng", color: "#f08bbf" },
-  { label: "Xanh", value: "Xanh Green", color: "#3f9b6f" },
-  { label: "Sắc màu", value: "Sắc màu", color: "linear-gradient(135deg,#f08bbf 0%,#f3d36e 50%,#3f9b6f 100%)" },
-  { label: "Vàng/cam", value: "Vàng/cam", color: "#f0a83b" },
-  { label: "Tím", value: "Tím", color: "#8b5cf6" },
-  { label: "Nâu", value: "Nâu", color: "#8b5e34" },
+  { label: "Hồng", value: "Hồng", color: "#f5c6dc" },
+  { label: "Xanh", value: "Xanh Green", color: "#207a52" },
+  { label: "Sắc màu", value: "Sắc màu", color: "linear-gradient(135deg,#f5c6dc 0%,#f3d36e 45%,#a5d6a7 100%)" },
+  { label: "Vàng/Cam", value: "Vàng/cam", color: "#ee9837" },
+  { label: "Tím", value: "Tím", color: "#6c63ff" },
+  { label: "Nâu", value: "Nâu", color: "#7a5236" },
 ];
 
 const FLOWER_TYPES = [
@@ -67,52 +66,43 @@ export function ProductFilter({
     shapes.length > 0;
 
   return (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-black">
-          Bộ Lọc
-        </h3>
-        {hasActiveFilters && (
+    <div className="space-y-9">
+      {hasActiveFilters && (
+        <div className="flex justify-end">
           <button
             onClick={onClearAll}
-            className="text-[11px] font-semibold uppercase tracking-[0.14em] text-hoa-red hover:text-hoa-red-dark"
+            className="text-[10px] font-bold uppercase tracking-[0.2em] text-hoa-red transition-colors hover:text-hoa-red-dark"
           >
-            Xóa Bộ Lọc
+            Xóa tất cả bộ lọc
           </button>
-        )}
-      </div>
+        </div>
+      )}
 
-      <div>
-        <h4 className="mb-3 font-serif text-lg italic">Mức Giá</h4>
-        <div className="space-y-3">
-          {PRICE_RANGES.map((range) => (
-            <button
-              key={range.value}
-              onClick={() =>
-                onPriceChange(priceRange === range.value ? null : range.value)
-              }
-              className="flex items-center gap-3 text-left text-sm text-black/70 transition-colors hover:text-hoa-red"
-            >
-              <span
-                className={`flex h-4 w-4 items-center justify-center rounded-full border ${
-                  priceRange === range.value
-                    ? "border-hoa-red"
-                    : "border-black/35"
+      <section>
+        <h4 className="mb-4 font-serif text-xl italic text-black">Mức Giá</h4>
+        <div className="flex flex-wrap gap-2">
+          {PRICE_RANGES.map((range) => {
+            const isActive = priceRange === range.value;
+            return (
+              <button
+                key={range.value}
+                onClick={() => onPriceChange(isActive ? null : range.value)}
+                className={`rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition-all ${
+                  isActive
+                    ? "border-hoa-red bg-hoa-red text-white"
+                    : "border-black/15 bg-white text-black/65 hover:border-black hover:text-black"
                 }`}
               >
-                {priceRange === range.value && (
-                  <span className="h-2 w-2 rounded-full bg-hoa-red" />
-                )}
-              </span>
-              {range.label}
-            </button>
-          ))}
+                {range.label}
+              </button>
+            );
+          })}
         </div>
-      </div>
+      </section>
 
-      <div>
-        <h4 className="mb-3 font-serif text-lg italic">Tone Màu</h4>
-        <div className="flex flex-wrap gap-3">
+      <section>
+        <h4 className="mb-4 font-serif text-xl italic text-black">Tone Màu</h4>
+        <div className="grid grid-cols-4 gap-x-3 gap-y-5">
           {COLOR_TONES.map((tone) => {
             const isActive = colorTones.includes(tone.value);
             const isGradient = tone.color.startsWith("linear-gradient");
@@ -120,25 +110,35 @@ export function ProductFilter({
               <button
                 key={tone.value}
                 onClick={() => onColorToggle(tone.value)}
-                className="flex flex-col items-center gap-1.5"
-                aria-label={tone.label}
+                className="group flex flex-col items-center gap-1.5"
                 aria-pressed={isActive}
+                aria-label={tone.label}
               >
                 <span
-                  className={`h-9 w-9 rounded-full border transition-all ${
+                  className={`relative h-14 w-14 overflow-hidden rounded-2xl border transition-all duration-200 ${
                     isActive
-                      ? "border-hoa-red ring-2 ring-hoa-red/30"
-                      : "border-black/15 hover:border-black"
+                      ? "border-hoa-red ring-[3px] ring-hoa-red/25 shadow-md"
+                      : "border-black/10 group-hover:border-black/40 group-hover:shadow-sm"
                   }`}
                   style={
                     isGradient
                       ? { background: tone.color }
                       : { backgroundColor: tone.color }
                   }
-                />
+                >
+                  {isActive && (
+                    <span className="absolute inset-0 flex items-center justify-center bg-black/10">
+                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-hoa-red shadow">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                      </span>
+                    </span>
+                  )}
+                </span>
                 <span
-                  className={`text-[10px] font-medium tracking-wide ${
-                    isActive ? "text-hoa-red" : "text-black/65"
+                  className={`text-[10px] font-semibold uppercase tracking-[0.14em] transition-colors ${
+                    isActive ? "text-hoa-red" : "text-black/55"
                   }`}
                 >
                   {tone.label}
@@ -147,45 +147,51 @@ export function ProductFilter({
             );
           })}
         </div>
-      </div>
+      </section>
 
-      <div>
-        <h4 className="mb-3 font-serif text-lg italic">Hoa Chính</h4>
+      <section>
+        <h4 className="mb-4 font-serif text-xl italic text-black">Hoa Chính</h4>
         <div className="flex flex-wrap gap-2">
-          {FLOWER_TYPES.map((flower) => (
-            <button
-              key={flower.value}
-              onClick={() => onFlowerToggle(flower.value)}
-              className={`border px-3 py-2 text-sm transition-colors ${
-                flowerTypes.includes(flower.value)
-                  ? "border-hoa-red bg-hoa-red/5 text-hoa-red"
-                  : "border-black/15 hover:border-hoa-black"
-              }`}
-            >
-              {flower.label}
-            </button>
-          ))}
+          {FLOWER_TYPES.map((flower) => {
+            const isActive = flowerTypes.includes(flower.value);
+            return (
+              <button
+                key={flower.value}
+                onClick={() => onFlowerToggle(flower.value)}
+                className={`rounded-full border px-4 py-2 text-[12px] transition-all ${
+                  isActive
+                    ? "border-hoa-red bg-hoa-red/5 font-semibold text-hoa-red"
+                    : "border-black/15 bg-white text-black/65 hover:border-black hover:text-black"
+                }`}
+              >
+                {flower.label}
+              </button>
+            );
+          })}
         </div>
-      </div>
+      </section>
 
-      <div>
-        <h4 className="mb-3 font-serif text-lg italic">Kiểu Dáng</h4>
+      <section>
+        <h4 className="mb-4 font-serif text-xl italic text-black">Kiểu Dáng</h4>
         <div className="flex flex-wrap gap-2">
-          {FLOWER_SHAPES.map((shape) => (
-            <button
-              key={shape.value}
-              onClick={() => onShapeToggle(shape.value)}
-              className={`border px-3 py-2 text-sm transition-colors ${
-                shapes.includes(shape.value)
-                  ? "border-hoa-red bg-hoa-red/5 text-hoa-red"
-                  : "border-black/15 hover:border-hoa-black"
-              }`}
-            >
-              {shape.label}
-            </button>
-          ))}
+          {FLOWER_SHAPES.map((shape) => {
+            const isActive = shapes.includes(shape.value);
+            return (
+              <button
+                key={shape.value}
+                onClick={() => onShapeToggle(shape.value)}
+                className={`rounded-full border px-4 py-2 text-[12px] transition-all ${
+                  isActive
+                    ? "border-hoa-red bg-hoa-red/5 font-semibold text-hoa-red"
+                    : "border-black/15 bg-white text-black/65 hover:border-black hover:text-black"
+                }`}
+              >
+                {shape.label}
+              </button>
+            );
+          })}
         </div>
-      </div>
+      </section>
     </div>
   );
 }

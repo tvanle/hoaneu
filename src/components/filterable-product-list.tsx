@@ -165,7 +165,7 @@ export function FilterableProductList({
         </p>
         <button
           onClick={() => setIsFilterOpen(true)}
-          className="inline-flex items-center gap-3 border border-black/20 px-5 py-3 text-[11px] font-bold uppercase tracking-[0.18em] transition-colors hover:border-hoa-red hover:text-hoa-red"
+          className="inline-flex items-center gap-3 rounded-full border border-black/20 px-5 py-2.5 text-[11px] font-bold uppercase tracking-[0.18em] transition-colors hover:border-hoa-red hover:text-hoa-red"
         >
           Bộ Lọc
           {activeFilterCount > 0 && (
@@ -180,21 +180,40 @@ export function FilterableProductList({
         <div className="fixed inset-0 z-50">
           <button
             aria-label="Đóng bộ lọc"
-            className="absolute inset-0 bg-black/35"
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             onClick={() => setIsFilterOpen(false)}
           />
-          <aside className="absolute inset-y-0 left-0 w-full max-w-sm overflow-y-auto bg-white p-8 shadow-2xl">
-            <div className="mb-10 flex items-center justify-between">
-              <h2 className="font-serif text-3xl">Bộ Lọc</h2>
+          <aside className="absolute inset-y-0 left-0 flex w-full max-w-sm flex-col bg-white shadow-2xl">
+            <header className="flex items-start justify-between border-b border-black/10 px-7 pb-5 pt-7">
+              <div>
+                <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.24em] text-black/35">
+                  Cửa Hàng
+                </p>
+                <h2 className="font-serif text-3xl italic leading-none text-black">
+                  Bộ Lọc
+                </h2>
+              </div>
               <button
                 onClick={() => setIsFilterOpen(false)}
-                className="flex h-9 w-9 items-center justify-center border border-black/15 text-xl leading-none transition-colors hover:border-hoa-red hover:text-hoa-red"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-base text-black/55 transition-all hover:border-hoa-red hover:bg-hoa-red hover:text-white"
                 aria-label="Đóng bộ lọc"
               >
                 ×
               </button>
+            </header>
+
+            <div className="flex-1 overflow-y-auto px-7 py-7 pb-32">
+              {filterContent}
             </div>
-            {filterContent}
+
+            <div className="sticky bottom-0 left-0 right-0 border-t border-black/10 bg-white/95 px-7 py-4 backdrop-blur">
+              <button
+                onClick={() => setIsFilterOpen(false)}
+                className="flex w-full items-center justify-center rounded-full bg-hoa-red px-6 py-3.5 text-[11px] font-bold uppercase tracking-[0.2em] text-white shadow-sm transition-colors hover:bg-hoa-red-dark"
+              >
+                Xem kết quả ({filtered.length})
+              </button>
+            </div>
           </aside>
         </div>
       )}
