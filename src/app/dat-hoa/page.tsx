@@ -1,71 +1,41 @@
-import { getBestSellers } from "@db/queries/products";
-import { ProductCard } from "@/components/product-card";
-import { ScrollReveal } from "@/components/scroll-reveal";
+import { Suspense } from "react";
+import { getAllProducts } from "@db/queries/products";
+import type { Product } from "@lib/types";
+import { FilterableProductList } from "@/components/filterable-product-list";
 
 export const metadata = {
   title: "Đặt Hoa",
-  description: "Đặt hoa tươi tại Hoa Nêu",
+  description: "Bộ sưu tập đầy đủ các thiết kế hoa cưới Hoa Nêu",
 };
 
 export default async function OrderFlowersPage() {
-  const products = await getBestSellers(6);
+  const products = await getAllProducts();
 
   return (
-    <>
-      <section className="mx-auto max-w-4xl px-6 pb-20 pt-14 text-center md:pb-28 md:pt-20">
-        <ScrollReveal>
-          <h1 className="mb-12 font-serif text-5xl italic leading-tight text-black md:text-7xl">
-            Đặt Hoa
-          </h1>
-        </ScrollReveal>
+    <div className="mx-auto max-w-6xl px-6 py-20 sm:px-8 md:px-10 md:py-28 lg:px-12">
+      <div className="mx-auto mb-16 max-w-3xl text-center md:mb-24">
+        <p className="mb-5 text-[11px] font-bold uppercase tracking-[0.24em] text-black/35">
+          Bộ Sưu Tập Hoa Nêu
+        </p>
+        <h1 className="font-serif text-4xl leading-tight text-black md:text-6xl">
+          Đặt Hoa
+        </h1>
+        <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-black/65">
+          Toàn bộ thiết kế của Hoa Nêu — lọc theo mức giá, tone màu, loại hoa
+          chính và kiểu dáng. Vui lòng đặt trước ít nhất 7 ngày để có mẫu đẹp
+          nhất.
+        </p>
+      </div>
 
-        <ScrollReveal delay={100}>
-          <p className="mx-auto mb-8 max-w-3xl text-lg leading-8 text-[#152032]">
-            Hoa Nêu chuyên cung cấp hoa cưới cầm tay, trang trí tiệc cưới, và
-            các dịch vụ hoa tươi cho mọi dịp đặc biệt. Chúng tôi nhận đặt hoa
-            từ thứ Hai đến thứ Bảy hàng tuần. Vui lòng liên hệ trước ít nhất 3
-            ngày để chúng tôi chuẩn bị hoa đẹp nhất cho bạn.
+      <Suspense
+        fallback={
+          <p className="text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-black/40">
+            Hiển thị 0 sản phẩm
           </p>
-        </ScrollReveal>
-
-        <ScrollReveal delay={200}>
-          <p className="mx-auto mb-12 max-w-3xl font-serif text-xl italic leading-9 text-[#152032]">
-            Đối với đơn hàng sự kiện hoặc đơn hàng đặc biệt, vui lòng liên hệ
-            trực tiếp để được tư vấn chi tiết!
-          </p>
-        </ScrollReveal>
-
-        <ScrollReveal delay={300}>
-          <div className="space-y-7 pt-4 text-[13px] font-extrabold uppercase tracking-[0.16em] text-[#101827]">
-            <p>
-              Tết Nguyên Đán 2026: Rất tiếc năm nay chúng tôi không nhận đặt
-              hoa Tết.
-            </p>
-            <p>
-              Chúng tôi sẽ đi công tác cho một sự kiện tại địa phương khác. :(
-            </p>
-          </div>
-        </ScrollReveal>
-      </section>
-
-      {products.length > 0 && (
-        <section className="mx-auto max-w-6xl px-6 pb-24 md:px-8 md:pb-32 lg:px-10">
-          <div className="grid grid-cols-1 gap-x-5 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
-            {products.map((product, i) => (
-              <ScrollReveal key={product._id} delay={i * 100}>
-                <ProductCard
-                  title={product.title}
-                  slug={product.slug.current}
-                  price={product.price}
-                  priceNote={product.priceNote}
-                  mainImage={product.mainImage}
-                  category={product.category}
-                />
-              </ScrollReveal>
-            ))}
-          </div>
-        </section>
-      )}
-    </>
+        }
+      >
+        <FilterableProductList products={products as unknown as Product[]} />
+      </Suspense>
+    </div>
   );
 }
