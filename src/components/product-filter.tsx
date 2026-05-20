@@ -1,13 +1,13 @@
 "use client";
 
-const PRICE_RANGES = [
+export const PRICE_RANGES = [
   { label: "Dưới 1 triệu", value: "0-1000000" },
   { label: "1 - 2 triệu", value: "1000000-2000000" },
   { label: "2 - 3 triệu", value: "2000000-3000000" },
   { label: "Trên 3 triệu", value: "3000000-999999999" },
 ];
 
-const COLOR_TONES = [
+export const COLOR_TONES = [
   { label: "Trắng", value: "Trắng", color: "#ffffff" },
   { label: "Đỏ", value: "Đỏ", color: "#c0392b" },
   { label: "Hồng", value: "Hồng", color: "#f5c6dc" },
@@ -18,7 +18,7 @@ const COLOR_TONES = [
   { label: "Nâu", value: "Nâu", color: "#7a5236" },
 ];
 
-const FLOWER_TYPES = [
+export const FLOWER_TYPES = [
   { label: "Calla", value: "Calla" },
   { label: "Lan hồ điệp", value: "Lan hồ điệp" },
   { label: "Tulip", value: "Tulip" },
@@ -28,7 +28,7 @@ const FLOWER_TYPES = [
   { label: "Dạ lan hương", value: "Dạ lan hương" },
 ];
 
-const FLOWER_SHAPES = [
+export const FLOWER_SHAPES = [
   { label: "Bó dáng rủ", value: "Bó dáng rủ" },
   { label: "Bó dáng ngắn", value: "Bó dáng ngắn" },
   { label: "Hoa dạng vòng", value: "Hoa dạng vòng" },

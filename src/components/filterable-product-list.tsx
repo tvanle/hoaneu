@@ -1,9 +1,30 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { ProductCard } from "./product-card";
-import { ProductFilter } from "./product-filter";
+import {
+  ProductFilter,
+  PRICE_RANGES,
+  COLOR_TONES,
+  FLOWER_TYPES,
+  FLOWER_SHAPES,
+} from "./product-filter";
+
+const VALID_PRICES = new Set(PRICE_RANGES.map((r) => r.value));
+const VALID_COLORS = new Set(COLOR_TONES.map((c) => c.value));
+const VALID_FLOWERS = new Set(FLOWER_TYPES.map((f) => f.value));
+const VALID_SHAPES = new Set(FLOWER_SHAPES.map((s) => s.value));
+
+function parseList(raw: string | null, allowed: Set<string>): string[] {
+  if (!raw) return [];
+  return raw.split(",").map((s) => s.trim()).filter((s) => allowed.has(s));
+}
+
+function parsePrice(raw: string | null): string | null {
+  if (!raw) return null;
+  return VALID_PRICES.has(raw) ? raw : null;
+}
 
 interface Product {
   _id: string;
@@ -30,18 +51,36 @@ export function FilterableProductList({
   const pathname = usePathname();
 
   const [priceRange, setPriceRange] = useState<string | null>(
-    searchParams.get("price"),
+    parsePrice(searchParams.get("price")),
   );
   const [colorTones, setColorTones] = useState<string[]>(
-    searchParams.get("colors")?.split(",").filter(Boolean) || [],
+    parseList(searchParams.get("colors"), VALID_COLORS),
   );
   const [flowerTypes, setFlowerTypes] = useState<string[]>(
-    searchParams.get("flowers")?.split(",").filter(Boolean) || [],
+    parseList(searchParams.get("flowers"), VALID_FLOWERS),
   );
   const [shapes, setShapes] = useState<string[]>(
-    searchParams.get("shapes")?.split(",").filter(Boolean) || [],
+    parseList(searchParams.get("shapes"), VALID_SHAPES),
   );
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+  // Strip any invalid filter values that were in the URL so they
+  // don't show up as "active" but unmatchable.
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (priceRange) params.set("price", priceRange);
+    if (colorTones.length > 0) params.set("colors", colorTones.join(","));
+    if (flowerTypes.length > 0) params.set("flowers", flowerTypes.join(","));
+    if (shapes.length > 0) params.set("shapes", shapes.join(","));
+    const clean = params.toString();
+    if (clean !== searchParams.toString()) {
+      router.replace(`${pathname}${clean ? `?${clean}` : ""}`, {
+        scroll: false,
+      });
+    }
+    // run once on mount only
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const updateUrl = useCallback(
     (price: string | null, colors: string[], flowers: string[], shp: string[]) => {
