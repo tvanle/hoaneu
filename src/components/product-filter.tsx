@@ -80,24 +80,38 @@ export function ProductFilter({
 
       <section>
         <h4 className="mb-4 font-serif text-xl italic text-black">Mức Giá</h4>
-        <div className="flex flex-wrap gap-2">
+        <ul className="divide-y divide-black/5">
           {PRICE_RANGES.map((range) => {
             const isActive = priceRange === range.value;
             return (
-              <button
-                key={range.value}
-                onClick={() => onPriceChange(isActive ? null : range.value)}
-                className={`rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition-all ${
-                  isActive
-                    ? "border-hoa-red bg-hoa-red text-white"
-                    : "border-black/15 bg-white text-black/65 hover:border-black hover:text-black"
-                }`}
-              >
-                {range.label}
-              </button>
+              <li key={range.value}>
+                <button
+                  onClick={() => onPriceChange(isActive ? null : range.value)}
+                  className={`flex w-full items-center justify-between py-3 text-left text-[11px] font-bold uppercase tracking-[0.18em] transition-colors ${
+                    isActive ? "text-hoa-red" : "text-black/65 hover:text-black"
+                  }`}
+                >
+                  <span>{range.label}</span>
+                  {isActive && (
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  )}
+                </button>
+              </li>
             );
           })}
-        </div>
+        </ul>
       </section>
 
       <section>
