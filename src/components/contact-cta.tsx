@@ -4,16 +4,10 @@ import { useEffect, useState } from "react";
 import { SOCIAL_LINKS } from "@lib/constants";
 
 interface ContactCtaProps {
-  productName: string;
-  productUrl: string;
   instagramUrl?: string;
 }
 
-export function ContactCta({
-  productName,
-  productUrl,
-  instagramUrl,
-}: ContactCtaProps) {
+export function ContactCta({ instagramUrl }: ContactCtaProps) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -29,10 +23,7 @@ export function ContactCta({
     };
   }, [open]);
 
-  const messengerText = encodeURIComponent(
-    `Chào Hoa Nêu, em muốn tư vấn về ${productName} (${productUrl})`,
-  );
-  const messengerUrl = `${SOCIAL_LINKS.messenger}?text=${messengerText}`;
+  const fbUrl = SOCIAL_LINKS.facebook;
   const igUrl = instagramUrl || SOCIAL_LINKS.instagram;
 
   return (
@@ -75,14 +66,14 @@ export function ContactCta({
 
             <div className="mt-6 space-y-2.5">
               <a
-                href={messengerUrl}
+                href={fbUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setOpen(false)}
                 className="flex w-full items-center justify-between gap-3 bg-hoa-red px-5 py-3.5 text-white transition-colors hover:bg-hoa-red-dark"
               >
                 <span className="text-[11px] font-bold uppercase tracking-[0.18em]">
-                  Mở Messenger
+                  Mở Facebook
                 </span>
                 <span aria-hidden className="text-white/85">→</span>
               </a>

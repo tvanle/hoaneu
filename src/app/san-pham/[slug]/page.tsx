@@ -49,7 +49,6 @@ export default async function ProductDetailPage({
       )
     : [];
 
-  const productUrl = `https://hoaneu.com/san-pham/${slug}`;
   const flowerTypes = product.flowerTypes?.join(", ") || "Theo mùa";
   const colorTones = product.colorTones?.join(", ") || "Tùy chỉnh";
   const collection = product.category?.title || "Hoa Nêu";
@@ -138,11 +137,7 @@ export default async function ProductDetailPage({
           </div>
 
           <div className="mt-6">
-            <ContactCta
-              productName={product.title}
-              productUrl={productUrl}
-              instagramUrl={settings?.instagramUrl}
-            />
+            <ContactCta instagramUrl={settings?.instagramUrl} />
           </div>
         </div>
       </div>

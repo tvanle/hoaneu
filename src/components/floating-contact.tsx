@@ -39,24 +39,24 @@ export function FloatingContact() {
       </a>
 
       <a
-        href={SOCIAL_LINKS.messenger}
+        href={SOCIAL_LINKS.facebook}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Nhắn Messenger"
-        className="group relative flex h-12 w-12 items-center justify-center rounded-full bg-[#0084ff] shadow-lg ring-1 ring-black/5 transition-transform hover:-translate-y-0.5 hover:shadow-xl md:h-14 md:w-14"
+        aria-label="Fanpage Facebook"
+        className="group relative flex h-12 w-12 items-center justify-center rounded-full bg-[#1877f2] shadow-lg ring-1 ring-black/5 transition-transform hover:-translate-y-0.5 hover:shadow-xl md:h-14 md:w-14"
       >
         <svg
-          width="24"
-          height="24"
+          width="22"
+          height="22"
           viewBox="0 0 24 24"
           fill="currentColor"
           aria-hidden
-          className="text-white md:h-7 md:w-7"
+          className="text-white md:h-6 md:w-6"
         >
-          <path d="M12 2C6.477 2 2 6.145 2 11.262c0 2.91 1.452 5.503 3.726 7.207V22l3.405-1.872c.908.252 1.873.388 2.869.388 5.523 0 10-4.146 10-9.263C22 6.145 17.523 2 12 2zm1.027 12.5l-2.55-2.717-4.95 2.717 5.45-5.78 2.6 2.716 4.9-2.717-5.45 5.78z" />
+          <path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.49-3.91 3.78-3.91 1.1 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.77-1.63 1.57v1.88h2.77l-.44 2.91h-2.33V22c4.78-.76 8.43-4.92 8.43-9.94z" />
         </svg>
         <span className="pointer-events-none absolute right-full top-1/2 mr-3 -translate-y-1/2 whitespace-nowrap rounded-full bg-black/85 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-white opacity-0 transition-opacity group-hover:opacity-100">
-          Messenger
+          Facebook
         </span>
       </a>
     </div>

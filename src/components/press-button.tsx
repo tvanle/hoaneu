@@ -57,14 +57,14 @@ export function PressButton({ className, children }: PressButtonProps) {
 
             <div className="mt-6 space-y-2.5">
               <a
-                href={SOCIAL_LINKS.messenger}
+                href={SOCIAL_LINKS.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setOpen(false)}
                 className="flex w-full items-center justify-between gap-3 bg-hoa-red px-5 py-3.5 text-white transition-colors hover:bg-hoa-red-dark"
               >
                 <span className="text-[11px] font-bold uppercase tracking-[0.18em]">
-                  Mở Messenger
+                  Mở Facebook
                 </span>
                 <span aria-hidden className="text-white/85">→</span>
               </a>
