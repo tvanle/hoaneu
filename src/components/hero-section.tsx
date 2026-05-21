@@ -52,22 +52,10 @@ export function HeroSection({ title, subtitle, image }: HeroSectionProps) {
               Our Work
             </Link>
             <Link
-              href="/dat-hoa"
-              className="hover:text-hoa-red"
-            >
-              Order Flowers
-            </Link>
-            <Link
               href="/#about-home"
               className="hover:text-hoa-red"
             >
               About Us
-            </Link>
-            <Link
-              href="/lien-he"
-              className="hover:text-hoa-red"
-            >
-              Contact
             </Link>
           </nav>
           <p className="mx-auto mt-8 max-w-sm text-sm leading-6 text-black/55">
