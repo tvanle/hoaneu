@@ -15,7 +15,6 @@ export function ContactCta({
   instagramUrl,
 }: ContactCtaProps) {
   const [open, setOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (!open) return;
@@ -30,41 +29,11 @@ export function ContactCta({
     };
   }, [open]);
 
-  useEffect(() => {
-    if (!copied) return;
-    const t = setTimeout(() => setCopied(false), 2200);
-    return () => clearTimeout(t);
-  }, [copied]);
-
-  const message = `Chào Hoa Nêu, em muốn tư vấn về sản phẩm ${productName}.\nLink: ${productUrl}`;
-  const messengerUrl = `${SOCIAL_LINKS.messenger}?text=${encodeURIComponent(message)}`;
+  const messengerText = encodeURIComponent(
+    `Chào Hoa Nêu, em muốn tư vấn về ${productName} (${productUrl})`,
+  );
+  const messengerUrl = `${SOCIAL_LINKS.messenger}?text=${messengerText}`;
   const igUrl = instagramUrl || SOCIAL_LINKS.instagram;
-
-  async function copyMessage() {
-    try {
-      await navigator.clipboard.writeText(message);
-      setCopied(true);
-    } catch {
-      // fallback for older browsers
-      const ta = document.createElement("textarea");
-      ta.value = message;
-      ta.style.position = "fixed";
-      ta.style.opacity = "0";
-      document.body.appendChild(ta);
-      ta.select();
-      try {
-        document.execCommand("copy");
-        setCopied(true);
-      } finally {
-        document.body.removeChild(ta);
-      }
-    }
-  }
-
-  function handleChannelClick(href: string) {
-    copyMessage();
-    window.open(href, "_blank", "noopener,noreferrer");
-  }
 
   return (
     <div className="space-y-3">
@@ -92,7 +61,7 @@ export function ContactCta({
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Đóng"
-              className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center text-black/40 transition-colors hover:text-black"
+              className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full text-black/40 transition-colors hover:bg-black/5 hover:text-black"
             >
               ✕
             </button>
@@ -101,69 +70,36 @@ export function ContactCta({
               Liên hệ Hoa Nêu
             </p>
             <h3 className="font-serif text-2xl leading-tight text-black">
-              Tin nhắn đã được chuẩn bị sẵn
+              Chọn kênh phù hợp
             </h3>
-            <p className="mt-2 text-[12px] leading-6 text-black/55">
-              Chọn kênh bên dưới — chúng tôi tự copy tin nhắn vào clipboard, bạn chỉ cần <strong className="font-semibold text-black/75">Paste</strong> vào ô chat.
-            </p>
 
-            <div className="mt-5 border border-black/10 bg-black/[0.025] p-4">
-              <div className="mb-2 flex items-center justify-between">
-                <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-black/40">
-                  Tin nhắn mẫu
-                </p>
-                <button
-                  type="button"
-                  onClick={copyMessage}
-                  className="text-[10px] font-bold uppercase tracking-[0.18em] text-hoa-red transition-colors hover:text-hoa-red-dark"
-                >
-                  {copied ? "✓ Đã sao chép" : "Sao chép"}
-                </button>
-              </div>
-              <p className="whitespace-pre-line text-[12px] leading-6 text-black/70">
-                {message}
-              </p>
-            </div>
-
-            <div className="mt-5 space-y-2.5">
-              <button
-                type="button"
-                onClick={() => handleChannelClick(messengerUrl)}
+            <div className="mt-6 space-y-2.5">
+              <a
+                href={messengerUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
                 className="flex w-full items-center justify-between gap-3 bg-hoa-red px-5 py-3.5 text-white transition-colors hover:bg-hoa-red-dark"
               >
-                <span className="text-left">
-                  <span className="block text-[11px] font-bold uppercase tracking-[0.18em]">
-                    Mở Messenger
-                  </span>
-                  <span className="mt-0.5 block text-[11px] text-white/75">
-                    Tin nhắn sẽ được điền sẵn (web)
-                  </span>
+                <span className="text-[11px] font-bold uppercase tracking-[0.18em]">
+                  Mở Messenger
                 </span>
                 <span aria-hidden className="text-white/85">→</span>
-              </button>
+              </a>
 
-              <button
-                type="button"
-                onClick={() => handleChannelClick(igUrl)}
+              <a
+                href={igUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
                 className="flex w-full items-center justify-between gap-3 border border-black/15 bg-white px-5 py-3.5 transition-colors hover:border-black hover:bg-black/[0.02]"
               >
-                <span className="text-left">
-                  <span className="block text-[11px] font-bold uppercase tracking-[0.18em] text-black">
-                    Mở Instagram
-                  </span>
-                  <span className="mt-0.5 block text-[11px] text-black/45">
-                    Bấm DM → paste tin nhắn vừa copy
-                  </span>
+                <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-black">
+                  Mở Instagram
                 </span>
                 <span aria-hidden className="text-black/40">→</span>
-              </button>
+              </a>
             </div>
-
-            {copied && (
-              <p className="mt-4 text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-hoa-red">
-                ✓ Đã sao chép vào clipboard
-              </p>
-            )}
           </div>
         </div>
       )}
