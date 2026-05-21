@@ -6,6 +6,7 @@ import { SectionHeader } from "@/components/section-header";
 import { HeroSection } from "@/components/hero-section";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { ProductCard } from "@/components/product-card";
+import { PressButton } from "@/components/press-button";
 
 export default async function HomePage() {
   const [settings, bestSellers] = await Promise.all([
@@ -79,12 +80,9 @@ export default async function HomePage() {
             &quot;Một trong những đơn vị thiết kế hoa cưới triển vọng nhất hiện
             nay tại Việt Nam.&quot;
           </blockquote>
-          <Link
-            href="/lien-he"
-            className="mt-10 inline-flex rounded-full bg-white px-8 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-black shadow-sm hover:bg-black hover:text-white"
-          >
+          <PressButton className="mt-10 inline-flex rounded-full bg-white px-8 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-black shadow-sm hover:bg-black hover:text-white">
             Press
-          </Link>
+          </PressButton>
         </section>
       </ScrollReveal>
 

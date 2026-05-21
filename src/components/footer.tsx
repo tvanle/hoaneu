@@ -42,21 +42,21 @@ export function Footer({ settings }: FooterProps) {
               Đặt Hoa
             </Link>
             <Link href="/hoa-cuoi-cam-tay" className="hover:text-hoa-red">
-              Sự Kiện
+              Hoa Cưới Cầm Tay
             </Link>
-            <Link href="/lien-he" className="hover:text-hoa-red">
-              Tư Vấn
+            <Link href="/pre-wedding" className="hover:text-hoa-red">
+              Pre-wedding
             </Link>
           </nav>
           <nav className="flex flex-col gap-4 text-base text-black/75">
-            <Link href="/lien-he" className="hover:text-hoa-red">
-              Chính Sách Giao Hàng
+            <Link href="/den-hoa-cuoi" className="hover:text-hoa-red">
+              Đèn Hoa Cưới
             </Link>
-            <Link href="/lien-he" className="hover:text-hoa-red">
-              Câu Hỏi Thường Gặp
+            <Link href="/hoa-lua" className="hover:text-hoa-red">
+              Hoa Lụa
             </Link>
-            <Link href="/lien-he" className="hover:text-hoa-red">
-              Liên Hệ
+            <Link href="/san-pham-khac" className="hover:text-hoa-red">
+              Sản Phẩm Khác
             </Link>
           </nav>
           <div>
@@ -119,13 +119,13 @@ export function Footer({ settings }: FooterProps) {
                 href="/dat-hoa"
                 className="text-sm uppercase tracking-[0.12em] text-white/65 transition-colors hover:text-white"
               >
-                Quà Tặng & Sản Phẩm
+                Bộ Sưu Tập
               </Link>
               <Link
-                href="/lien-he"
+                href="/hoa-cuoi-cam-tay"
                 className="text-sm uppercase tracking-[0.12em] text-white/65 transition-colors hover:text-white"
               >
-                Câu Hỏi & Chính Sách
+                Hoa Cưới Cầm Tay
               </Link>
             </nav>
           </div>
