@@ -52,6 +52,12 @@ export function HeroSection({ title, subtitle, image }: HeroSectionProps) {
               Our Work
             </Link>
             <Link
+              href="/dat-hoa"
+              className="hover:text-hoa-red"
+            >
+              Đặt Hoa
+            </Link>
+            <Link
               href="/#about-home"
               className="hover:text-hoa-red"
             >
