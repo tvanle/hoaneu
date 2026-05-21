@@ -27,18 +27,18 @@ export function ProductImageGallery({
 
   const activeImage = allImages[activeIndex];
   const activeUrl = activeImage?.asset?.url
-    ? watermarkedUrl(activeImage.asset.url, 800, 800)
+    ? watermarkedUrl(activeImage.asset.url, 750, 1000)
     : null;
 
   return (
     <div>
-      <div className="mb-3 aspect-square overflow-hidden bg-hoa-muted">
+      <div className="mb-3 aspect-[3/4] overflow-hidden bg-hoa-muted">
         {activeUrl ? (
           <Image
             src={activeUrl}
             alt={activeImage?.alt || title}
-            width={800}
-            height={800}
+            width={750}
+            height={1000}
             className="h-full w-full object-cover"
             priority
           />
@@ -53,13 +53,13 @@ export function ProductImageGallery({
         <div className="grid grid-cols-4 gap-1.5 md:gap-2">
           {allImages.map((img, idx) => {
             const thumbUrl = img?.asset?.url
-              ? watermarkedUrl(img.asset.url, 200, 200)
+              ? watermarkedUrl(img.asset.url, 200, 267)
               : null;
             return (
               <button
                 key={idx}
                 onClick={() => setActiveIndex(idx)}
-                className={`aspect-square overflow-hidden border transition-colors ${
+                className={`aspect-[3/4] overflow-hidden border transition-colors ${
                   idx === activeIndex
                     ? "border-hoa-black"
                     : "border-transparent hover:border-black/25"
@@ -70,7 +70,7 @@ export function ProductImageGallery({
                     src={thumbUrl}
                     alt={img?.alt || `${title} ${idx + 1}`}
                     width={200}
-                    height={200}
+                    height={267}
                     className="h-full w-full object-cover"
                   />
                 )}

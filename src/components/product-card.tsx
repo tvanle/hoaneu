@@ -24,7 +24,7 @@ export function ProductCard({
   mainImage,
 }: ProductCardProps) {
   const imageUrl = mainImage?.asset?.url
-    ? watermarkedUrl(mainImage.asset.url, 600, 600)
+    ? watermarkedUrl(mainImage.asset.url, 600, 800)
     : null;
 
   return (
@@ -32,13 +32,13 @@ export function ProductCard({
       href={`/san-pham/${slug}`}
       className="group block text-center transition-opacity duration-300 hover:opacity-80"
     >
-      <div className="mb-4 aspect-square overflow-hidden bg-hoa-muted">
+      <div className="mb-4 aspect-[3/4] overflow-hidden bg-hoa-muted">
         {imageUrl ? (
           <Image
             src={imageUrl}
             alt={mainImage?.alt || title}
             width={600}
-            height={600}
+            height={800}
             className="h-full w-full object-cover"
           />
         ) : (
