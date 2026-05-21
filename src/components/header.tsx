@@ -12,8 +12,6 @@ const NAV_LINKS = [
   { href: "/den-hoa-cuoi", label: "Đèn Hoa Cưới" },
   { href: "/hoa-lua", label: "Hoa Lụa" },
   { href: "/san-pham-khac", label: "Sản Phẩm Khác" },
-  { href: "/dat-hoa", label: "Đặt Hoa" },
-  { href: "/lien-he", label: "Liên Hệ" },
 ] as const;
 
 export function Header() {

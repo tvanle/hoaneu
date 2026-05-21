@@ -3,6 +3,7 @@ import { Playfair_Display, Inter } from "next/font/google";
 import { getSiteSettings } from "@db/queries/settings";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { FloatingContact } from "@/components/floating-contact";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -40,6 +41,7 @@ export default async function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer settings={settings} />
+        <FloatingContact />
       </body>
     </html>
   );
