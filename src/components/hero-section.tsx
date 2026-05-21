@@ -55,7 +55,7 @@ export function HeroSection({ title, subtitle, image }: HeroSectionProps) {
               href="/dat-hoa"
               className="hover:text-hoa-red"
             >
-              Đặt Hoa
+              Order Flowers
             </Link>
             <Link
               href="/#about-home"
