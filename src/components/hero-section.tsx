@@ -30,7 +30,7 @@ export function HeroSection({ title, subtitle, image }: HeroSectionProps) {
           priority
         />
         <div className="absolute bottom-5 left-5 rounded-full border border-white/40 bg-white/10 px-5 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/80 backdrop-blur">
-          Saigon / Nationwide
+          Hà Nội / Nationwide
         </div>
       </div>
 
