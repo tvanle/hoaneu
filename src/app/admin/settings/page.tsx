@@ -1,4 +1,5 @@
 import { db } from "@db";
+import { requireAdmin } from "@/lib/auth";
 import { siteSettings } from "@db/schema";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
@@ -8,6 +9,7 @@ export const dynamic = "force-dynamic";
 
 async function updateSettings(formData: FormData) {
   "use server";
+  await requireAdmin();
 
   const data = {
     shopName: (formData.get("shopName") as string) || null,
@@ -28,7 +30,7 @@ async function updateSettings(formData: FormData) {
     await db.insert(siteSettings).values(data);
   }
 
-  revalidatePath("/");
+  revalidatePath("/", "layout");
   redirect("/admin/settings");
 }
 

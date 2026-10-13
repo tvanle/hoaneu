@@ -2,29 +2,12 @@
 
 import { useState } from "react";
 import Image from "next/image";
+// Reuse the public filter values so admin-saved products stay filterable.
+import { COLOR_TONES, FLOWER_TYPES } from "@/components/product-filter";
 import { createProduct, updateProduct, addProductImage, deleteProductImage, setMainImage } from "@/app/admin/products/actions";
 
-const COLOR_OPTIONS = [
-  { value: "trang", label: "Trắng" },
-  { value: "do", label: "Đỏ" },
-  { value: "hong", label: "Hồng" },
-  { value: "vang", label: "Vàng" },
-  { value: "tim", label: "Tím" },
-  { value: "xanh", label: "Xanh" },
-  { value: "cam", label: "Cam" },
-  { value: "pastel", label: "Pastel" },
-];
+const MAX_UPLOAD_BYTES = 4 * 1024 * 1024;
 
-const FLOWER_OPTIONS = [
-  { value: "hong", label: "Hồng (Rose)" },
-  { value: "lan", label: "Lan (Orchid)" },
-  { value: "cuc", label: "Cúc" },
-  { value: "tulip", label: "Tulip" },
-  { value: "mau-don", label: "Mẫu Đơn" },
-  { value: "ly", label: "Ly (Lily)" },
-  { value: "cam-tu-cau", label: "Cẩm Tú Cầu" },
-  { value: "baby", label: "Baby" },
-];
 
 interface ProductFormProps {
   product?: {
@@ -67,8 +50,14 @@ export function ProductForm({ product, categories }: ProductFormProps) {
   async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
     if (!product || !e.target.files?.length) return;
     setUploading(true);
+    const failures: string[] = [];
 
     for (const file of Array.from(e.target.files)) {
+      if (file.size > MAX_UPLOAD_BYTES) {
+        failures.push(`${file.name}: ảnh lớn hơn 4MB`);
+        continue;
+      }
+
       const formData = new FormData();
       formData.append("file", file);
 
@@ -81,10 +70,16 @@ export function ProductForm({ product, categories }: ProductFormProps) {
         const { url } = await res.json();
         const isMain = product.images.length === 0;
         await addProductImage(product.id, url, file.name, isMain);
+      } else {
+        const body = await res.json().catch(() => null);
+        failures.push(`${file.name}: ${body?.error || `lỗi ${res.status}`}`);
       }
     }
 
     setUploading(false);
+    if (failures.length > 0) {
+      alert(`Không tải lên được:\n${failures.join("\n")}`);
+    }
     window.location.reload();
   }
 
@@ -170,7 +165,7 @@ export function ProductForm({ product, categories }: ProductFormProps) {
           <div>
             <label className="mb-1.5 block text-sm font-medium">Tone màu</label>
             <div className="flex flex-wrap gap-2">
-              {COLOR_OPTIONS.map((opt) => (
+              {COLOR_TONES.map((opt) => (
                 <label key={opt.value} className="flex items-center gap-1.5 text-sm">
                   <input
                     type="checkbox"
@@ -186,7 +181,7 @@ export function ProductForm({ product, categories }: ProductFormProps) {
           <div>
             <label className="mb-1.5 block text-sm font-medium">Loại hoa</label>
             <div className="flex flex-wrap gap-2">
-              {FLOWER_OPTIONS.map((opt) => (
+              {FLOWER_TYPES.map((opt) => (
                 <label key={opt.value} className="flex items-center gap-1.5 text-sm">
                   <input
                     type="checkbox"

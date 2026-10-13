@@ -4,9 +4,11 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
 import { db } from "@db";
+import { requireAdmin } from "@/lib/auth";
 import { products, productImages } from "@db/schema";
 
 export async function createProduct(formData: FormData) {
+  await requireAdmin();
   const title = formData.get("title") as string;
   const slug = formData.get("slug") as string;
   const price = parseInt(formData.get("price") as string, 10);
@@ -36,12 +38,13 @@ export async function createProduct(formData: FormData) {
     })
     .returning();
 
-  revalidatePath("/");
+  revalidatePath("/", "layout");
   revalidatePath("/admin/products");
   redirect(`/admin/products/${product.id}`);
 }
 
 export async function updateProduct(id: number, formData: FormData) {
+  await requireAdmin();
   const title = formData.get("title") as string;
   const slug = formData.get("slug") as string;
   const price = parseInt(formData.get("price") as string, 10);
@@ -72,22 +75,17 @@ export async function updateProduct(id: number, formData: FormData) {
     })
     .where(eq(products.id, id));
 
-  revalidatePath("/");
-  revalidatePath(`/san-pham/${slug}`);
+  revalidatePath("/", "layout");
   revalidatePath("/admin/products");
   redirect("/admin/products");
 }
 
 export async function deleteProduct(id: number) {
-  const product = await db.query.products.findFirst({
-    where: eq(products.id, id),
-  });
-
+  await requireAdmin();
   await db.delete(productImages).where(eq(productImages.productId, id));
   await db.delete(products).where(eq(products.id, id));
 
-  revalidatePath("/");
-  if (product) revalidatePath(`/san-pham/${product.slug}`);
+  revalidatePath("/", "layout");
   revalidatePath("/admin/products");
   redirect("/admin/products");
 }
@@ -98,6 +96,7 @@ export async function addProductImage(
   alt: string,
   isMain: boolean,
 ) {
+  await requireAdmin();
   if (isMain) {
     await db
       .update(productImages)
@@ -118,15 +117,19 @@ export async function addProductImage(
     order: (maxOrder?.order ?? -1) + 1,
   });
 
+  revalidatePath("/", "layout");
   revalidatePath("/admin/products");
 }
 
 export async function deleteProductImage(imageId: number) {
+  await requireAdmin();
   await db.delete(productImages).where(eq(productImages.id, imageId));
+  revalidatePath("/", "layout");
   revalidatePath("/admin/products");
 }
 
 export async function setMainImage(productId: number, imageId: number) {
+  await requireAdmin();
   await db
     .update(productImages)
     .set({ isMain: false })
@@ -137,5 +140,6 @@ export async function setMainImage(productId: number, imageId: number) {
     .set({ isMain: true })
     .where(eq(productImages.id, imageId));
 
+  revalidatePath("/", "layout");
   revalidatePath("/admin/products");
 }
