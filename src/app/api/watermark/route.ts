@@ -8,17 +8,41 @@ const watermarkBuffer = existsSync(watermarkPath)
   ? readFileSync(watermarkPath)
   : null;
 
+// Only proxy images from hosts product images are actually stored on.
+const ALLOWED_HOSTS = [/^lh3\.googleusercontent\.com$/, /\.public\.blob\.vercel-storage\.com$/];
+const MAX_SOURCE_BYTES = 15 * 1024 * 1024;
+const MAX_DIMENSION = 2000;
+const FETCH_TIMEOUT_MS = 10_000;
+
+function isAllowedImageUrl(raw: string): boolean {
+  try {
+    const parsed = new URL(raw);
+    return (
+      parsed.protocol === "https:" &&
+      ALLOWED_HOSTS.some((pattern) => pattern.test(parsed.hostname))
+    );
+  } catch {
+    return false;
+  }
+}
+
+function clampDimension(raw: string | null): number {
+  const value = parseInt(raw || "0", 10);
+  if (!Number.isFinite(value) || value <= 0) return 0;
+  return Math.min(value, MAX_DIMENSION);
+}
+
 export async function GET(request: NextRequest) {
   const url = request.nextUrl.searchParams.get("url");
   const file = request.nextUrl.searchParams.get("file");
-  const w = parseInt(request.nextUrl.searchParams.get("w") || "0", 10);
-  const h = parseInt(request.nextUrl.searchParams.get("h") || "0", 10);
+  const w = clampDimension(request.nextUrl.searchParams.get("w"));
+  const h = clampDimension(request.nextUrl.searchParams.get("h"));
 
   if (!url && !file) {
     return NextResponse.json({ error: "Missing url or file param" }, { status: 400 });
   }
 
-  if (url && !url.startsWith("https://")) {
+  if (url && !isAllowedImageUrl(url)) {
     return NextResponse.json({ error: "Invalid URL" }, { status: 400 });
   }
 
@@ -34,14 +58,23 @@ export async function GET(request: NextRequest) {
       const filePath = join(process.cwd(), "public", safeName);
       imageBuffer = readFileSync(filePath);
     } else {
-      const response = await fetch(url!);
-      if (!response.ok) {
+      const response = await fetch(url!, {
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      });
+      if (!response.ok || !isAllowedImageUrl(response.url)) {
         return NextResponse.json({ error: "Fetch failed" }, { status: 502 });
       }
+      const declaredLength = Number(response.headers.get("content-length") || 0);
+      if (declaredLength > MAX_SOURCE_BYTES) {
+        return NextResponse.json({ error: "Image too large" }, { status: 413 });
+      }
       imageBuffer = Buffer.from(await response.arrayBuffer());
+      if (imageBuffer.byteLength > MAX_SOURCE_BYTES) {
+        return NextResponse.json({ error: "Image too large" }, { status: 413 });
+      }
     }
 
-    let pipeline = sharp(imageBuffer);
+    let pipeline = sharp(imageBuffer, { limitInputPixels: 50_000_000 });
 
     if (w > 0 && h > 0) {
       pipeline = pipeline.resize(w, h, { fit: "cover" });
@@ -80,7 +113,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Unknown error";
-    return NextResponse.json({ error: message }, { status: 500 });
+    console.error("[watermark] failed", err);
+    return NextResponse.json({ error: "Image processing failed" }, { status: 500 });
   }
 }

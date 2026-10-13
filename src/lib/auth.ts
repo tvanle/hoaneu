@@ -3,9 +3,8 @@ import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
 import bcrypt from "bcryptjs";
 
-const SECRET = new TextEncoder().encode(
-  process.env.AUTH_SECRET || "dev-secret-change-me",
-);
+import { getAuthSecret } from "./auth-secret";
+
 const COOKIE_NAME = "admin_session";
 
 export async function login(password: string): Promise<boolean> {
@@ -18,7 +17,7 @@ export async function login(password: string): Promise<boolean> {
   const token = await new SignJWT({ role: "admin" })
     .setProtectedHeader({ alg: "HS256" })
     .setExpirationTime("7d")
-    .sign(SECRET);
+    .sign(getAuthSecret());
 
   const cookieStore = await cookies();
   cookieStore.set(COOKIE_NAME, token, {
@@ -52,10 +51,17 @@ export async function verifySession(
 
     if (!token) return false;
 
-    await jwtVerify(token, SECRET);
+    await jwtVerify(token, getAuthSecret());
     return true;
   } catch {
     return false;
+  }
+}
+
+/** Throws unless the caller has a valid admin session. Use in every server action. */
+export async function requireAdmin(): Promise<void> {
+  if (!(await verifySession())) {
+    throw new Error("Unauthorized");
   }
 }
 

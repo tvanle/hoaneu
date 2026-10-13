@@ -4,9 +4,11 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { eq, count } from "drizzle-orm";
 import { db } from "@db";
+import { requireAdmin } from "@/lib/auth";
 import { categories, products } from "@db/schema";
 
 export async function createCategory(formData: FormData) {
+  await requireAdmin();
   const title = formData.get("title") as string;
   const slug = formData.get("slug") as string;
   const description = (formData.get("description") as string) || null;
@@ -14,12 +16,13 @@ export async function createCategory(formData: FormData) {
 
   await db.insert(categories).values({ title, slug, description, order });
 
-  revalidatePath("/");
+  revalidatePath("/", "layout");
   revalidatePath("/admin/categories");
   redirect("/admin/categories");
 }
 
 export async function updateCategory(id: number, formData: FormData) {
+  await requireAdmin();
   const title = formData.get("title") as string;
   const slug = formData.get("slug") as string;
   const description = (formData.get("description") as string) || null;
@@ -30,13 +33,13 @@ export async function updateCategory(id: number, formData: FormData) {
     .set({ title, slug, description, order, updatedAt: new Date() })
     .where(eq(categories.id, id));
 
-  revalidatePath("/");
-  revalidatePath(`/${slug}`);
+  revalidatePath("/", "layout");
   revalidatePath("/admin/categories");
   redirect("/admin/categories");
 }
 
 export async function deleteCategory(id: number) {
+  await requireAdmin();
   const productCount = await db
     .select({ count: count() })
     .from(products)
@@ -48,7 +51,7 @@ export async function deleteCategory(id: number) {
 
   await db.delete(categories).where(eq(categories.id, id));
 
-  revalidatePath("/");
+  revalidatePath("/", "layout");
   revalidatePath("/admin/categories");
   redirect("/admin/categories");
 }

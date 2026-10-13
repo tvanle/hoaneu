@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { getAllProducts } from "@db/queries/products";
 import type { Product } from "@lib/types";
 import { FilterableProductList } from "@/components/filterable-product-list";
+import { ProductGrid } from "@/components/product-grid";
 
 export const metadata = {
   title: "Đặt Hoa",
@@ -27,13 +28,7 @@ export default async function OrderFlowersPage() {
         </p>
       </div>
 
-      <Suspense
-        fallback={
-          <p className="text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-black/40">
-            Hiển thị 0 sản phẩm
-          </p>
-        }
-      >
+      <Suspense fallback={<ProductGrid products={products as unknown as Product[]} />}>
         <FilterableProductList products={products as unknown as Product[]} />
       </Suspense>
     </div>

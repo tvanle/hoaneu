@@ -1,4 +1,5 @@
 import "./globals.css";
+import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import { getSiteSettings } from "@db/queries/settings";
 import { Header } from "@/components/header";
@@ -17,12 +18,19 @@ const inter = Inter({
   display: "swap",
 });
 
-export const metadata = {
+export const metadata: Metadata = {
+  metadataBase: new URL("https://hoaneu.com"),
   title: {
     default: "Hoa Nêu - Nâng tầm ngày trọng đại của bạn",
     template: "%s | Hoa Nêu",
   },
   description: "Nâng tầm ngày trọng đại của bạn",
+  openGraph: {
+    type: "website",
+    locale: "vi_VN",
+    siteName: "Hoa Nêu",
+    images: [{ url: "/logo.png", width: 512, height: 512, alt: "Hoa Nêu" }],
+  },
 };
 
 export default async function RootLayout({

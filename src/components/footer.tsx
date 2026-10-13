@@ -34,7 +34,7 @@ export function Footer({ settings }: FooterProps) {
             <p className="mt-5 text-[13px] font-medium uppercase leading-6 tracking-[0.16em] text-black/50">
               Floral Design Studio
               <br />
-              Saigon, Vietnam
+              Hà Nội, Vietnam
             </p>
           </div>
           <nav className="flex flex-col gap-4 text-base text-black/75">

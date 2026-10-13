@@ -19,11 +19,13 @@ export async function generateMetadata({
   const { slug } = await params;
   const product = await getProductBySlug(slug);
 
+  if (!product) return {};
+
+  const imageUrl = product.mainImage?.asset?.url;
   return {
-    title: product?.title,
-    description: product?.title
-      ? `${product.title} - Hoa Nêu`
-      : "Hoa Nêu",
+    title: product.title,
+    description: `${product.title} - Hoa Nêu`,
+    openGraph: imageUrl ? { images: [{ url: imageUrl }] } : undefined,
   };
 }
 

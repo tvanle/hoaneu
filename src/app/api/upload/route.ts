@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { put } from "@vercel/blob";
 import { verifySession } from "@/lib/auth";
 
-const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+// Vercel caps function request bodies at 4.5MB, so stay safely under it.
+const MAX_SIZE = 4 * 1024 * 1024; // 4MB
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
 export async function POST(request: NextRequest) {
@@ -27,7 +28,7 @@ export async function POST(request: NextRequest) {
 
   if (file.size > MAX_SIZE) {
     return NextResponse.json(
-      { error: "File too large. Max 5MB" },
+      { error: "File too large. Max 4MB" },
       { status: 400 },
     );
   }

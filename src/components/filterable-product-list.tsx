@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useCallback, useEffect } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { ProductCard } from "./product-card";
+import { ProductGrid } from "./product-grid";
 import {
   ProductFilter,
   PRICE_RANGES,
@@ -259,18 +259,7 @@ export function FilterableProductList({
 
       <div>
         {filtered.length > 0 ? (
-          <div className="grid grid-cols-2 gap-x-6 gap-y-14 md:grid-cols-3 xl:grid-cols-3 2xl:gap-x-8">
-            {filtered.map((product) => (
-              <ProductCard
-                key={product._id}
-                title={product.title}
-                slug={product.slug.current}
-                price={product.price}
-                priceNote={product.priceNote}
-                mainImage={product.mainImage}
-              />
-            ))}
-          </div>
+          <ProductGrid products={filtered} />
         ) : (
           <div className="border border-black/10 py-20 text-center">
             <p className="font-serif text-2xl italic text-black/60">
